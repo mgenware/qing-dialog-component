@@ -18,7 +18,11 @@ defaultLocalizedButtonStrings.set(PresetButton.cancel, 'Cancel');
 @customElement('qing-dialog')
 export class QingDialog extends LitElement {
   static get styles() {
-    return css``;
+    return css`
+      qing-dialog-core {
+        --max-width: 500px;
+      }
+    `;
   }
 
   static localizedButtonStrings = defaultLocalizedButtonStrings;
@@ -36,7 +40,7 @@ export class QingDialog extends LitElement {
   render() {
     return html`
       <qing-dialog-core .isOpen=${this.isOpen}>
-        <div slot="header">${this.dialogTitle}</div>
+        <h2 slot="header">${this.dialogTitle}</h2>
         <slot slot="content"></slot>
         <div slot="footer">
           ${this.renderButtons()}

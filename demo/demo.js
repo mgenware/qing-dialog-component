@@ -9,10 +9,20 @@ export class DemoApp extends LitElement {
       <h2><code>qing-dialog</code></h2>
       <qing-dialog
         id="basic"
-        modalTitle="Greetings"
+        dialogTitle="Greetings"
         .buttons=${[PresetButton.ok]}
       >
-        <div>Hello World</div>
+        <div>
+          The div element has no special meaning at all. It represents its
+          children. It can be used with the class, lang, and title attributes to
+          mark up semantics common to a group of consecutive elements. The div
+          element has no special meaning at all. It represents its children. It
+          can be used with the class, lang, and title attributes to mark up
+          semantics common to a group of consecutive elements. The div element
+          has no special meaning at all. It represents its children. It can be
+          used with the class, lang, and title attributes to mark up semantics
+          common to a group of consecutive elements.
+        </div>
       </qing-dialog>
       ${this.renderButton('Minimal', 'basic')}
       <hr />
@@ -25,12 +35,12 @@ export class DemoApp extends LitElement {
         </qing-dialog-core>
         ${this.renderButton('Core - Minimal', 'core-minimal')}
 
-        <qing-dialog-core id="core-min-width">
+        <qing-dialog-core id="core-max-width">
           <div slot="header">Header</div>
           <div slot="content">Press Esc to exit</div>
           <div slot="footer">Footer</div>
         </qing-dialog-core>
-        ${this.renderButton('Core - Min-width', 'core-min-width')}
+        ${this.renderButton('Core - Max-width', 'core-max-width')}
       </div>
     `;
   }
@@ -49,8 +59,8 @@ export class DemoApp extends LitElement {
 }
 
 DemoApp.styles = css`
-  #core-min-width {
-    --min-width: 300px;
+  #core-max-width {
+    --max-width: 300px;
   }
 `;
 

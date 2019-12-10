@@ -1,6 +1,6 @@
 # qing-dialog (WIP)
 
-Dialog component for [qing](https://github.com/mgenware/qing), built with lit-element.
+Dialog component for [qing](https://github.com/mgenware/qing), built with lit-element, mobile friendly.
 
 **Work in progress, not released yet, stay tuned!**
 
@@ -36,7 +36,7 @@ class QingDialogCore {
 
 CSS variables:
 
-- `--min-width`: minimum width of dialog view.
+- `--max-width`: maximum width of the dialog.
 
 ### Development
 
