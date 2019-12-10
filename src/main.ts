@@ -22,7 +22,7 @@ export default class QingModalView extends LitElement {
 
         background-color: white;
         padding: 10px 20px;
-        min-width: var(--min-width);
+        flex-basis: var(--min-width);
       }
 
       .overlay-header {

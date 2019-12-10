@@ -7,14 +7,14 @@ export class DemoApp extends LitElement {
       <div>
         <qing-dialog id="minimal">
           <div slot="header">Header</div>
-          <div slot="content">Content</div>
+          <div slot="content">Press Esc to exit</div>
           <div slot="footer">Footer</div>
         </qing-dialog>
         ${this.renderButton('Minimal style', 'minimal')}
 
         <qing-dialog id="min-width">
           <div slot="header">Header</div>
-          <div slot="content">Content</div>
+          <div slot="content">Press Esc to exit</div>
           <div slot="footer">Footer</div>
         </qing-dialog>
         ${this.renderButton('Min-width', 'min-width')}

@@ -8,6 +8,20 @@ Dialog component for [qing](https://github.com/mgenware/qing), built with lit-el
 yarn add qing-dialog
 ```
 
+## Usage
+
+Properties:
+
+```typescript
+class QingDialog {
+  isOpen: boolean;
+}
+```
+
+CSS variables:
+
+- `--min-width`: minimum width of dialog view.
+
 ### Development
 
 - `yarn dev` build the project in dev mode
