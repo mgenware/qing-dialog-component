@@ -40,5 +40,8 @@
     "lit-element": "^2.2.1",
     "owc-dev-server": "^1.0.1",
     "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "lit-button": "^3.0.1"
   }
 }
