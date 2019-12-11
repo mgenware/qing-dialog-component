@@ -39,7 +39,10 @@ export class QingDialog extends LitElement {
 
   render() {
     return html`
-      <qing-dialog-core .isOpen=${this.isOpen}>
+      <qing-dialog-core
+        .isOpen=${this.isOpen}
+        @onIsOpenChange=${this.handleIsOpenChange}
+      >
         <h2 slot="header">${this.dialogTitle}</h2>
         <slot slot="content"></slot>
         <div slot="footer">
@@ -62,7 +65,11 @@ export class QingDialog extends LitElement {
               ? btnSrc
               : this.buttonFromPreset(btnSrc);
           return html`
-            <lit-button class=${btn.style}>${btn.text}</lit-button>
+            <lit-button
+              class=${btn.style}
+              @click=${() => this.handleButtonClick(btn)}
+              >${btn.text}</lit-button
+            >
           `;
         })}
       </div>
@@ -71,10 +78,24 @@ export class QingDialog extends LitElement {
 
   private buttonFromPreset(presetBtn: PresetButton): DialogButton {
     return new DialogButton(
+      presetBtn,
       QingDialog.localizedButtonStrings.get(presetBtn) || '',
       '',
       false,
       false,
     );
+  }
+
+  private handleButtonClick(btn: DialogButton) {
+    this.dispatchEvent(
+      new CustomEvent<DialogButton>('onButtonClick', {
+        detail: btn,
+      }),
+    );
+    this.isOpen = false;
+  }
+
+  private handleIsOpenChange(e: CustomEvent<boolean>) {
+    this.isOpen = e.detail;
   }
 }

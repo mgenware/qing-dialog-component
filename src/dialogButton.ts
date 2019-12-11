@@ -1,12 +1,13 @@
 export enum PresetButton {
-  ok = 1,
-  yes,
-  no,
-  cancel,
+  ok = 'ok',
+  yes = 'yes',
+  no = 'no',
+  cancel = 'cancel',
 }
 
 export class DialogButton {
   constructor(
+    public id: string,
     public text: string,
     public style: string,
     public isDefault: boolean,

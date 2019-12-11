@@ -75,9 +75,25 @@ export class QingDialogCore extends LitElement {
     `;
   }
 
+  updated(changedProperties: Map<string, unknown>) {
+    if (changedProperties.has('isOpen')) {
+      this.onIsOpenChange();
+    }
+  }
+
   private handleKeyUp(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       this.isOpen = false;
     }
+  }
+
+  private onIsOpenChange() {
+    this.dispatchEvent(
+      new CustomEvent<boolean>('onIsOpenChange', {
+        bubbles: true,
+        composed: true,
+        detail: this.isOpen,
+      }),
+    );
   }
 }

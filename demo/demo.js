@@ -11,6 +11,7 @@ export class DemoApp extends LitElement {
         id="basic"
         dialogTitle="Greetings"
         .buttons=${[PresetButton.ok]}
+        .onButtonClick=${() => alert('You clicked OK!')}
       >
         <div>
           The div element has no special meaning at all. It represents its
@@ -24,7 +25,7 @@ export class DemoApp extends LitElement {
           common to a group of consecutive elements.
         </div>
       </qing-dialog>
-      ${this.renderButton('Minimal', 'basic')}
+      ${this.renderButton('Basic', 'basic')}
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
