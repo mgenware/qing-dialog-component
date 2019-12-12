@@ -21,12 +21,13 @@ export class QingDialogCore extends LitElement {
         flex-direction: column;
 
         background-color: white;
-        padding: 10px 20px;
-        flex-basis: var(--dialog-max-width);
+        padding: var(--dialog-padding, 10px 20px);
+        flex-basis: var(--dialog-max-width, 100%);
       }
 
       .overlay-header {
         display: flex;
+        padding: var(--dialog-header-padding);
       }
 
       .overlay-content {
@@ -35,11 +36,19 @@ export class QingDialogCore extends LitElement {
         flex: 1 1 auto;
         min-width: 0;
         overflow: hidden;
+        padding: var(--dialog-content-padding, 0 0 1rem 0);
       }
 
       .overlay-footer {
         display: flex;
-        padding-top: 20px;
+        padding: var(--dialog-footer-padding);
+      }
+
+      /**  */
+      @media (min-width: 768px) {
+        .overlay {
+          flex-basis: var(--dialog-max-width, 80%);
+        }
       }
     `;
   }

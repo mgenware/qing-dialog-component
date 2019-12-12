@@ -48,7 +48,9 @@ class QingDialogCore {
 
 CSS variables:
 
-- `--max-width`: maximum width of the dialog.
+- `--max-width`: maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
+- `--dialog-padding`: padding of the dialog.
+- `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
 
 ### Build instructions
 
