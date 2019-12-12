@@ -22,12 +22,11 @@ export class QingDialogCore extends LitElement {
 
         background-color: white;
         padding: 10px 20px;
-        flex-basis: var(--max-width);
+        flex-basis: var(--dialog-max-width);
       }
 
       .overlay-header {
         display: flex;
-        padding-bottom: 20px;
       }
 
       .overlay-content {

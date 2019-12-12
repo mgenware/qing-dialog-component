@@ -37,6 +37,15 @@ export class DemoApp extends LitElement {
       </qing-dialog>
       ${this.renderButton('Handle events', 'handle-events')}
 
+      <qing-dialog
+        id="max-width"
+        dialogTitle="Title"
+        .buttons=${[PresetButton.ok]}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton('Max width', 'max-width')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
@@ -46,13 +55,6 @@ export class DemoApp extends LitElement {
           <div slot="footer">Footer</div>
         </qing-dialog-core>
         ${this.renderButton('Core - Minimal', 'core-minimal')}
-
-        <qing-dialog-core id="core-max-width">
-          <div slot="header">Header</div>
-          <div slot="content">Press Esc to exit</div>
-          <div slot="footer">Footer</div>
-        </qing-dialog-core>
-        ${this.renderButton('Core - Max-width', 'core-max-width')}
       </div>
     `;
   }
@@ -71,8 +73,8 @@ export class DemoApp extends LitElement {
 }
 
 DemoApp.styles = css`
-  #core-max-width {
-    --max-width: 300px;
+  #max-width {
+    --dialog-max-width: 400px;
   }
 `;
 
