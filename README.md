@@ -15,7 +15,7 @@ yarn add qing-dialog
 Properties:
 
 ```typescript
-// Dialog component - <qing-dialog>.
+// Dialog component: <qing-dialog>
 class QingDialog {
   // Indicates whether the dialog is visible.
   isOpen: boolean;
@@ -23,14 +23,26 @@ class QingDialog {
   dialogTitle: string;
   // Bottom buttons of the dialog.
   buttons: Array<PresetButton | DialogButton>;
+
+  // ------- Events -------
+
+  // Fires when `isOpen` property changes.
+  onIsOpenChange: CustomEvent<boolean>;
+  // Fires when dialog button is clicked.
+  onButtonClick: CustomEvent<DialogButton>;
 }
 
-// Core dialog component - <qing-dialog-core>
-// Use named slot to customize content.
-// Supported slots: `header`, `content`, and `footer`.
+// Core dialog component: <qing-dialog-core>
+// Uses named slots to customize the content.
+//   Supported slots: `header`, `content`, and `footer`.
 class QingDialogCore {
   // Indicates whether the dialog is visible.
   isOpen: boolean;
+
+  // ------- Events -------
+
+  // Fires when `isOpen` property changes.
+  onIsOpenChange: CustomEvent<boolean>;
 }
 ```
 
@@ -38,8 +50,8 @@ CSS variables:
 
 - `--max-width`: maximum width of the dialog.
 
-### Development
+### Build instructions
 
-- `yarn dev` build the project in dev mode
-- `yarn build` build and lint the project in production mode
-- `yarn demo` run the demo in browser (you have to build the project first)
+- `yarn dev` builds the project in dev mode
+- `yarn build` builds and lints the project in production mode
+- `yarn demo` runs the demo in browser (you have to build the project first)
