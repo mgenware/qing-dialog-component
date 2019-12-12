@@ -11,7 +11,6 @@ export class DemoApp extends LitElement {
         id="basic"
         dialogTitle="Greetings"
         .buttons=${[PresetButton.ok]}
-        .onButtonClick=${() => alert('You clicked OK!')}
       >
         <div>
           The div element has no special meaning at all. It represents its
@@ -26,6 +25,18 @@ export class DemoApp extends LitElement {
         </div>
       </qing-dialog>
       ${this.renderButton('Basic', 'basic')}
+
+      <qing-dialog
+        id="handle-events"
+        dialogTitle="Greetings"
+        .buttons=${[PresetButton.ok]}
+        @onButtonClick=${() => alert('You clicked OK!')}
+        @onIsOpenChange=${() => alert('isOpen changed.')}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton('Handle events', 'handle-events')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>

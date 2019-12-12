@@ -77,7 +77,11 @@ export class QingDialogCore extends LitElement {
 
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('isOpen')) {
-      this.onIsOpenChange();
+      // Important! `!!changedProperties.get('isOpen')` converts undefined to false, to avoid
+      // unnecessary event during initialization.
+      if (!!changedProperties.get('isOpen') !== this.isOpen) {
+        this.onIsOpenChange();
+      }
     }
   }
 
