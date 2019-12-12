@@ -1,6 +1,6 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
-import { PresetButton } from '../dist/main';
+import { PresetButton, focusedElementClass } from '../dist/main';
 import '../dist/main';
 
 export class DemoApp extends LitElement {
@@ -30,7 +30,7 @@ export class DemoApp extends LitElement {
         id="handle-events"
         dialogTitle="Greetings"
         .buttons=${[PresetButton.ok]}
-        @onButtonClick=${() => alert('You clicked OK!')}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
         @onIsOpenChange=${() => alert('isOpen changed.')}
       >
         <div>Hello World</div>
@@ -45,6 +45,24 @@ export class DemoApp extends LitElement {
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Max width', 'max-width')}
+
+      <qing-dialog
+        id="multiple-btns"
+        dialogTitle="Title"
+        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton('Multiple buttons', 'multiple-btns')}
+
+      <qing-dialog id="focus" dialogTitle="Title" .buttons=${[PresetButton.ok]}>
+        <div>Hello World</div>
+        <form>
+          <input type="text" value="name" class=${focusedElementClass} />
+        </form>
+      </qing-dialog>
+      ${this.renderButton('Focus', 'focus')}
 
       <hr />
       <h2><code>qing-dialog-core</code></h2>

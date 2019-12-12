@@ -1,16 +1,15 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "target": "esnext",
+    "target": "ES2019",
     "moduleResolution": "node",
     "declaration": true,
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "experimentalDecorators": true,
-    "lib": ["es5", "es6", "es2017", "dom"]
+    "experimentalDecorators": true
   }
 }
