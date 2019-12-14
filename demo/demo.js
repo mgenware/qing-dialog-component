@@ -1,6 +1,6 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
-import { PresetButton, focusedElementClass } from '../dist/main';
+import { PresetButton } from '../dist/main';
 import '../dist/main';
 
 export class DemoApp extends LitElement {
@@ -56,10 +56,19 @@ export class DemoApp extends LitElement {
       </qing-dialog>
       ${this.renderButton('Multiple buttons', 'multiple-btns')}
 
-      <qing-dialog id="focus" dialogTitle="Title" .buttons=${[PresetButton.ok]}>
+      <qing-dialog
+        id="focus"
+        dialogTitle="Title"
+        .buttons=${[PresetButton.ok]}
+        @onIsOpenChange=${e => {
+          if (e.detail) {
+            this.shadowRoot.getElementById('textInput').focus();
+          }
+        }}
+      >
         <div>Hello World</div>
         <form>
-          <input type="text" value="name" class=${focusedElementClass} />
+          <input type="text" value="name" id="textInput" />
         </form>
       </qing-dialog>
       ${this.renderButton('Focus', 'focus')}

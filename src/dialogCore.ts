@@ -88,7 +88,8 @@ export class QingDialogCore extends LitElement {
       // Important! `!!changedProperties.get('isOpen')` converts undefined to false, to avoid
       // unnecessary event during initialization.
       if (!!changedProperties.get('isOpen') !== this.isOpen) {
-        this.onIsOpenChange();
+        // Make sure call to `updated` is finished first.
+        setTimeout(() => this.onIsOpenChange(), 0);
       }
     }
   }

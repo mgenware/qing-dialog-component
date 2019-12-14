@@ -12,7 +12,7 @@ yarn add qing-dialog
 
 ## Usage
 
-Properties:
+### Properties
 
 ```typescript
 // Dialog component: <qing-dialog>
@@ -46,11 +46,34 @@ class QingDialogCore {
 }
 ```
 
-CSS variables:
+### CSS variables
 
 - `--max-width`: maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
 - `--dialog-padding`: padding of the dialog.
 - `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
+
+### Autofocus
+
+Use `onIsOpenChange` event to auto focus an element when the dialog shows up, example:
+
+```js
+html`
+  <qing-dialog
+    dialogTitle="Title"
+    .buttons=${[PresetButton.ok]}
+    @onIsOpenChange=${e => {
+      if (e.detail) {
+        // If dialog is open, set focus on a specified element.
+        this.shadowRoot.getElementById('textInput').focus();
+      }
+    }}
+  >
+    <form>
+      <input type="text" id="textInput" />
+    </form>
+  </qing-dialog>
+`;
+```
 
 ### Build instructions
 

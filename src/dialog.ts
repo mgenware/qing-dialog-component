@@ -7,7 +7,6 @@ import {
   TemplateResult,
 } from 'lit-element';
 import './dialogCore';
-import * as defs from './defs';
 import { DialogButton, PresetButton } from './dialogButton';
 
 const defaultLocalizedButtonStrings = new Map<PresetButton, string>();
@@ -98,13 +97,5 @@ export class QingDialog extends LitElement {
 
   private handleIsOpenChange(e: CustomEvent<boolean>) {
     this.isOpen = e.detail;
-    if (this.isOpen) {
-      let element = this.shadowRoot?.querySelector(
-        `.${defs.focusedElementClass}`,
-      );
-      if (element instanceof HTMLElement) {
-        element.focus();
-      }
-    }
   }
 }
