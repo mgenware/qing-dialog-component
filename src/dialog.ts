@@ -23,7 +23,7 @@ const cancelButtonClass = '__qing_cancel_button';
 
 // Contains information on how `onIsOpenChange` event is triggered.
 export interface IsOpenChangeEventInfo {
-  isOpen: boolean;
+  isOpen?: boolean;
   isCancelled?: boolean;
   button?: DialogButton;
 }
@@ -74,6 +74,7 @@ export class QingDialog extends LitElement {
   @property() dialogTitle = '';
   @property({ type: Boolean, reflect: true }) isOpen = false;
   @property({ type: Array }) buttons: Array<DialogButton | PresetButton> = [];
+  isOpenChangeEventInfo?: IsOpenChangeEventInfo;
 
   firstUpdated() {
     if (!this.shadowRoot) {
@@ -84,8 +85,9 @@ export class QingDialog extends LitElement {
   render() {
     return html`
       <qing-dialog-core
-        .isOpen=${this.isOpen}
+        ?isOpen=${this.isOpen}
         @onEscKeyPressed=${this.handleEscKeyPressed}
+        @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
       >
         <h2 slot="header">${this.dialogTitle}</h2>
         <slot slot="content"></slot>
@@ -128,25 +130,28 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.setIsOpen({
-      isOpen: false,
-    });
+    this.setIsOpen(false, { button: btn });
   }
 
   private handleEscKeyPressed() {
     if (this.isOpen) {
-      this.setIsOpen({
-        isOpen: false,
+      this.setIsOpen(false, {
         isCancelled: true,
       });
     }
   }
 
-  private setIsOpen(info: IsOpenChangeEventInfo) {
-    this.isOpen = info.isOpen;
+  private setIsOpen(isOpen: boolean, info: IsOpenChangeEventInfo) {
+    this.isOpenChangeEventInfo = info;
+    this.isOpen = isOpen;
+  }
+
+  private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
+    const detail = this.isOpenChangeEventInfo || {};
+    detail.isOpen = e.detail;
     this.dispatchEvent(
       new CustomEvent<IsOpenChangeEventInfo>('onIsOpenChange', {
-        detail: info,
+        detail,
       }),
     );
   }

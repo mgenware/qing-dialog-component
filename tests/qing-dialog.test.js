@@ -51,5 +51,5 @@ it('onIsOpenChange fires after the dialog is shown', async () => {
   const listener = oneEvent(ele, 'onIsOpenChange');
   ele.setAttribute('isOpen', '');
   const { detail } = await listener;
-  expect(detail).to.eq({ isOpen: true });
+  expect(detail).to.deep.eq({ isOpen: true });
 });
