@@ -48,9 +48,14 @@ class QingDialogCore {
 
 ### CSS variables
 
-- `--max-width`: maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
-- `--dialog-padding`: padding of the dialog.
+- `--max-width` maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
+- `--dialog-padding` padding of the dialog.
 - `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
+- `--buttons-display` CSS `display` value of the dialog buttons container `div`, defaults to `flex`.
+- `--buttons-justify-content` alignment of the dialog buttons:
+  - `flex-end` the default value, aligned to the right.
+  - `flex-start` aligned to the left.
+  - `center` centered.
 
 ### Autofocus
 

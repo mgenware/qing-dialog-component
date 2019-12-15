@@ -22,6 +22,11 @@ export class QingDialog extends LitElement {
       qing-dialog-core {
         --max-width: 500px;
       }
+
+      .button-container {
+        display: var(--buttons-display, flex);
+        justify-content: var(--buttons-justify-content, center);
+      }
     `;
   }
 
@@ -58,7 +63,7 @@ export class QingDialog extends LitElement {
       return html``;
     }
     return html`
-      <div class="modal-footer">
+      <div class="button-container">
         ${buttons.map(btnSrc => {
           const btn =
             btnSrc instanceof DialogButton

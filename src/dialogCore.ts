@@ -26,7 +26,6 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay-header {
-        display: flex;
         padding: var(--dialog-header-padding);
       }
 
@@ -40,7 +39,6 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay-footer {
-        display: flex;
         padding: var(--dialog-footer-padding);
       }
 

@@ -73,6 +73,16 @@ export class DemoApp extends LitElement {
       </qing-dialog>
       ${this.renderButton('Focus', 'focus')}
 
+      <qing-dialog
+        id="right-btns"
+        dialogTitle="Title"
+        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton('Right aligned buttons', 'right-btns')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
@@ -102,6 +112,10 @@ export class DemoApp extends LitElement {
 DemoApp.styles = css`
   #max-width {
     --dialog-max-width: 400px;
+  }
+
+  #right-btns {
+    --buttons-justify-content: flex-end;
   }
 `;
 
