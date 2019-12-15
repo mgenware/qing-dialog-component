@@ -12,11 +12,11 @@ import 'lit-button';
 import { classMap } from 'lit-html/directives/class-map';
 
 // Default localized strings for dialog button types.
-const defaultLocalizedButtonStrings = new Map<PresetButton, string>();
-defaultLocalizedButtonStrings.set(PresetButton.ok, 'OK');
-defaultLocalizedButtonStrings.set(PresetButton.yes, 'Yes');
-defaultLocalizedButtonStrings.set(PresetButton.no, 'No');
-defaultLocalizedButtonStrings.set(PresetButton.cancel, 'Cancel');
+let localizedButtonStrings = new Map<PresetButton, string>();
+localizedButtonStrings.set(PresetButton.ok, 'OK');
+localizedButtonStrings.set(PresetButton.yes, 'Yes');
+localizedButtonStrings.set(PresetButton.no, 'No');
+localizedButtonStrings.set(PresetButton.cancel, 'Cancel');
 
 const defaultButtonClass = '__qing_default_button';
 const cancelButtonClass = '__qing_cancel_button';
@@ -47,7 +47,7 @@ export function presetButton(
 ): DialogButton {
   return dialogButton(
     presetBtn,
-    QingDialog.localizedButtonStrings.get(presetBtn) || '',
+    localizedButtonStrings.get(presetBtn) || '',
     style || '',
     isDefault || false,
     isCancel || false,
@@ -69,7 +69,13 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  static localizedButtonStrings = defaultLocalizedButtonStrings;
+  static get localizedButtonStrings(): Map<PresetButton, string> {
+    return localizedButtonStrings;
+  }
+
+  static set localizedButtonString(value: Map<PresetButton, string>) {
+    localizedButtonStrings = value;
+  }
 
   @property() dialogTitle = '';
   @property({ type: Boolean, reflect: true }) isOpen = false;
