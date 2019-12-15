@@ -52,6 +52,8 @@ export class QingDialogCore extends LitElement {
   }
 
   @property({ type: Boolean, reflect: true }) isOpen = false;
+  @property({ type: Boolean, reflect: true }) closeOnEsc = false;
+  @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
   firstUpdated() {
     if (!this.shadowRoot) {
@@ -87,22 +89,45 @@ export class QingDialogCore extends LitElement {
       // unnecessary event during initialization.
       if (!!changedProperties.get('isOpen') !== this.isOpen) {
         // Make sure call to `updated` is finished first.
-        setTimeout(() => this.onIsOpenChange(), 0);
+        setTimeout(() => this.onCoreIsOpenChange(), 0);
       }
     }
   }
 
   private handleKeyUp(e: KeyboardEvent) {
     if (e.key === 'Escape') {
-      this.isOpen = false;
+      this.onEscKeyPressed();
+      if (this.closeOnEsc) {
+        this.isOpen = false;
+      }
+    }
+    if (e.key === 'Enter') {
+      this.onEnterKeyPressed();
+      if (this.closeOnEnter) {
+        this.isOpen = false;
+      }
     }
   }
 
-  private onIsOpenChange() {
+  private onCoreIsOpenChange() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('onIsOpenChange', {
-        bubbles: true,
-        composed: true,
+      new CustomEvent<boolean>('onCoreIsOpenChange', {
+        detail: this.isOpen,
+      }),
+    );
+  }
+
+  private onEnterKeyPressed() {
+    this.dispatchEvent(
+      new CustomEvent<boolean>('onEnterKeyPressed', {
+        detail: this.isOpen,
+      }),
+    );
+  }
+
+  private onEscKeyPressed() {
+    this.dispatchEvent(
+      new CustomEvent<boolean>('onEscKeyPressed', {
         detail: this.isOpen,
       }),
     );

@@ -8,12 +8,51 @@ import {
 } from 'lit-element';
 import './dialogCore';
 import { DialogButton, PresetButton } from './dialogButton';
+import 'lit-button';
+import { classMap } from 'lit-html/directives/class-map';
 
+// Default localized strings for dialog button types.
 const defaultLocalizedButtonStrings = new Map<PresetButton, string>();
 defaultLocalizedButtonStrings.set(PresetButton.ok, 'OK');
 defaultLocalizedButtonStrings.set(PresetButton.yes, 'Yes');
 defaultLocalizedButtonStrings.set(PresetButton.no, 'No');
 defaultLocalizedButtonStrings.set(PresetButton.cancel, 'Cancel');
+
+const defaultButtonClass = '__qing_default_button';
+const cancelButtonClass = '__qing_cancel_button';
+
+// Contains information on how `onIsOpenChange` event is triggered.
+export interface IsOpenChangeEventInfo {
+  isOpen: boolean;
+  isCancelled?: boolean;
+  button?: DialogButton;
+}
+
+// Helper functions for DialogButton.
+export function dialogButton(
+  id: string,
+  text: string,
+  style: string,
+  isDefault: boolean,
+  isCancel: boolean,
+): DialogButton {
+  return new DialogButton(id, text, style, isDefault, isCancel);
+}
+
+export function presetButton(
+  presetBtn: PresetButton,
+  style?: string,
+  isDefault?: boolean,
+  isCancel?: boolean,
+): DialogButton {
+  return dialogButton(
+    presetBtn,
+    QingDialog.localizedButtonStrings.get(presetBtn) || '',
+    style || '',
+    isDefault || false,
+    isCancel || false,
+  );
+}
 
 @customElement('qing-dialog')
 export class QingDialog extends LitElement {
@@ -46,7 +85,7 @@ export class QingDialog extends LitElement {
     return html`
       <qing-dialog-core
         .isOpen=${this.isOpen}
-        @onIsOpenChange=${this.handleIsOpenChange}
+        @onEscKeyPressed=${this.handleEscKeyPressed}
       >
         <h2 slot="header">${this.dialogTitle}</h2>
         <slot slot="content"></slot>
@@ -66,12 +105,14 @@ export class QingDialog extends LitElement {
       <div class="button-container">
         ${buttons.map(btnSrc => {
           const btn =
-            btnSrc instanceof DialogButton
-              ? btnSrc
-              : this.buttonFromPreset(btnSrc);
+            btnSrc instanceof DialogButton ? btnSrc : presetButton(btnSrc);
           return html`
             <lit-button
-              class=${btn.style}
+              class=${classMap({
+                [btn.style || '_']: !!btn.style,
+                [defaultButtonClass]: btn.isDefault,
+                [cancelButtonClass]: btn.isCancel,
+              })}
               @click=${() => this.handleButtonClick(btn)}
               >${btn.text}</lit-button
             >
@@ -81,26 +122,32 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  private buttonFromPreset(presetBtn: PresetButton): DialogButton {
-    return new DialogButton(
-      presetBtn,
-      QingDialog.localizedButtonStrings.get(presetBtn) || '',
-      '',
-      false,
-      false,
-    );
-  }
-
   private handleButtonClick(btn: DialogButton) {
     this.dispatchEvent(
       new CustomEvent<DialogButton>('onButtonClick', {
         detail: btn,
       }),
     );
-    this.isOpen = false;
+    this.setIsOpen({
+      isOpen: false,
+    });
   }
 
-  private handleIsOpenChange(e: CustomEvent<boolean>) {
-    this.isOpen = e.detail;
+  private handleEscKeyPressed() {
+    if (this.isOpen) {
+      this.setIsOpen({
+        isOpen: false,
+        isCancelled: true,
+      });
+    }
+  }
+
+  private setIsOpen(info: IsOpenChangeEventInfo) {
+    this.isOpen = info.isOpen;
+    this.dispatchEvent(
+      new CustomEvent<IsOpenChangeEventInfo>('onIsOpenChange', {
+        detail: info,
+      }),
+    );
   }
 }

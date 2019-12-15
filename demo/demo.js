@@ -1,6 +1,6 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
-import { PresetButton } from '../dist/main';
+import { PresetButton, DialogButton } from '../dist/main';
 import '../dist/main';
 
 export class DemoApp extends LitElement {
@@ -76,12 +76,25 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="right-btns"
         dialogTitle="Title"
-        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        .buttons=${[new DialogButton(), PresetButton.no, PresetButton.cancel]}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Right aligned buttons', 'right-btns')}
+
+      <qing-dialog
+        id="is-default-cancel"
+        dialogTitle="Title"
+        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton(
+        'isDefault and isCancel buttons',
+        'is-default-cancel',
+      )}
 
       <hr />
       <h2><code>qing-dialog-core</code></h2>
