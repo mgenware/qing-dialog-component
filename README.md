@@ -1,5 +1,9 @@
 # qing-dialog (WIP)
 
+[![Build Status](https://img.shields.io/travis/mgenware/qing-dialog.svg?style=flat-square&label=Build+Status)](https://travis-ci.org/mgenware/qing-dialog)
+[![npm version](https://img.shields.io/npm/v/qing-dialog.svg?style=flat-square)](https://npmjs.com/package/qing-dialog)
+[![Node.js Version](http://img.shields.io/node/v/qing-dialog.svg?style=flat-square)](https://nodejs.org/en/)
+
 Dialog component for [qing](https://github.com/mgenware/qing), built with lit-element, mobile friendly.
 
 **Work in progress, not released yet, stay tuned!**
@@ -85,3 +89,4 @@ html`
 - `yarn dev` builds the project in dev mode
 - `yarn build` builds and lints the project in production mode
 - `yarn demo` runs the demo in browser (you have to build the project first)
+- `yarn test` runs UI tests
