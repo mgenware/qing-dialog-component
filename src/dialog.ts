@@ -153,7 +153,7 @@ export class QingDialog extends LitElement {
   }
 
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
-    const detail = this.isOpenChangeEventInfo || {};
+    const detail = Object.assign({}, this.isOpenChangeEventInfo);
     detail.isOpen = e.detail;
     this.dispatchEvent(
       new CustomEvent<IsOpenChangeEventInfo>('onIsOpenChange', {

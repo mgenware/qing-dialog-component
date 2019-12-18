@@ -31,7 +31,8 @@ export class DemoApp extends LitElement {
         dialogTitle="Greetings"
         .buttons=${[PresetButton.ok]}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
-        @onIsOpenChange=${() => alert('isOpen changed.')}
+        @onIsOpenChange=${e =>
+          alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
       >
         <div>Hello World</div>
       </qing-dialog>
