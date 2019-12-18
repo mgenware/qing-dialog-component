@@ -95,7 +95,7 @@ export class QingDialogCore extends LitElement {
   }
 
   private handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' || e.key === 'Esc') {
       this.onEscKeyPressed();
       if (this.closeOnEsc) {
         this.isOpen = false;
