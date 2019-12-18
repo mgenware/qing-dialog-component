@@ -59,7 +59,7 @@ export class QingDialogCore extends LitElement {
     if (!this.shadowRoot) {
       throw new Error('Unexpected undefined shadowRoot');
     }
-    document.addEventListener('keyup', e => this.handleKeyUp(e));
+    document.addEventListener('keydown', e => this.handleKeyDown(e));
   }
 
   render() {
@@ -94,7 +94,7 @@ export class QingDialogCore extends LitElement {
     }
   }
 
-  private handleKeyUp(e: KeyboardEvent) {
+  private handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Escape') {
       this.onEscKeyPressed();
       if (this.closeOnEsc) {
