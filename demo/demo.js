@@ -88,6 +88,18 @@ export class DemoApp extends LitElement {
         'default-cancel-buttons',
       )}
 
+      <qing-dialog
+        id="icon"
+        dialogTitle="Warning"
+        icon="warning"
+        .buttons=${['ok']}
+      >
+        <div>
+          This is a warning
+        </div>
+      </qing-dialog>
+      ${this.renderButton('Icon', 'icon')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
@@ -120,7 +132,7 @@ DemoApp.styles = css`
   }
 
   #right-btns {
-    --buttons-justify-content: flex-end;
+    --dialog-buttons-justify-content: flex-end;
   }
 `;
 

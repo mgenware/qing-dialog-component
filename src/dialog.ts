@@ -10,6 +10,8 @@ import './dialogCore';
 import { DialogButton, PresetButtonType } from './dialogButton';
 import 'lit-button';
 import { classMap } from 'lit-html/directives/class-map';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { DialogIconType, iconTypeToData } from './dialogIcon';
 
 // Default localized strings for dialog button types.
 let localizedButtonStrings = new Map<PresetButtonType, string>();
@@ -33,12 +35,16 @@ export class QingDialog extends LitElement {
   static get styles() {
     return css`
       qing-dialog-core {
-        --max-width: 500px;
+        --dialog-max-width: 500px;
       }
 
       .button-container {
-        display: var(--buttons-display, flex);
-        justify-content: var(--buttons-justify-content, center);
+        display: var(--dialog-buttons-display, flex);
+        justify-content: var(--dialog-buttons-justify-content, center);
+      }
+
+      .icon {
+        margin: (--dialog-icon-margin, 0 0 0.8rem 0);
       }
     `;
   }
@@ -56,6 +62,7 @@ export class QingDialog extends LitElement {
   @property({ type: Array }) buttons: Array<
     DialogButton | PresetButtonType
   > = [];
+  @property() icon?: DialogIconType;
   isOpenChangeEventInfo?: IsOpenChangeEventInfo;
 
   firstUpdated() {
@@ -71,7 +78,7 @@ export class QingDialog extends LitElement {
         @onEscKeyPressed=${this.handleEscKeyPressed}
         @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
       >
-        <h2 slot="header">${this.dialogTitle}</h2>
+        <h2 slot="header">${this.renderIcon()}${this.dialogTitle}</h2>
         <slot slot="content"></slot>
         <div slot="footer">
           ${this.renderButtons()}
@@ -105,6 +112,19 @@ export class QingDialog extends LitElement {
           `;
         })}
       </div>
+    `;
+  }
+
+  private renderIcon(): TemplateResult {
+    if (!this.icon) {
+      return html``;
+    }
+    const icon = iconTypeToData(this.icon);
+    if (!icon) {
+      return html``;
+    }
+    return html`
+      ${unsafeHTML(`<span class="icon">${icon.svg}</span>`)}
     `;
   }
 
