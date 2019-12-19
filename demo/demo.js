@@ -91,7 +91,7 @@ export class DemoApp extends LitElement {
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
-        <qing-dialog-core id="core-minimal">
+        <qing-dialog-core id="core-minimal" closeOnEsc>
           <div slot="header">Header</div>
           <div slot="content">Press Esc to exit</div>
           <div slot="footer">Footer</div>
