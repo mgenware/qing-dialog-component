@@ -133,3 +133,9 @@ export class QingDialogCore extends LitElement {
     );
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'qing-dialog-core': QingDialogCore;
+  }
+}

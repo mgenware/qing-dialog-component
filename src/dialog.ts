@@ -160,3 +160,9 @@ export class QingDialog extends LitElement {
     );
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'qing-dialog': QingDialog;
+  }
+}
