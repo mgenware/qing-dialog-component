@@ -1,3 +1,4 @@
+// A group of builtin button types.
 export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
 export interface DialogButton {

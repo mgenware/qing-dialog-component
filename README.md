@@ -26,7 +26,7 @@ class QingDialog {
   // The heading of the dialog.
   dialogTitle: string;
   // Bottom buttons of the dialog.
-  buttons: Array<PresetButton | DialogButton>;
+  buttons: Array<PresetButtonType | DialogButton>;
 
   // ------- Events -------
 
@@ -36,17 +36,22 @@ class QingDialog {
   onButtonClick: CustomEvent<DialogButton>;
 }
 
-// Core dialog component: <qing-dialog-core>
-// Uses named slots to customize the content.
-//   Supported slots: `header`, `content`, and `footer`.
-class QingDialogCore {
-  // Indicates whether the dialog is visible.
-  isOpen: boolean;
+// A group of builtin button types.
+export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
-  // ------- Events -------
-
-  // Fires when `isOpen` property changes.
-  onIsOpenChange: CustomEvent<boolean>;
+export interface DialogButton {
+  // One of the preset types of the button, see PresetButtonType.
+  type?: PresetButtonType;
+  // Used to identify a button if `type` is not set.
+  name?: string;
+  // Button content.
+  text?: string;
+  // lit-button style.
+  style?: string;
+  // If true, this button is clicked when Enter key is pressed.
+  isDefault?: boolean;
+  // If true, this button is clicked when Esc key is pressed.
+  isCancel?: boolean;
 }
 ```
 
@@ -69,7 +74,7 @@ Use `onIsOpenChange` event to auto focus an element when the dialog shows up, ex
 html`
   <qing-dialog
     dialogTitle="Title"
-    .buttons=${[PresetButton.ok]}
+    .buttons=${['ok']}
     @onIsOpenChange=${e => {
       if (e.detail) {
         // If dialog is open, set focus on a specified element.
@@ -84,7 +89,7 @@ html`
 `;
 ```
 
-### Build instructions
+## Build instructions
 
 - `yarn dev` builds the project in dev mode
 - `yarn build` builds and lints the project in production mode
