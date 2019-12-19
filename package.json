@@ -1,19 +1,19 @@
 {
-  "name": "qing-dialog",
+  "name": "qing-dialog-component",
   "version": "0.0.0",
   "description": "Dialog component for qing",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "author": "Mgen (https://www.mgenware.com)",
-  "homepage": "https://github.com/mgenware/qing-dialog",
-  "bugs": "https://github.com/mgenware/qing-dialog/issues",
+  "homepage": "https://github.com/mgenware/qing-dialog-component",
+  "bugs": "https://github.com/mgenware/qing-dialog-component/issues",
   "keywords": [
     "dialog",
     "modal view"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mgenware/qing-dialog.git"
+    "url": "https://github.com/mgenware/qing-dialog-component.git"
   },
   "license": "MIT",
   "scripts": {
