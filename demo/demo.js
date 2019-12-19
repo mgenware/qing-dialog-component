@@ -1,17 +1,12 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
-import { PresetButton, DialogButton } from '../dist/main';
 import '../dist/main';
 
 export class DemoApp extends LitElement {
   render() {
     return html`
       <h2><code>qing-dialog</code></h2>
-      <qing-dialog
-        id="basic"
-        dialogTitle="Greetings"
-        .buttons=${[PresetButton.ok]}
-      >
+      <qing-dialog id="basic" dialogTitle="Greetings" .buttons=${['ok']}>
         <div>
           The div element has no special meaning at all. It represents its
           children. It can be used with the class, lang, and title attributes to
@@ -29,7 +24,7 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="handle-events"
         dialogTitle="Greetings"
-        .buttons=${[PresetButton.ok]}
+        .buttons=${['ok']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
         @onIsOpenChange=${e =>
           alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
@@ -38,11 +33,7 @@ export class DemoApp extends LitElement {
       </qing-dialog>
       ${this.renderButton('Handle events', 'handle-events')}
 
-      <qing-dialog
-        id="max-width"
-        dialogTitle="Title"
-        .buttons=${[PresetButton.ok]}
-      >
+      <qing-dialog id="max-width" dialogTitle="Title" .buttons=${['ok']}>
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Max width', 'max-width')}
@@ -50,7 +41,7 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="multiple-btns"
         dialogTitle="Title"
-        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        .buttons=${['yes', 'no', 'cancel']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
@@ -60,7 +51,7 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="focus"
         dialogTitle="Title"
-        .buttons=${[PresetButton.ok]}
+        .buttons=${['ok']}
         @onIsOpenChange=${e => {
           if (e.detail) {
             this.shadowRoot.getElementById('textInput').focus();
@@ -77,7 +68,7 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="right-btns"
         dialogTitle="Title"
-        .buttons=${[new DialogButton(), PresetButton.no, PresetButton.cancel]}
+        .buttons=${['yes', 'no', 'cancel']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
@@ -85,16 +76,16 @@ export class DemoApp extends LitElement {
       ${this.renderButton('Right aligned buttons', 'right-btns')}
 
       <qing-dialog
-        id="is-default-cancel"
+        id="default-cancel-buttons"
         dialogTitle="Title"
-        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        .buttons=${['yes', 'no', 'cancel']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton(
         'isDefault and isCancel buttons',
-        'is-default-cancel',
+        'default-cancel-buttons',
       )}
 
       <hr />

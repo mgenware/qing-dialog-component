@@ -1,10 +1,10 @@
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { kEvent, aTimeout } from './lib';
-import { PresetButton } from '../dist/main';
+import '../dist/main';
 
 it('Core properties', async () => {
   const el = await fixture(html`
-    <qing-dialog dialogTitle="Greetings" .buttons=${[PresetButton.ok]}
+    <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}
       ><p>test</p></qing-dialog
     >
   `);
@@ -15,7 +15,7 @@ it('Core properties', async () => {
 
 it('onIsOpenChange fires after the dialog is shown', async () => {
   const el = await fixture(html`
-    <qing-dialog dialogTitle="Title" .buttons=${[PresetButton.ok]} }}>
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -34,7 +34,7 @@ it('onIsOpenChange fires after the dialog is shown', async () => {
 
 it('Dismissed by button', async () => {
   const el = await fixture(html`
-    <qing-dialog dialogTitle="Title" .buttons=${[PresetButton.ok]} }}>
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -54,10 +54,7 @@ it('Dismissed by button', async () => {
   expect(events[1]).to.deep.eq({
     isOpen: false,
     button: {
-      id: 'ok',
-      isCancel: false,
-      isDefault: false,
-      style: '',
+      type: 'ok',
       text: 'OK',
     },
   });
@@ -65,7 +62,7 @@ it('Dismissed by button', async () => {
 
 it('Dismissed by Esc', async () => {
   const el = await fixture(html`
-    <qing-dialog dialogTitle="Title" .buttons=${[PresetButton.ok]} }}>
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -90,7 +87,7 @@ it('Dismissed by Esc', async () => {
 
 it('Focus', async () => {
   const el = await fixture(html`
-    <qing-dialog dialogTitle="Title" .buttons=${[PresetButton.ok]}>
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
