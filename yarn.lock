@@ -909,16 +909,16 @@
     "@open-wc/semantic-dom-diff" "^0.13.16"
     "@types/chai" "^4.1.7"
 
-"@open-wc/karma-esm@^2.11.10":
-  version "2.11.10"
-  resolved "https://registry.yarnpkg.com/@open-wc/karma-esm/-/karma-esm-2.11.10.tgz#9a534418242a18ca3f83f2bf8383415e1aea5be6"
-  integrity sha512-KXgIVtjWS2vFmVyUldbltsfbHHt+6OPxWKfcCShYefOWRPiNp1dt5w3usYf4YBWFety4VEGbL9ZxUDbsog0ntA==
+"@open-wc/karma-esm@^2.11.13":
+  version "2.11.13"
+  resolved "https://registry.yarnpkg.com/@open-wc/karma-esm/-/karma-esm-2.11.13.tgz#ac7ce48464387ac24de2a94c8220f6025e2d784f"
+  integrity sha512-gAN/awjfhsfAUGM5ae2gUGsjyBuYKUp4+/nrctK2PJlYrbu8TXRbw3ZlD+abh7FshV/rXeaeI0YGeS3z18v2jA==
   dependencies:
     "@open-wc/building-utils" "^2.11.0"
     babel-plugin-istanbul "^5.1.4"
     chokidar "^3.0.0"
     deepmerge "^3.2.0"
-    es-dev-server "^1.31.1"
+    es-dev-server "^1.32.0"
     minimatch "^3.0.4"
     node-fetch "^2.6.0"
     portfinder "^1.0.21"
@@ -939,12 +939,12 @@
   resolved "https://registry.yarnpkg.com/@open-wc/testing-helpers/-/testing-helpers-1.4.0.tgz#d93b627c1311a1ad2b5fc4de43fc6f9fa8a79177"
   integrity sha512-XTR0HGOSBEJz7H31FDhHD2R6GHXI6DksiJsYDzJdLXqF/ORkKFzfu1BXGVOnPZytmJZLvnEr7VmE2YfV0y2Yug==
 
-"@open-wc/testing-karma@^3.2.17":
-  version "3.2.17"
-  resolved "https://registry.yarnpkg.com/@open-wc/testing-karma/-/testing-karma-3.2.17.tgz#8abe107a757af900369377ae2b963b77e3efe732"
-  integrity sha512-RVrC680WxR6iTCk17ivbjueytuIDddBdAX4+83ZVqLg2+HQ6dk7Op4HIPpqMiaspSx6yXmakqLLWriYu5nzk4Q==
+"@open-wc/testing-karma@^3.2.20":
+  version "3.2.20"
+  resolved "https://registry.yarnpkg.com/@open-wc/testing-karma/-/testing-karma-3.2.20.tgz#9db986974c9beff82057f3395979278bf944b666"
+  integrity sha512-gWLCEsqUhx83iLI9D4SFL1dJz6zYfd8pp/05fuZJzGBGq80YUurY28yN+u3MvOV75UEsGstyXwxCrdXmCGJJ6g==
   dependencies:
-    "@open-wc/karma-esm" "^2.11.10"
+    "@open-wc/karma-esm" "^2.11.13"
     axe-core "^3.3.1"
     karma "^4.1.0"
     karma-chrome-launcher "^2.0.0"
@@ -1043,40 +1043,40 @@
   resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-7.5.1.tgz#d27b81af0d1cfe1f9b24eebe7a24f74ae40f5b7c"
   integrity sha512-EZQUP3hSZQyTQRfiLqelC9NMWd1kqLcmQE0dMiklxBkgi84T+cHOhnKpgk4NnOWpGX863yE6+IaGnOXUNFqDnQ==
 
-"@typescript-eslint/eslint-plugin@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.11.0.tgz#4477c33491ccf0a9a3f4a30ef84978fa0ea0cad2"
-  integrity sha512-G2HHA1vpMN0EEbUuWubiCCfd0R3a30BB+UdvnFkxwZIxYEGOrWEXDv8tBFO9f44CWc47Xv9lLM3VSn4ORLI2bA==
+"@typescript-eslint/eslint-plugin@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.12.0.tgz#0da7cbca7b24f4c6919e9eb31c704bfb126f90ad"
+  integrity sha512-1t4r9rpLuEwl3hgt90jY18wJHSyb0E3orVL3DaqwmpiSDHmHiSspVsvsFF78BJ/3NNG3qmeso836jpuBWYziAA==
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.11.0"
+    "@typescript-eslint/experimental-utils" "2.12.0"
     eslint-utils "^1.4.3"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.11.0.tgz#cef18e6b122706c65248a5d8984a9779ed1e52ac"
-  integrity sha512-YxcA/y0ZJaCc/fB/MClhcDxHI0nOBB7v2/WxBju2cOTanX7jO9ttQq6Fy4yW9UaY5bPd9xL3cun3lDVqk67sPQ==
+"@typescript-eslint/experimental-utils@2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-2.12.0.tgz#e0a76ffb6293e058748408a191921e453c31d40d"
+  integrity sha512-jv4gYpw5N5BrWF3ntROvCuLe1IjRenLy5+U57J24NbPGwZFAjhnM45qpq0nDH1y/AZMb3Br25YiNVwyPbz6RkA==
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.11.0"
+    "@typescript-eslint/typescript-estree" "2.12.0"
     eslint-scope "^5.0.0"
 
-"@typescript-eslint/parser@^2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.11.0.tgz#cdcc3be73ee31cbef089af5ff97ccaa380ef6e8b"
-  integrity sha512-DyGXeqhb3moMioEFZIHIp7oXBBh7dEfPTzGrlyP0Mi9ScCra4SWEGs3kPd18mG7Sy9Wy8z88zmrw5tSGL6r/6A==
+"@typescript-eslint/parser@^2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-2.12.0.tgz#393f1604943a4ca570bb1a45bc8834e9b9158884"
+  integrity sha512-lPdkwpdzxEfjI8TyTzZqPatkrswLSVu4bqUgnB03fHSOwpC7KSerPgJRgIAf11UGNf7HKjJV6oaPZI4AghLU6g==
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "2.11.0"
-    "@typescript-eslint/typescript-estree" "2.11.0"
+    "@typescript-eslint/experimental-utils" "2.12.0"
+    "@typescript-eslint/typescript-estree" "2.12.0"
     eslint-visitor-keys "^1.1.0"
 
-"@typescript-eslint/typescript-estree@2.11.0":
-  version "2.11.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.11.0.tgz#21ada6504274cd1644855926312c798fc697e9fb"
-  integrity sha512-HGY4+d4MagO6cKMcKfIKaTMxcAv7dEVnji2Zi+vi5VV8uWAM631KjAB5GxFcexMYrwKT0EekRiiGK1/Sd7VFGA==
+"@typescript-eslint/typescript-estree@2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.12.0.tgz#bd9e547ccffd17dfab0c3ab0947c80c8e2eb914c"
+  integrity sha512-rGehVfjHEn8Frh9UW02ZZIfJs6SIIxIu/K1bbci8rFfDE/1lQ8krIJy5OXOV3DVnNdDPtoiPOdEANkLMrwXbiQ==
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"
@@ -2300,10 +2300,10 @@ es-abstract@^1.17.0-next.1:
     string.prototype.trimleft "^2.1.0"
     string.prototype.trimright "^2.1.0"
 
-es-dev-server@^1.31.1:
-  version "1.31.1"
-  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.31.1.tgz#3e5642f3e7c5ed5294ccec91d741fb16d000e0a7"
-  integrity sha512-ZYcc2j8aPzfIxuzSzmJHyFBB4PXfjNRISt5DeEDflP4/KKnJKl6udgybAo93FvjIdsZ+5x/fNxQN2gm2XNFpYA==
+es-dev-server@^1.32.0:
+  version "1.32.0"
+  resolved "https://registry.yarnpkg.com/es-dev-server/-/es-dev-server-1.32.0.tgz#d13db06cbb599697a89ff32a44e120d902c47226"
+  integrity sha512-2d50kk0Ihp6mfvZQqX4QBQL2Id3fU1JawfWvntAP8xJd1AaMppfsUjp0zGzUKw/Yv4uInLXLUiswVZL9th2xOA==
   dependencies:
     "@babel/core" "^7.7.2"
     "@babel/plugin-proposal-dynamic-import" "^7.7.0"
@@ -2328,7 +2328,7 @@ es-dev-server@^1.31.1:
     command-line-usage "^6.1.0"
     debounce "^1.2.0"
     deepmerge "^3.2.0"
-    es-module-lexer "0.3.9"
+    es-module-lexer "^0.3.13"
     get-stream "^5.1.0"
     is-stream "^2.0.0"
     isbinaryfile "^4.0.2"
@@ -2346,10 +2346,10 @@ es-dev-server@^1.31.1:
     useragent "^2.3.0"
     whatwg-url "^7.0.0"
 
-es-module-lexer@0.3.9:
-  version "0.3.9"
-  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.3.9.tgz#fbdbb35e1ad434fc71f5d83a887781fadbaca83a"
-  integrity sha512-beowXiBsaVS208GHoJckwOxlG/RpWLLz2ioJHwkUJ3RGFmW508E5RfntV21bMjzO3hQcwZOTHewUFwnGzrBtIg==
+es-module-lexer@^0.3.13:
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/es-module-lexer/-/es-module-lexer-0.3.13.tgz#b7f986efeb55a5d3ce0f3e482409ff43c462d398"
+  integrity sha512-8VCx4z2cIGFKx715cOvicAieDBjf2B6EYq58yzctIkKnXpKGEsd+qTf+LU1KuTkosWkWH6h1iDV7LWoKmdkaOQ==
 
 es-module-shims@^0.4.5:
   version "0.4.6"
@@ -3881,10 +3881,10 @@ lit-analyzer@^1.1.9:
     vscode-html-languageservice "2.1.12"
     web-component-analyzer "~0.1.17"
 
-lit-button@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/lit-button/-/lit-button-3.1.2.tgz#58633f1778c6672f3d27d7f694925f1b6ff911a3"
-  integrity sha512-XUtSJHmvajJXZhaW+GNX5Hbis05zNdFR6WieWQUemQvEzGkri0I7CDRGGv0mZ4I9vcxjrYWDb8Yt37W+fXA1qQ==
+lit-button@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/lit-button/-/lit-button-3.1.5.tgz#68e054f3ed4b46640b0dee784e0d3947bbb57ffb"
+  integrity sha512-wwH7Bjr31NZSLr1aU0+zLBDlRAfsqACdK8oXbhSOx6lEK52LQmBIHIgE2pGUwmz9oiVse7bjQyMZCsHJnHEChQ==
 
 lit-element@^2.2.1:
   version "2.2.1"
