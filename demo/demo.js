@@ -1,17 +1,12 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
-import { PresetButton, focusedElementClass } from '../dist/main';
 import '../dist/main';
 
 export class DemoApp extends LitElement {
   render() {
     return html`
       <h2><code>qing-dialog</code></h2>
-      <qing-dialog
-        id="basic"
-        dialogTitle="Greetings"
-        .buttons=${[PresetButton.ok]}
-      >
+      <qing-dialog id="basic" dialogTitle="Greetings" .buttons=${['ok']}>
         <div>
           The div element has no special meaning at all. It represents its
           children. It can be used with the class, lang, and title attributes to
@@ -29,19 +24,16 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="handle-events"
         dialogTitle="Greetings"
-        .buttons=${[PresetButton.ok]}
+        .buttons=${['ok']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
-        @onIsOpenChange=${() => alert('isOpen changed.')}
+        @onIsOpenChange=${e =>
+          alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
       >
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Handle events', 'handle-events')}
 
-      <qing-dialog
-        id="max-width"
-        dialogTitle="Title"
-        .buttons=${[PresetButton.ok]}
-      >
+      <qing-dialog id="max-width" dialogTitle="Title" .buttons=${['ok']}>
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Max width', 'max-width')}
@@ -49,25 +41,69 @@ export class DemoApp extends LitElement {
       <qing-dialog
         id="multiple-btns"
         dialogTitle="Title"
-        .buttons=${[PresetButton.yes, PresetButton.no, PresetButton.cancel]}
+        .buttons=${['yes', 'no', 'cancel']}
         @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
       ${this.renderButton('Multiple buttons', 'multiple-btns')}
 
-      <qing-dialog id="focus" dialogTitle="Title" .buttons=${[PresetButton.ok]}>
+      <qing-dialog
+        id="focus"
+        dialogTitle="Title"
+        .buttons=${['ok']}
+        @onIsOpenChange=${e => {
+          if (e.detail) {
+            this.shadowRoot.getElementById('textInput').focus();
+          }
+        }}
+      >
         <div>Hello World</div>
         <form>
-          <input type="text" value="name" class=${focusedElementClass} />
+          <input type="text" value="name" id="textInput" />
         </form>
       </qing-dialog>
       ${this.renderButton('Focus', 'focus')}
 
+      <qing-dialog
+        id="right-btns"
+        dialogTitle="Title"
+        .buttons=${['yes', 'no', 'cancel']}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton('Right aligned buttons', 'right-btns')}
+
+      <qing-dialog
+        id="default-cancel-buttons"
+        dialogTitle="Title"
+        .buttons=${['yes', 'no', 'cancel']}
+        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+      >
+        <div>Hello World</div>
+      </qing-dialog>
+      ${this.renderButton(
+        'isDefault and isCancel buttons',
+        'default-cancel-buttons',
+      )}
+
+      <qing-dialog
+        id="icon"
+        dialogTitle="Warning"
+        icon="warning"
+        .buttons=${['ok']}
+      >
+        <div>
+          This is a warning
+        </div>
+      </qing-dialog>
+      ${this.renderButton('Icon', 'icon')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
-        <qing-dialog-core id="core-minimal">
+        <qing-dialog-core id="core-minimal" closeOnEsc>
           <div slot="header">Header</div>
           <div slot="content">Press Esc to exit</div>
           <div slot="footer">Footer</div>
@@ -93,6 +129,10 @@ export class DemoApp extends LitElement {
 DemoApp.styles = css`
   #max-width {
     --dialog-max-width: 400px;
+  }
+
+  #right-btns {
+    --dialog-buttons-justify-content: flex-end;
   }
 `;
 

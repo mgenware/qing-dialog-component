@@ -26,7 +26,6 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay-header {
-        display: flex;
         padding: var(--dialog-header-padding);
       }
 
@@ -40,7 +39,6 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay-footer {
-        display: flex;
         padding: var(--dialog-footer-padding);
       }
 
@@ -54,12 +52,14 @@ export class QingDialogCore extends LitElement {
   }
 
   @property({ type: Boolean, reflect: true }) isOpen = false;
+  @property({ type: Boolean, reflect: true }) closeOnEsc = false;
+  @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
   firstUpdated() {
     if (!this.shadowRoot) {
       throw new Error('Unexpected undefined shadowRoot');
     }
-    document.addEventListener('keyup', e => this.handleKeyUp(e));
+    document.addEventListener('keydown', e => this.handleKeyDown(e));
   }
 
   render() {
@@ -88,24 +88,54 @@ export class QingDialogCore extends LitElement {
       // Important! `!!changedProperties.get('isOpen')` converts undefined to false, to avoid
       // unnecessary event during initialization.
       if (!!changedProperties.get('isOpen') !== this.isOpen) {
-        this.onIsOpenChange();
+        // Make sure call to `updated` is finished first.
+        setTimeout(() => this.onCoreIsOpenChange(), 0);
       }
     }
   }
 
-  private handleKeyUp(e: KeyboardEvent) {
-    if (e.key === 'Escape') {
-      this.isOpen = false;
+  private handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      this.onEscKeyPressed();
+      if (this.closeOnEsc) {
+        this.isOpen = false;
+      }
+    }
+    if (e.key === 'Enter') {
+      this.onEnterKeyPressed();
+      if (this.closeOnEnter) {
+        this.isOpen = false;
+      }
     }
   }
 
-  private onIsOpenChange() {
+  private onCoreIsOpenChange() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('onIsOpenChange', {
-        bubbles: true,
-        composed: true,
+      new CustomEvent<boolean>('onCoreIsOpenChange', {
         detail: this.isOpen,
       }),
     );
+  }
+
+  private onEnterKeyPressed() {
+    this.dispatchEvent(
+      new CustomEvent<boolean>('onEnterKeyPressed', {
+        detail: this.isOpen,
+      }),
+    );
+  }
+
+  private onEscKeyPressed() {
+    this.dispatchEvent(
+      new CustomEvent<boolean>('onEscKeyPressed', {
+        detail: this.isOpen,
+      }),
+    );
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'qing-dialog-core': QingDialogCore;
   }
 }
