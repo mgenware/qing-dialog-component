@@ -1,5 +1,8 @@
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
-import '../dist/main';
+import { kEvent, aTimeout } from './lib';
+import { buttonContainerClass } from '../dist/main';
+
+const allButtonsSel = `.${buttonContainerClass} > lit-button`;
 
 it('Button click event', async () => {
   const el = await fixture(html`
@@ -9,7 +12,7 @@ it('Button click event', async () => {
   `);
 
   const listener1 = oneEvent(el, 'onButtonClick');
-  el.shadowRoot.querySelectorAll('.button-container > lit-button')[0].click();
+  el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
   const { detail: detail1 } = await listener1;
   expect(detail1).to.deep.eq({
     type: 'yes',
@@ -17,10 +20,77 @@ it('Button click event', async () => {
   });
 
   const listener2 = oneEvent(el, 'onButtonClick');
-  el.shadowRoot.querySelectorAll('.button-container > lit-button')[1].click();
+  el.shadowRoot.querySelectorAll(allButtonsSel)[1].click();
   const { detail: detail2 } = await listener2;
   expect(detail2).to.deep.eq({
     type: 'no',
     text: 'No',
   });
+});
+
+it('Dismissed by button', async () => {
+  const el = await fixture(html`
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `);
+
+  const listener = kEvent(el, 'onIsOpenChange', 2);
+  el.setAttribute('isOpen', '');
+  await aTimeout();
+
+  el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
+
+  const events = await listener;
+  expect(el.hasAttribute('isOpen')).to.eq(false);
+  expect(events[0]).to.deep.eq({ isOpen: true });
+  expect(events[1]).to.deep.eq({
+    isOpen: false,
+    button: {
+      type: 'ok',
+      text: 'OK',
+    },
+  });
+});
+
+it('Default button', async () => {
+  const el = await fixture(html`
+    <qing-dialog
+      dialogTitle="Title"
+      .buttons=${['ok', { type: 'no', isDefault: true }]}
+    >
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `);
+
+  el.setAttribute('isOpen', '');
+  await aTimeout();
+
+  expect(el.shadowRoot.activeElement).to.eq(
+    el.shadowRoot.querySelectorAll(allButtonsSel)[1],
+  );
+});
+
+it('First button is default', async () => {
+  const el = await fixture(html`
+    <qing-dialog dialogTitle="Title" .buttons=${['ok', 'no']}>
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `);
+
+  el.setAttribute('isOpen', '');
+  await aTimeout();
+
+  expect(el.shadowRoot.activeElement).to.eq(
+    el.shadowRoot.querySelectorAll(allButtonsSel)[0],
+  );
 });

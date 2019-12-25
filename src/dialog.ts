@@ -20,8 +20,9 @@ localizedButtonStrings.set('yes', 'Yes');
 localizedButtonStrings.set('no', 'No');
 localizedButtonStrings.set('cancel', 'Cancel');
 
-const defaultButtonClass = '__qing_default_button';
-const cancelButtonClass = '__qing_cancel_button';
+export const defaultButtonClass = '__default_button';
+export const cancelButtonClass = '__cancel_button';
+export const buttonContainerClass = '__button-container';
 
 // Contains information on how `onIsOpenChange` event is triggered.
 export interface IsOpenChangeEventInfo {
@@ -93,7 +94,7 @@ export class QingDialog extends LitElement {
       return html``;
     }
     return html`
-      <div class="button-container">
+      <div class=${buttonContainerClass}>
         ${buttons.map(btnSrc => {
           const btn = typeof btnSrc === 'string' ? { type: btnSrc } : btnSrc;
           if (btn.type) {
@@ -150,9 +151,30 @@ export class QingDialog extends LitElement {
     this.isOpen = isOpen;
   }
 
+  private getAllButtonElements(): NodeListOf<Element> | undefined {
+    return this.shadowRoot?.querySelectorAll(
+      `.${buttonContainerClass} > lit-button`,
+    );
+  }
+
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
     const detail = Object.assign({}, this.isOpenChangeEventInfo);
-    detail.isOpen = e.detail;
+    const isOpen = e.detail;
+    const { buttons } = this;
+    detail.isOpen = isOpen;
+    if (isOpen && buttons.length) {
+      // Find the default button.
+      let defaultButton = this.shadowRoot?.querySelector(
+        `.${defaultButtonClass}`,
+      );
+      // If no default button defined, use the first button.
+      if (!defaultButton) {
+        defaultButton = this.getAllButtonElements()?.[0];
+      }
+      if (defaultButton instanceof HTMLElement) {
+        defaultButton.focus();
+      }
+    }
     this.dispatchEvent(
       new CustomEvent<IsOpenChangeEventInfo>('onIsOpenChange', {
         detail,

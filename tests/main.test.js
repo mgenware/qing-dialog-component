@@ -32,34 +32,6 @@ it('onIsOpenChange fires after the dialog is shown', async () => {
   expect(el.getAttribute('isOpen')).to.eq('');
 });
 
-it('Dismissed by button', async () => {
-  const el = await fixture(html`
-    <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
-      <div>Hello World</div>
-      <form>
-        <input type="text" value="name" id="textInput" />
-      </form>
-    </qing-dialog>
-  `);
-
-  const listener = kEvent(el, 'onIsOpenChange', 2);
-  el.setAttribute('isOpen', '');
-  await aTimeout();
-
-  el.shadowRoot.querySelectorAll('.button-container > lit-button')[0].click();
-
-  const events = await listener;
-  expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(events[0]).to.deep.eq({ isOpen: true });
-  expect(events[1]).to.deep.eq({
-    isOpen: false,
-    button: {
-      type: 'ok',
-      text: 'OK',
-    },
-  });
-});
-
 it('Dismissed by Esc', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
@@ -95,8 +67,10 @@ it('Focus', async () => {
     </qing-dialog>
   `);
 
-  el.addEventListener('onIsOpenChange', () => {
-    document.getElementById('textInput').focus();
+  el.addEventListener('onIsOpenChange', e => {
+    if (e.detail) {
+      document.getElementById('textInput').focus();
+    }
   });
   el.setAttribute('isOpen', '');
   await aTimeout();
