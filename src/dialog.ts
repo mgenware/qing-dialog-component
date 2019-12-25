@@ -25,7 +25,7 @@ export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
 
 // Contains information on how `isOpenChanged` event is triggered.
-export interface IsOpenChangeEventInfo {
+export interface IsOpenChangedArgs {
   isOpen?: boolean;
   isCancelled?: boolean;
   button?: DialogButton;
@@ -64,7 +64,7 @@ export class QingDialog extends LitElement {
     DialogButton | PresetButtonType
   > = [];
   @property() icon?: DialogIconType;
-  isOpenChangeEventInfo?: IsOpenChangeEventInfo;
+  IsOpenChangedArgs?: IsOpenChangedArgs;
 
   firstUpdated() {
     if (!this.shadowRoot) {
@@ -146,8 +146,8 @@ export class QingDialog extends LitElement {
     }
   }
 
-  private setIsOpen(isOpen: boolean, info: IsOpenChangeEventInfo) {
-    this.isOpenChangeEventInfo = info;
+  private setIsOpen(isOpen: boolean, info: IsOpenChangedArgs) {
+    this.IsOpenChangedArgs = info;
     this.isOpen = isOpen;
   }
 
@@ -158,7 +158,7 @@ export class QingDialog extends LitElement {
   }
 
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
-    const detail = Object.assign({}, this.isOpenChangeEventInfo);
+    const detail = Object.assign({}, this.IsOpenChangedArgs);
     const isOpen = e.detail;
     const { buttons } = this;
     detail.isOpen = isOpen;
@@ -177,10 +177,10 @@ export class QingDialog extends LitElement {
     }
     const eventArgs = { detail };
     this.dispatchEvent(
-      new CustomEvent<IsOpenChangeEventInfo>('isOpenChanged', eventArgs),
+      new CustomEvent<IsOpenChangedArgs>('isOpenChanged', eventArgs),
     );
     this.dispatchEvent(
-      new CustomEvent<IsOpenChangeEventInfo>(
+      new CustomEvent<IsOpenChangedArgs>(
         isOpen ? 'shown' : 'closed',
         eventArgs,
       ),
