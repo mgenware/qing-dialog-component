@@ -13,7 +13,7 @@ it('Core properties', async () => {
   expect(el.getAttribute('dialogTitle')).to.eq('Greetings');
 });
 
-it('onIsOpenChange fires after the dialog is shown', async () => {
+it('isOpenChanged fires after the dialog is shown', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
@@ -23,7 +23,7 @@ it('onIsOpenChange fires after the dialog is shown', async () => {
     </qing-dialog>
   `);
 
-  const listener = oneEvent(el, 'onIsOpenChange');
+  const listener = oneEvent(el, 'isOpenChanged');
   el.setAttribute('isOpen', '');
   const { detail } = await listener;
 
@@ -42,7 +42,7 @@ it('Dismissed by Esc', async () => {
     </qing-dialog>
   `);
 
-  const listener = kEvent(el, 'onIsOpenChange', 2);
+  const listener = kEvent(el, 'isOpenChanged', 2);
   el.setAttribute('isOpen', '');
   await aTimeout();
 
@@ -67,7 +67,7 @@ it('Focus', async () => {
     </qing-dialog>
   `);
 
-  el.addEventListener('onIsOpenChange', e => {
+  el.addEventListener('isOpenChanged', e => {
     if (e.detail) {
       document.getElementById('textInput').focus();
     }

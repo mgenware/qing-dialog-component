@@ -39,9 +39,9 @@ class QingDialog {
   // ------- Events -------
 
   // Fires when `isOpen` property changes.
-  onIsOpenChange: CustomEvent<boolean>;
+  isOpenChanged: CustomEvent<boolean>;
   // Fires when dialog button is clicked.
-  onButtonClick: CustomEvent<DialogButton>;
+  buttonClick: CustomEvent<DialogButton>;
 }
 
 export interface DialogButton {
@@ -76,14 +76,14 @@ export interface DialogButton {
 
 ### Autofocus
 
-Use `onIsOpenChange` event to auto focus an element when the dialog shows up, example:
+Use `isOpenChanged` event to auto focus an element when the dialog shows up, example:
 
 ```js
 html`
   <qing-dialog
     dialogTitle="Title"
     .buttons=${['ok']}
-    @onIsOpenChange=${e => {
+    @isOpenChanged=${e => {
       if (e.detail) {
         // If dialog is open, set focus on a specified element.
         this.shadowRoot.getElementById('textInput').focus();

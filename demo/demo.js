@@ -25,8 +25,8 @@ export class DemoApp extends LitElement {
         id="handle-events"
         dialogTitle="Greetings"
         .buttons=${['ok']}
-        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
-        @onIsOpenChange=${e =>
+        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @isOpenChanged=${e =>
           alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
       >
         <div>Hello World</div>
@@ -42,7 +42,7 @@ export class DemoApp extends LitElement {
         id="multiple-btns"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
-        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
@@ -52,7 +52,7 @@ export class DemoApp extends LitElement {
         id="focus"
         dialogTitle="Title"
         .buttons=${['ok']}
-        @onIsOpenChange=${e => {
+        @isOpenChanged=${e => {
           if (e.detail) {
             this.shadowRoot.getElementById('textInput').focus();
           }
@@ -69,7 +69,7 @@ export class DemoApp extends LitElement {
         id="right-btns"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
-        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
@@ -79,7 +79,7 @@ export class DemoApp extends LitElement {
         id="default-cancel-buttons"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
-        @onButtonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>

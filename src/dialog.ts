@@ -24,7 +24,7 @@ export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
 
-// Contains information on how `onIsOpenChange` event is triggered.
+// Contains information on how `isOpenChanged` event is triggered.
 export interface IsOpenChangeEventInfo {
   isOpen?: boolean;
   isCancelled?: boolean;
@@ -131,7 +131,7 @@ export class QingDialog extends LitElement {
 
   private handleButtonClick(btn: DialogButton) {
     this.dispatchEvent(
-      new CustomEvent<DialogButton>('onButtonClick', {
+      new CustomEvent<DialogButton>('buttonClick', {
         detail: btn,
       }),
     );
@@ -176,7 +176,7 @@ export class QingDialog extends LitElement {
       }
     }
     this.dispatchEvent(
-      new CustomEvent<IsOpenChangeEventInfo>('onIsOpenChange', {
+      new CustomEvent<IsOpenChangeEventInfo>('isOpenChanged', {
         detail,
       }),
     );

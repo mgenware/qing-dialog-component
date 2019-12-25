@@ -11,7 +11,7 @@ it('Button click event', async () => {
     </qing-dialog>
   `);
 
-  const listener1 = oneEvent(el, 'onButtonClick');
+  const listener1 = oneEvent(el, 'buttonClick');
   el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
   const { detail: detail1 } = await listener1;
   expect(detail1).to.deep.eq({
@@ -19,7 +19,7 @@ it('Button click event', async () => {
     text: 'Yes',
   });
 
-  const listener2 = oneEvent(el, 'onButtonClick');
+  const listener2 = oneEvent(el, 'buttonClick');
   el.shadowRoot.querySelectorAll(allButtonsSel)[1].click();
   const { detail: detail2 } = await listener2;
   expect(detail2).to.deep.eq({
@@ -38,7 +38,7 @@ it('Dismissed by button', async () => {
     </qing-dialog>
   `);
 
-  const listener = kEvent(el, 'onIsOpenChange', 2);
+  const listener = kEvent(el, 'isOpenChanged', 2);
   el.setAttribute('isOpen', '');
   await aTimeout();
 
