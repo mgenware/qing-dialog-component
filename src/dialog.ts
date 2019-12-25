@@ -175,12 +175,16 @@ export class QingDialog extends LitElement {
         defaultButton.focus();
       }
     }
+    const eventArgs = { detail };
     this.dispatchEvent(
-      new CustomEvent<IsOpenChangeEventInfo>('isOpenChanged', {
-        detail,
-      }),
+      new CustomEvent<IsOpenChangeEventInfo>('isOpenChanged', eventArgs),
     );
-    this.dispatchEvent(new CustomEvent<undefined>(isOpen ? 'shown' : 'closed'));
+    this.dispatchEvent(
+      new CustomEvent<IsOpenChangeEventInfo>(
+        isOpen ? 'shown' : 'closed',
+        eventArgs,
+      ),
+    );
   }
 }
 

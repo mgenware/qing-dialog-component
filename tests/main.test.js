@@ -28,8 +28,9 @@ it('isOpenChanged, shown', async () => {
   el.setAttribute('isOpen', '');
   const events = await Promise.all([isOpen, shown]);
 
+  // Both isOpenChanged and shown have the same event args.
   expect(events[0].detail).to.deep.eq({ isOpen: true });
-  expect(events[1].detail).to.eq(null);
+  expect(events[1].detail).to.deep.eq({ isOpen: true });
   expect(el.hasAttribute('isOpen')).to.eq(true);
   expect(el.getAttribute('isOpen')).to.eq('');
 });
@@ -60,7 +61,11 @@ it('Dismissed by Esc, isOpenChanged, closed', async () => {
   });
 
   const closedEvent = await closed;
-  expect(closedEvent.detail).to.eq(null);
+  // Both isOpenChanged and closed have the same event args.
+  expect(closedEvent.detail).to.deep.eq({
+    isOpen: false,
+    isCancelled: true,
+  });
 });
 
 it('Focus', async () => {
