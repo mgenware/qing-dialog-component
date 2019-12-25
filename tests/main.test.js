@@ -13,7 +13,7 @@ it('Core properties', async () => {
   expect(el.getAttribute('dialogTitle')).to.eq('Greetings');
 });
 
-it('isOpenChanged fires after the dialog is shown', async () => {
+it('isOpenChanged, shown', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
@@ -23,16 +23,18 @@ it('isOpenChanged fires after the dialog is shown', async () => {
     </qing-dialog>
   `);
 
-  const listener = oneEvent(el, 'isOpenChanged');
+  const isOpen = oneEvent(el, 'isOpenChanged');
+  const shown = oneEvent(el, 'shown');
   el.setAttribute('isOpen', '');
-  const { detail } = await listener;
+  const events = await Promise.all([isOpen, shown]);
 
-  expect(detail).to.deep.eq({ isOpen: true });
+  expect(events[0].detail).to.deep.eq({ isOpen: true });
+  expect(events[1].detail).to.eq(null);
   expect(el.hasAttribute('isOpen')).to.eq(true);
   expect(el.getAttribute('isOpen')).to.eq('');
 });
 
-it('Dismissed by Esc', async () => {
+it('Dismissed by Esc, isOpenChanged, closed', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
@@ -42,19 +44,23 @@ it('Dismissed by Esc', async () => {
     </qing-dialog>
   `);
 
-  const listener = kEvent(el, 'isOpenChanged', 2);
+  const isOpen = kEvent(el, 'isOpenChanged', 2);
+  const closed = oneEvent(el, 'closed');
   el.setAttribute('isOpen', '');
   await aTimeout();
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-  const events = await listener;
+  const isOpenEvents = await isOpen;
   expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(events[0]).to.deep.eq({ isOpen: true });
-  expect(events[1]).to.deep.eq({
+  expect(isOpenEvents[0]).to.deep.eq({ isOpen: true });
+  expect(isOpenEvents[1]).to.deep.eq({
     isOpen: false,
     isCancelled: true,
   });
+
+  const closedEvent = await closed;
+  expect(closedEvent.detail).to.eq(null);
 });
 
 it('Focus', async () => {

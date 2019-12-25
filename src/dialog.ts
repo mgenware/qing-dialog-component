@@ -180,6 +180,7 @@ export class QingDialog extends LitElement {
         detail,
       }),
     );
+    this.dispatchEvent(new CustomEvent<undefined>(isOpen ? 'shown' : 'closed'));
   }
 }
 
