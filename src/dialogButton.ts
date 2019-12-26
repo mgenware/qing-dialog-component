@@ -10,8 +10,4 @@ export interface DialogButton {
   text?: string;
   // lit-button style.
   style?: string;
-  // If true, this button is clicked when Enter key is pressed.
-  isDefault?: boolean;
-  // If true, this button is clicked when Esc key is pressed.
-  isCancel?: boolean;
 }

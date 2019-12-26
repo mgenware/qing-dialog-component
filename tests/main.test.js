@@ -35,6 +35,26 @@ it('isOpenChanged, shown', async () => {
   expect(el.getAttribute('isOpen')).to.eq('');
 });
 
+it('Cannot be dismissed by Esc when no cancel button is present', async () => {
+  const el = await fixture(html`
+    <qing-dialog dialogTitle="Title" .buttons=${['ok', 'cancel']} }}>
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `);
+
+  const isOpen = oneEvent(el, 'isOpenChanged');
+  el.setAttribute('isOpen', '');
+  await aTimeout();
+
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+  await isOpen;
+  expect(el.hasAttribute('isOpen')).to.eq(true);
+});
+
 it('Dismissed by Esc, isOpenChanged, closed', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>

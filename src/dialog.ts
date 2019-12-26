@@ -64,13 +64,12 @@ export class QingDialog extends LitElement {
   @property({ type: Boolean, reflect: true }) isOpen = false;
   @property({ type: Array }) buttons: DialogButtonType[] = [];
   @property() icon?: DialogIconType;
-  IsOpenChangedArgs?: IsOpenChangedArgs;
+  @property({ type: Number }) defaultButtonIndex = 0;
+  @property({ type: Number }) cancelButtonIndex?: number;
 
-  firstUpdated() {
-    if (!this.shadowRoot) {
-      throw new Error('Unexpected undefined shadowRoot');
-    }
-  }
+  IsOpenChangedArgs?: IsOpenChangedArgs;
+  defaultButton?: HTMLElement;
+  cancelButton?: HTMLElement;
 
   render() {
     return html`
@@ -95,7 +94,7 @@ export class QingDialog extends LitElement {
     }
     return html`
       <div class=${buttonContainerClass}>
-        ${buttons.map(btnSrc => {
+        ${buttons.map((btnSrc, idx) => {
           const btn = typeof btnSrc === 'string' ? { type: btnSrc } : btnSrc;
           if (btn.type) {
             btn.text = QingDialog.localizedButtonStrings.get(btn.type);
@@ -104,8 +103,8 @@ export class QingDialog extends LitElement {
             <lit-button
               class=${classMap({
                 [btn.style || '_']: !!btn.style,
-                [defaultButtonClass]: !!btn.isDefault,
-                [cancelButtonClass]: !!btn.isCancel,
+                [defaultButtonClass]: idx === this.defaultButtonIndex,
+                [cancelButtonClass]: idx === this.cancelButtonIndex,
               })}
               @click=${() => this.handleButtonClick(btn)}
               >${btn.text}</lit-button
@@ -151,33 +150,15 @@ export class QingDialog extends LitElement {
     this.isOpen = isOpen;
   }
 
-  private getAllButtonElements(): NodeListOf<Element> | undefined {
-    return this.shadowRoot?.querySelectorAll(
-      `.${buttonContainerClass} > lit-button`,
-    );
-  }
-
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
     const detail = Object.assign({}, this.IsOpenChangedArgs);
     const isOpen = e.detail;
-    const { buttons } = this;
     detail.isOpen = isOpen;
-    if (isOpen && buttons.length) {
-      let defaultButton: Element | undefined;
-      // Find the default button.
-      const defaultButtons = this.shadowRoot?.querySelectorAll(
-        `.${defaultButtonClass}`,
-      );
-      if (defaultButtons && defaultButtons.length) {
-        defaultButton = defaultButtons[defaultButtons.length - 1];
-      }
-      // If no default button defined, use the first button.
-      if (!defaultButton) {
-        defaultButton = this.getAllButtonElements()?.[0];
-      }
-      if (defaultButton instanceof HTMLElement) {
-        defaultButton.focus();
-      }
+    if (isOpen) {
+      // Set focus to default button if needed.
+      // This must happens before `isOpenChanged` event fires cuz user may update focus
+      // on `isOpenChanged` handlers.
+      this.getDefaultButtonElement()?.focus();
     }
     const eventArgs = { detail };
     this.dispatchEvent(
@@ -189,6 +170,20 @@ export class QingDialog extends LitElement {
         eventArgs,
       ),
     );
+  }
+
+  private getDefaultButtonElement(): HTMLElement | null {
+    const defaultButton = this.shadowRoot?.querySelector(
+      `.${defaultButtonClass}`,
+    );
+    return defaultButton instanceof HTMLButtonElement ? defaultButton : null;
+  }
+
+  private getCancelButtonElement(): HTMLElement | null {
+    const cancelButton = this.shadowRoot?.querySelector(
+      `.${cancelButtonClass}`,
+    );
+    return cancelButton instanceof HTMLButtonElement ? cancelButton : null;
   }
 }
 
