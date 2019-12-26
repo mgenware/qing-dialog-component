@@ -60,7 +60,12 @@ it('Default button', async () => {
   const el = await fixture(html`
     <qing-dialog
       dialogTitle="Title"
-      .buttons=${['ok', { type: 'no', isDefault: true }]}
+      .buttons=${[
+        'ok',
+        // If there are multiple items with `isDefault` set, the last takes precedence.
+        { type: 'no', isDefault: true },
+        { type: 'cancel', isDefault: true },
+      ]}
     >
       <div>Hello World</div>
       <form>
@@ -73,7 +78,7 @@ it('Default button', async () => {
   await aTimeout();
 
   expect(el.shadowRoot.activeElement).to.eq(
-    el.shadowRoot.querySelectorAll(allButtonsSel)[1],
+    el.shadowRoot.querySelectorAll(allButtonsSel)[2],
   );
 });
 

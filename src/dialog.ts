@@ -13,6 +13,8 @@ import { classMap } from 'lit-html/directives/class-map';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { DialogIconType, iconTypeToData } from './dialogIcon';
 
+export type DialogButtonType = DialogButton | PresetButtonType;
+
 // Default localized strings for dialog button types.
 let localizedButtonStrings = new Map<PresetButtonType, string>();
 localizedButtonStrings.set('ok', 'OK');
@@ -60,9 +62,7 @@ export class QingDialog extends LitElement {
 
   @property() dialogTitle = '';
   @property({ type: Boolean, reflect: true }) isOpen = false;
-  @property({ type: Array }) buttons: Array<
-    DialogButton | PresetButtonType
-  > = [];
+  @property({ type: Array }) buttons: DialogButtonType[] = [];
   @property() icon?: DialogIconType;
   IsOpenChangedArgs?: IsOpenChangedArgs;
 
@@ -163,10 +163,14 @@ export class QingDialog extends LitElement {
     const { buttons } = this;
     detail.isOpen = isOpen;
     if (isOpen && buttons.length) {
+      let defaultButton: Element | undefined;
       // Find the default button.
-      let defaultButton = this.shadowRoot?.querySelector(
+      const defaultButtons = this.shadowRoot?.querySelectorAll(
         `.${defaultButtonClass}`,
       );
+      if (defaultButtons && defaultButtons.length) {
+        defaultButton = defaultButtons[defaultButtons.length - 1];
+      }
       // If no default button defined, use the first button.
       if (!defaultButton) {
         defaultButton = this.getAllButtonElements()?.[0];
