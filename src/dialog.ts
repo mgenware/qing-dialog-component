@@ -68,7 +68,7 @@ export class QingDialog extends LitElement {
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
-  private IsOpenChangedArgs?: IsOpenChangedArgs;
+  private isOpenChangedArgs?: IsOpenChangedArgs;
 
   render() {
     return html`
@@ -143,12 +143,13 @@ export class QingDialog extends LitElement {
   }
 
   private setIsOpen(isOpen: boolean, info: IsOpenChangedArgs) {
-    this.IsOpenChangedArgs = info;
+    this.isOpenChangedArgs = info;
     this.isOpen = isOpen;
   }
 
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
-    const detail = Object.assign({}, this.IsOpenChangedArgs);
+    const detail = Object.assign({}, this.isOpenChangedArgs);
+    this.isOpenChangedArgs = undefined;
     const isOpen = e.detail;
     detail.isOpen = isOpen;
     if (isOpen) {
