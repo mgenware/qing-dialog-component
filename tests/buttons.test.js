@@ -56,16 +56,12 @@ it('Dismissed by button', async () => {
   });
 });
 
-it('Default button', async () => {
+it('Set a `defaultButtonIndex`', async () => {
   const el = await fixture(html`
     <qing-dialog
       dialogTitle="Title"
-      .buttons=${[
-        'ok',
-        // If there are multiple items with `isDefault` set, the last takes precedence.
-        { type: 'no', isDefault: true },
-        { type: 'cancel', isDefault: true },
-      ]}
+      .buttons=${['ok', 'no', 'cancel']}
+      .defaultButtonIndex=${2}
     >
       <div>Hello World</div>
       <form>
@@ -82,7 +78,7 @@ it('Default button', async () => {
   );
 });
 
-it('First button is default', async () => {
+it('`defaultButtonIndex` defaults to 0', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok', 'no']}>
       <div>Hello World</div>

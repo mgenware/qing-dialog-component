@@ -29,7 +29,6 @@ export const buttonContainerClass = '__button-container';
 // Contains information on how `isOpenChanged` event is triggered.
 export interface IsOpenChangedArgs {
   isOpen?: boolean;
-  isCancelled?: boolean;
   button?: DialogButton;
 }
 
@@ -67,9 +66,7 @@ export class QingDialog extends LitElement {
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
-  IsOpenChangedArgs?: IsOpenChangedArgs;
-  defaultButton?: HTMLElement;
-  cancelButton?: HTMLElement;
+  private IsOpenChangedArgs?: IsOpenChangedArgs;
 
   render() {
     return html`
@@ -139,9 +136,7 @@ export class QingDialog extends LitElement {
 
   private handleEscKeyPressed() {
     if (this.isOpen) {
-      this.setIsOpen(false, {
-        isCancelled: true,
-      });
+      this.getCancelButtonElement()?.click();
     }
   }
 
@@ -176,14 +171,14 @@ export class QingDialog extends LitElement {
     const defaultButton = this.shadowRoot?.querySelector(
       `.${defaultButtonClass}`,
     );
-    return defaultButton instanceof HTMLButtonElement ? defaultButton : null;
+    return defaultButton instanceof HTMLElement ? defaultButton : null;
   }
 
   private getCancelButtonElement(): HTMLElement | null {
     const cancelButton = this.shadowRoot?.querySelector(
       `.${cancelButtonClass}`,
     );
-    return cancelButton instanceof HTMLButtonElement ? cancelButton : null;
+    return cancelButton instanceof HTMLElement ? cancelButton : null;
   }
 }
 

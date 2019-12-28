@@ -6,7 +6,12 @@ export class DemoApp extends LitElement {
   render() {
     return html`
       <h2><code>qing-dialog</code></h2>
-      <qing-dialog id="basic" dialogTitle="Greetings" .buttons=${['ok']}>
+      <qing-dialog
+        id="basic"
+        dialogTitle="Greetings"
+        .buttons=${['ok']}
+        .cancelButtonIndex=${0}
+      >
         <div>
           The div element has no special meaning at all. It represents its
           children. It can be used with the class, lang, and title attributes to
@@ -28,6 +33,8 @@ export class DemoApp extends LitElement {
         @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
         @isOpenChanged=${e =>
           alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
+        @shown=${() => alert('Shown')}
+        @closed=${() => alert('Closed')}
       >
         <div>Hello World</div>
       </qing-dialog>
