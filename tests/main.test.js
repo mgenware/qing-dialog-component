@@ -29,7 +29,7 @@ it('isOpenChanged, shown', async () => {
 
   const isOpen = oneEvent(el, 'isOpenChanged');
   const shown = oneEvent(el, 'shown');
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   const events = await Promise.all([isOpen, shown]);
 
   // Both isOpenChanged and shown have the same event args.
@@ -51,7 +51,7 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
@@ -95,7 +95,7 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
@@ -133,13 +133,45 @@ it('Cannot be dismissed by Esc when no cancel button is present', async () => {
   `);
 
   const isOpen = oneEvent(el, 'isOpenChanged');
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
   await isOpen;
   expect(el.hasAttribute('isOpen')).to.eq(true);
+});
+
+it('Dismissed programmatically', async () => {
+  const el = await fixture(html`
+    <qing-dialog
+      dialogTitle="Title"
+      .buttons=${['ok']}
+      .cancelButtonIndex=${0}
+      }}
+    >
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `);
+
+  const isOpen = kEvent(el, 'isOpenChanged', 2);
+  const closed = oneEvent(el, 'closed');
+  el.isOpen = true;
+  await aTimeout();
+
+  el.isOpen = false;
+
+  const isOpenEvents = await isOpen;
+  expect(el.hasAttribute('isOpen')).to.eq(false);
+  expect(isOpenEvents[0]).to.deep.eq({ isOpen: true });
+  expect(isOpenEvents[1]).to.deep.eq({ isOpen: false });
+
+  const closedEvent = await closed;
+  // Both isOpenChanged and closed have the same event args.
+  expect(closedEvent.detail).to.deep.eq({ isOpen: false });
 });
 
 it('Focus', async () => {
@@ -157,7 +189,7 @@ it('Focus', async () => {
       document.getElementById('textInput').focus();
     }
   });
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   expect(document.activeElement).to.eq(document.getElementById('textInput'));

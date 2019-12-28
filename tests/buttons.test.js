@@ -39,7 +39,7 @@ it('Dismissed by button', async () => {
   `);
 
   const listener = kEvent(el, 'isOpenChanged', 2);
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
@@ -70,7 +70,7 @@ it('Set a `defaultButtonIndex`', async () => {
     </qing-dialog>
   `);
 
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   expect(el.shadowRoot.activeElement).to.eq(
@@ -88,7 +88,7 @@ it('`defaultButtonIndex` defaults to 0', async () => {
     </qing-dialog>
   `);
 
-  el.setAttribute('isOpen', '');
+  el.isOpen = true;
   await aTimeout();
 
   expect(el.shadowRoot.activeElement).to.eq(
