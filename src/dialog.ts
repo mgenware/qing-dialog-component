@@ -13,7 +13,9 @@ import { classMap } from 'lit-html/directives/class-map';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import { DialogIconType, iconTypeToData } from './dialogIcon';
 
-export type DialogButtonType = DialogButton | PresetButtonType;
+// The dialog component accepts an array of buttons, each can be a
+// preset `PresetButtonType` or a more customized `DialogButton`.
+export type DialogButtonType = PresetButtonType | DialogButton;
 
 // Default localized strings for dialog button types.
 let localizedButtonStrings = new Map<PresetButtonType, string>();

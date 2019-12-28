@@ -25,6 +25,17 @@ export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 // A group of builtin dialog icons.
 export type DialogIconType = 'error' | 'success' | 'warning';
 
+// The dialog component accepts an array of buttons, each can be a
+// preset `PresetButtonType` or a more customized `DialogButton`
+// (see type definition below).
+export type DialogButtonType = PresetButtonType | DialogButton;
+
+// Contains information on how `isOpenChanged` event is triggered.
+export interface IsOpenChangedArgs {
+  isOpen?: boolean;
+  button?: DialogButton;
+}
+
 // Dialog component: <qing-dialog>
 class QingDialog {
   // Indicates whether the dialog is visible.
@@ -32,18 +43,27 @@ class QingDialog {
   // The heading of the dialog.
   dialogTitle: string;
   // Bottom buttons of the dialog.
-  buttons: Array<PresetButtonType | DialogButton>;
+  buttons: DialogButtonType[];
   // Icon of the dialog.
   icon: DialogIconType;
+  // Index of default button, defaults to 0 (first button).
+  defaultButtonIndex: number;
+  // Index of cancel button.
+  // A cancel button will be clicked when user presses Esc key.
+  cancelButtonIndex: number;
 
   // ------- Events -------
 
   // Fires when `isOpen` property changes.
-  isOpenChanged: CustomEvent<boolean>;
+  isOpenChanged: CustomEvent<IsOpenChangedArgs>;
+  shown: CustomEvent<IsOpenChangedArgs>;
+  closed: CustomEvent<IsOpenChangedArgs>;
+
   // Fires when dialog button is clicked.
   buttonClick: CustomEvent<DialogButton>;
 }
 
+// A more customized button.
 export interface DialogButton {
   // One of the preset types of the button, see PresetButtonType.
   type?: PresetButtonType;
@@ -53,10 +73,6 @@ export interface DialogButton {
   text?: string;
   // lit-button style.
   style?: string;
-  // If true, this button is clicked when Enter key is pressed.
-  isDefault?: boolean;
-  // If true, this button is clicked when Esc key is pressed.
-  isCancel?: boolean;
 }
 ```
 
