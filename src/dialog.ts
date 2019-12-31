@@ -1,10 +1,11 @@
 import {
   html,
   customElement,
-  css,
   property,
   LitElement,
   TemplateResult,
+  css,
+  unsafeCSS,
 } from 'lit-element';
 import './dialogCore';
 import { DialogButton, PresetButtonType } from './dialogButton';
@@ -27,6 +28,7 @@ localizedButtonStrings.set('cancel', 'Cancel');
 export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
+export const iconClass = '__icon';
 
 // Contains information on how `isOpenChanged` event is triggered.
 export interface IsOpenChangedArgs {
@@ -42,12 +44,12 @@ export class QingDialog extends LitElement {
         --dialog-max-width: 500px;
       }
 
-      .button-container {
+      .${unsafeCSS(buttonContainerClass)} {
         display: var(--dialog-buttons-display, flex);
         justify-content: var(--dialog-buttons-justify-content, center);
       }
 
-      .icon {
+      .${unsafeCSS(iconClass)} {
         margin: (--dialog-icon-margin, 0 0 0.8rem 0);
       }
     `;
@@ -123,7 +125,7 @@ export class QingDialog extends LitElement {
       return html``;
     }
     return html`
-      ${unsafeHTML(`<span class="icon">${icon.svg}</span>`)}
+      ${unsafeHTML(`<span class="${iconClass}">${icon.svg}</span>`)}
     `;
   }
 

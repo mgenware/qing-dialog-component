@@ -83,9 +83,9 @@ export interface DialogButton {
 - `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
 - `--dialog-buttons-display` CSS `display` value of the dialog buttons container `div`, defaults to `flex`.
 - `--dialog-buttons-justify-content` alignment of the dialog buttons:
-  - `flex-end` the default value, aligned to the right.
+  - `center` the default value, centered.
+  - `flex-end` aligned to the right.
   - `flex-start` aligned to the left.
-  - `center` centered.
 - `--dialog-icon-margin` margin of the dialog icon.
 - Icon colors:
   - `--dialog-icon-error`, `--dialog-icon-warning`, `--dialog-icon-success`.
