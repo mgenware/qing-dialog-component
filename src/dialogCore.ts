@@ -22,12 +22,12 @@ export class QingDialogCore extends LitElement {
         max-width: 100vw;
         flex-direction: column;
         background-color: white;
-        padding: var(--dialog-padding, 10px 20px);
+        padding: var(--dialog-padding, 0.625rem 1.25rem);
         flex-basis: var(--dialog-max-width, 100%);
       }
 
       .overlay-header {
-        padding: var(--dialog-header-padding);
+        margin: var(--dialog-header-padding, 0);
       }
 
       .overlay-content {
@@ -35,11 +35,11 @@ export class QingDialogCore extends LitElement {
         flex-flow: column;
         flex: 1;
         overflow: auto;
-        padding: var(--dialog-content-padding, 0 0 1rem 0);
+        margin: var(--dialog-content-padding, 0);
       }
 
       .overlay-footer {
-        padding: var(--dialog-footer-padding);
+        margin: var(--dialog-footer-padding, 1.25rem 0 0 0);
       }
 
       /**  */

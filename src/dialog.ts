@@ -40,6 +40,12 @@ export interface IsOpenChangedArgs {
 export class QingDialog extends LitElement {
   static get styles() {
     return css`
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
       qing-dialog-core {
         --dialog-max-width: 500px;
       }
