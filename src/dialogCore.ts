@@ -18,8 +18,9 @@ export class QingDialogCore extends LitElement {
 
       .overlay {
         display: flex;
+        max-height: 100vh;
+        max-width: 100vw;
         flex-direction: column;
-
         background-color: white;
         padding: var(--dialog-padding, 10px 20px);
         flex-basis: var(--dialog-max-width, 100%);
@@ -32,9 +33,8 @@ export class QingDialogCore extends LitElement {
       .overlay-content {
         display: flex;
         flex-flow: column;
-        flex: 1 1 auto;
-        min-width: 0;
-        overflow: hidden;
+        flex: 1;
+        overflow: auto;
         padding: var(--dialog-content-padding, 0 0 1rem 0);
       }
 

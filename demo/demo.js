@@ -107,6 +107,16 @@ export class DemoApp extends LitElement {
       </qing-dialog>
       ${this.renderButton('Icon', 'icon')}
 
+      <qing-dialog
+        id="long-text"
+        dialogTitle="Info"
+        icon="info"
+        .buttons=${['ok']}
+      >
+        <pre>${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre>
+      </qing-dialog>
+      ${this.renderButton('Long text', 'long-text')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
