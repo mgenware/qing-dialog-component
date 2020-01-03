@@ -55,6 +55,10 @@ export class QingDialog extends LitElement {
         justify-content: var(--dialog-buttons-justify-content, center);
       }
 
+      .${unsafeCSS(buttonContainerClass)} lit-button {
+        margin: var(--dialog-button-margin, 0 0.33rem);
+      }
+
       .${unsafeCSS(iconClass)} {
         margin: (--dialog-icon-margin, 0 0 0.8rem 0);
       }

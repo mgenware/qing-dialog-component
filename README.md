@@ -89,6 +89,7 @@ export interface DialogButton {
 - `--dialog-icon-margin` margin of the dialog icon.
 - Icon colors:
   - `--dialog-icon-error`, `--dialog-icon-warning`, `--dialog-icon-success`.
+- `--dialog-button-margin` margins of each button.
 
 ### Autofocus
 
