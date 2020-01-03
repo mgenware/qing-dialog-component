@@ -51,8 +51,8 @@ export class QingDialog extends LitElement {
       }
 
       .${unsafeCSS(buttonContainerClass)} {
-        display: var(--dialog-buttons-display, flex);
-        justify-content: var(--dialog-buttons-justify-content, center);
+        display: var(--dialog-button-container-display, flex);
+        justify-content: var(--dialog-button-container-justify-content, center);
       }
 
       .${unsafeCSS(buttonContainerClass)} lit-button {

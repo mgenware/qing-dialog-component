@@ -81,8 +81,8 @@ export interface DialogButton {
 - `--dialog-max-width` maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
 - `--dialog-padding` padding of the dialog.
 - `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
-- `--dialog-buttons-display` CSS `display` value of the dialog buttons container `div`, defaults to `flex`.
-- `--dialog-buttons-justify-content` alignment of the dialog buttons:
+- `--dialog-button-container-display` CSS `display` value of the dialog button container `div`, defaults to `flex`.
+- `--dialog-button-container-justify-content` alignment of the dialog button container:
   - `center` the default value, centered.
   - `flex-end` aligned to the right.
   - `flex-start` aligned to the left.

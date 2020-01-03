@@ -14,7 +14,7 @@ it('Alignment defaults to centered', async () => {
   ).to.eq('center');
 });
 
-it('--dialog-buttons-justify-content', async () => {
+it('--dialog-button-container-justify-content', async () => {
   const el = await fixture(html`
     <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}
       ><p>test</p></qing-dialog

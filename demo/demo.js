@@ -149,7 +149,7 @@ DemoApp.styles = css`
   }
 
   #right-btns {
-    --dialog-buttons-justify-content: flex-end;
+    --dialog-button-container-justify-content: flex-end;
   }
 `;
 
