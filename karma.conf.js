@@ -7,7 +7,7 @@ module.exports = config => {
     merge(createDefaultConfig(config), {
       files: [
         {
-          pattern: config.grep ? config.grep : 'tests/**/*.test.js',
+          pattern: config.grep ? config.grep : 'dist_tests/**/*.test.js',
           type: 'module',
         },
       ],

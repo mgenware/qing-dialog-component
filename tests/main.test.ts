@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { kEvent, aTimeout } from './lib';
-import { buttonContainerClass } from '../dist/main';
+import { buttonContainerClass, QingDialog } from '../dist/main';
 
 const allButtonsSel = `.${buttonContainerClass} > lit-button`;
 
 it('Core properties', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}
       ><p>test</p></qing-dialog
     >
-  `);
+  `)) as QingDialog;
 
   expect(el.innerHTML).to.eq('<p>test</p>');
   expect(el.getAttribute('dialogTitle')).to.eq('Greetings');
@@ -18,14 +19,14 @@ it('Core properties', async () => {
 });
 
 it('isOpenChanged, shown', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
   const isOpen = oneEvent(el, 'isOpenChanged');
   const shown = oneEvent(el, 'shown');
@@ -40,21 +41,21 @@ it('isOpenChanged, shown', async () => {
 });
 
 it('Dismissed by button, isOpenChanged, closed', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
   el.isOpen = true;
   await aTimeout();
 
-  el.shadowRoot.querySelectorAll(allButtonsSel)[0].click();
+  (el.shadowRoot!.querySelectorAll(allButtonsSel)[0] as HTMLElement).click();
 
   const isOpenEvents = await isOpen;
   expect(el.hasAttribute('isOpen')).to.eq(false);
@@ -79,7 +80,7 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
 });
 
 it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog
       dialogTitle="Title"
       .buttons=${['ok']}
@@ -91,7 +92,7 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
@@ -123,14 +124,14 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
 });
 
 it('Cannot be dismissed by Esc when no cancel button is present', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok', 'cancel']} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
   const isOpen = oneEvent(el, 'isOpenChanged');
   el.isOpen = true;
@@ -143,7 +144,7 @@ it('Cannot be dismissed by Esc when no cancel button is present', async () => {
 });
 
 it('Dismissed programmatically', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog
       dialogTitle="Title"
       .buttons=${['ok']}
@@ -155,7 +156,7 @@ it('Dismissed programmatically', async () => {
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
@@ -175,18 +176,18 @@ it('Dismissed programmatically', async () => {
 });
 
 it('Focus', async () => {
-  const el = await fixture(html`
+  const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-dialog>
-  `);
+  `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', e => {
+  el.addEventListener('isOpenChanged', (e: any) => {
     if (e.detail) {
-      document.getElementById('textInput').focus();
+      document.getElementById('textInput')!.focus();
     }
   });
   el.isOpen = true;

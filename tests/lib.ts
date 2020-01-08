@@ -1,15 +1,19 @@
-export function kEvent(element, eventName, k) {
+export function kEvent(
+  element: HTMLElement,
+  eventName: string,
+  k: number,
+): Promise<unknown[]> {
   if (!k || k < 0) {
     throw new Error(`"k" must be a positive number, got ${k}`);
   }
   return new Promise(resolve => {
     let count = 0;
-    const events = [];
-    function listener(ev) {
+    const details: unknown[] = [];
+    function listener(ev: Event) {
       count++;
-      events.push(ev.detail);
+      details.push((ev as any).detail);
       if (count >= k) {
-        resolve(events);
+        resolve(details);
         element.removeEventListener(eventName, listener);
       }
     }
