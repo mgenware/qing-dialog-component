@@ -28,7 +28,7 @@
     "demo": "owc-dev-server --app-index ./demo/demo.html --open --watch"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "files": [
     "/dist/**/*.js",
