@@ -86,6 +86,7 @@ export class QingDialog extends LitElement {
     return html`
       <qing-dialog-core
         ?isOpen=${this.isOpen}
+        @onEnterKeyPressed=${this.handleEnterKeyPressed}
         @onEscKeyPressed=${this.handleEscKeyPressed}
         @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
       >
@@ -151,6 +152,12 @@ export class QingDialog extends LitElement {
   private handleEscKeyPressed() {
     if (this.isOpen) {
       this.getCancelButtonElement()?.click();
+    }
+  }
+
+  private handleEnterKeyPressed() {
+    if (this.isOpen) {
+      this.getDefaultButtonElement()?.click();
     }
   }
 

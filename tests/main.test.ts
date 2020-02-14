@@ -50,6 +50,13 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
+  el.addEventListener('isOpenChanged', (e: any) => {
+    if (e.detail) {
+      // Make sure button is not focused.
+      document.getElementById('textInput')!.focus();
+    }
+  });
+
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');
   el.isOpen = true;
@@ -93,6 +100,13 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
       </form>
     </qing-dialog>
   `)) as QingDialog;
+
+  el.addEventListener('isOpenChanged', (e: any) => {
+    if (e.detail) {
+      // Make sure button is not focused.
+      document.getElementById('textInput')!.focus();
+    }
+  });
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
   const closed = oneEvent(el, 'closed');

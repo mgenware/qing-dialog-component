@@ -86,6 +86,7 @@ export class DemoApp extends LitElement {
         id="default-cancel-buttons"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
+        .cancelButtonIndex=${2}
         @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
