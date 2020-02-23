@@ -22,7 +22,7 @@
     "build": "cross-env NODE_ENV=production yarn test",
     "compile": "tsc -b tests",
     "dev": "cross-env NODE_ENV=development yarn run clean && tsc -b tests -w",
-    "prepublishOnly": "yarn run test",
+    "prepublishOnly": "yarn run build",
     "lint": "eslint --ext .ts src/ tests/ && lit-analyzer \"src/**/*.ts\" --strict",
     "clean": "del-cli dist",
     "demo": "owc-dev-server --app-index ./demo/demo.html --open --watch"
