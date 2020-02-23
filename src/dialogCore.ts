@@ -33,7 +33,6 @@ export class QingDialogCore extends LitElement {
       .overlay-content {
         display: flex;
         flex-flow: column;
-        flex: 1;
         overflow: auto;
         margin: var(--dialog-content-padding, 0);
       }
