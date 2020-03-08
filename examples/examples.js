@@ -118,6 +118,15 @@ export class ExamplesView extends LitElement {
       </qing-dialog>
       ${this.renderButton('Long text', 'long-text')}
 
+      <qing-dialog
+        id="border-styles"
+        dialogTitle="Border styles"
+        .buttons=${['ok']}
+      >
+        Hello world
+      </qing-dialog>
+      ${this.renderButton('Border styles', 'border-styles')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
@@ -151,6 +160,11 @@ ExamplesView.styles = css`
 
   #right-btns {
     --dialog-button-container-justify-content: flex-end;
+  }
+
+  #border-styles {
+    --dialog-border: 4px dashed green;
+    --dialog-border-radius: 10px;
   }
 `;
 
