@@ -25,7 +25,7 @@
     "prepublishOnly": "yarn run build",
     "lint": "eslint --ext .ts src/ tests/ && lit-analyzer \"src/**/*.ts\" --strict",
     "clean": "del-cli dist",
-    "demo": "owc-dev-server --app-index ./demo/demo.html --open --watch"
+    "serve": "owc-dev-server --app-index ./examples/examples.html --open --watch"
   },
   "engines": {
     "node": ">=10.0.0"

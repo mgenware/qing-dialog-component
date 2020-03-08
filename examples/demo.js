@@ -2,7 +2,7 @@ import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
 import '../dist/main';
 
-export class DemoApp extends LitElement {
+export class ExamplesView extends LitElement {
   render() {
     return html`
       <h2><code>qing-dialog</code></h2>
@@ -144,7 +144,7 @@ export class DemoApp extends LitElement {
   }
 }
 
-DemoApp.styles = css`
+ExamplesView.styles = css`
   #max-width {
     --dialog-max-width: 400px;
   }
@@ -154,4 +154,4 @@ DemoApp.styles = css`
   }
 `;
 
-customElements.define('demo-app', DemoApp);
+customElements.define('examples-view', ExamplesView);
