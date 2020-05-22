@@ -21,7 +21,8 @@ export class QingDialogCore extends LitElement {
         max-height: 100vh;
         max-width: 100vw;
         flex-direction: column;
-        background-color: white;
+        color: var(--dialog-color, black);
+        background-color: var(--dialog-background-color, white);
         padding: var(--dialog-padding, 0.625rem 1.25rem);
         flex-basis: var(--dialog-max-width, 100%);
         border: var(--dialog-border);
@@ -60,7 +61,7 @@ export class QingDialogCore extends LitElement {
     if (!this.shadowRoot) {
       throw new Error('Unexpected undefined shadowRoot');
     }
-    document.addEventListener('keydown', e => this.handleKeyDown(e));
+    document.addEventListener('keydown', (e) => this.handleKeyDown(e));
   }
 
   render() {

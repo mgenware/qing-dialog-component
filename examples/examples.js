@@ -30,8 +30,8 @@ export class ExamplesView extends LitElement {
         id="handle-events"
         dialogTitle="Greetings"
         .buttons=${['ok']}
-        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
-        @isOpenChanged=${e =>
+        @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
+        @isOpenChanged=${(e) =>
           alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
         @shown=${() => alert('Shown')}
         @closed=${() => alert('Closed')}
@@ -49,7 +49,7 @@ export class ExamplesView extends LitElement {
         id="multiple-btns"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
-        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
@@ -59,7 +59,7 @@ export class ExamplesView extends LitElement {
         id="focus"
         dialogTitle="Title"
         .buttons=${['ok']}
-        @isOpenChanged=${e => {
+        @isOpenChanged=${(e) => {
           if (e.detail) {
             this.shadowRoot.getElementById('textInput').focus();
           }
@@ -76,7 +76,7 @@ export class ExamplesView extends LitElement {
         id="right-btns"
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
-        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
@@ -87,7 +87,7 @@ export class ExamplesView extends LitElement {
         dialogTitle="Title"
         .buttons=${['yes', 'no', 'cancel']}
         .cancelButtonIndex=${2}
-        @buttonClick=${btn => alert(`You clicked ${btn.detail.text}!`)}
+        @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
       >
         <div>Hello World</div>
       </qing-dialog>
@@ -127,6 +127,14 @@ export class ExamplesView extends LitElement {
       </qing-dialog>
       ${this.renderButton('Border styles', 'border-styles')}
 
+      <qing-dialog id="themes" dialogTitle="Themes" .buttons=${['ok']}>
+        <p>
+          <button @click=${this.handleLightBtnClick}>Light</button>
+          <button @click=${this.handleDarkBtnClick}>Dark</button>
+        </p>
+      </qing-dialog>
+      ${this.renderButton('Themes', 'themes')}
+
       <hr />
       <h2><code>qing-dialog-core</code></h2>
       <div>
@@ -151,6 +159,14 @@ export class ExamplesView extends LitElement {
   handleButtonClick(modalID) {
     this.shadowRoot.getElementById(modalID).setAttribute('isOpen', `${true}`);
   }
+
+  handleLightBtnClick() {
+    document.body.classList.remove('theme-dark');
+  }
+
+  handleDarkBtnClick() {
+    document.body.classList.add('theme-dark');
+  }
 }
 
 ExamplesView.styles = css`
@@ -165,6 +181,21 @@ ExamplesView.styles = css`
   #border-styles {
     --dialog-border: 4px dashed green;
     --dialog-border-radius: 10px;
+  }
+
+  :root {
+    --default-back-color: white;
+    --default-fore-color: black;
+  }
+
+  .theme-dark {
+    --default-back-color: black;
+    --default-fore-color: #777777;
+  }
+
+  #themes {
+    --dialog-background-color: var(--default-back-color);
+    --dialog-color: var(--default-fore-color);
   }
 `;
 
