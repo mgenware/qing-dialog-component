@@ -1,5 +1,11 @@
 import { html, customElement, css, property, LitElement } from 'lit-element';
 
+export const overlay = 'overlay';
+export const overlayBack = 'overlay-background';
+export const overlayHeader = 'overlay-header';
+export const overlayContent = 'overlay-content';
+export const overlayFooter = 'overlay-footer';
+
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
   static get styles() {
@@ -21,33 +27,31 @@ export class QingDialogCore extends LitElement {
         max-height: 100vh;
         max-width: 100vw;
         flex-direction: column;
-        color: var(--dialog-color, black);
-        background-color: var(--dialog-background-color, white);
-        padding: var(--dialog-padding, 0.625rem 1.25rem);
-        flex-basis: var(--dialog-max-width, 100%);
-        border: var(--dialog-border);
-        border-radius: var(--dialog-border-radius);
+        color: black;
+        background-color: white;
+        padding: 0.625rem 1.25rem;
+        flex-basis: 100%;
       }
 
       .overlay-header {
-        margin: var(--dialog-header-padding, 0);
+        margin: 0;
       }
 
       .overlay-content {
         display: flex;
         flex-flow: column;
         overflow: auto;
-        margin: var(--dialog-content-padding, 0);
+        margin: 0;
       }
 
       .overlay-footer {
-        margin: var(--dialog-footer-padding, 1.25rem 0 0 0);
+        margin: 1.25rem 0 0 0;
       }
 
       /**  */
       @media (min-width: 768px) {
         .overlay {
-          flex-basis: var(--dialog-max-width, 80%);
+          flex-basis: 80%;
         }
       }
     `;
@@ -68,16 +72,17 @@ export class QingDialogCore extends LitElement {
     return html`
       <div
         style="display: ${this.isOpen ? 'flex' : 'none'}"
-        class="overlay-background"
+        class=${overlayBack}
+        part=${overlayBack}
       >
-        <div class="overlay" id="overlay">
-          <div class="overlay-header">
+        <div class=${overlay} part=${overlay}>
+          <div class=${overlayHeader} part=${overlayHeader}>
             <slot name="header"></slot>
           </div>
-          <div class="overlay-content">
+          <div class=${overlayContent} part=${overlayContent}>
             <slot name="content"></slot>
           </div>
-          <div class="overlay-footer">
+          <div class=${overlayFooter} part=${overlayFooter}>
             <slot name="footer"></slot>
           </div>
         </div>

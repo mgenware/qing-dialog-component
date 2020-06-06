@@ -7,7 +7,13 @@ import {
   css,
   unsafeCSS,
 } from 'lit-element';
-import './dialogCore';
+import {
+  overlay,
+  overlayBack,
+  overlayContent,
+  overlayHeader,
+  overlayFooter,
+} from './dialogCore';
 import { DialogButton, PresetButtonType } from './dialogButton';
 import 'lit-button';
 import { classMap } from 'lit-html/directives/class-map';
@@ -46,21 +52,21 @@ export class QingDialog extends LitElement {
         box-sizing: border-box;
       }
 
-      qing-dialog-core {
-        --dialog-max-width: 500px;
-      }
+      /* qing-dialog-core::part(overlay) {
+        flex-basis: 500px;
+      } */
 
       .${unsafeCSS(buttonContainerClass)} {
-        display: var(--dialog-button-container-display, flex);
-        justify-content: var(--dialog-button-container-justify-content, center);
+        display: flex;
+        justify-content: center;
       }
 
       .${unsafeCSS(buttonContainerClass)} lit-button {
-        margin: var(--dialog-button-margin, 0 0.33rem);
+        margin: 0 0.33rem;
       }
 
       .${unsafeCSS(iconClass)} {
-        margin: (--dialog-icon-margin, 0 0 0.8rem 0);
+        margin: 0 0 0.8rem 0;
       }
     `;
   }
@@ -85,14 +91,23 @@ export class QingDialog extends LitElement {
   render() {
     return html`
       <qing-dialog-core
+        exportparts=${[
+          overlay,
+          overlayBack,
+          overlayContent,
+          overlayHeader,
+          overlayFooter,
+        ].join(', ')}
         ?isOpen=${this.isOpen}
         @onEnterKeyPressed=${this.handleEnterKeyPressed}
         @onEscKeyPressed=${this.handleEscKeyPressed}
         @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
       >
-        <h2 slot="header">${this.renderIcon()}${this.dialogTitle}</h2>
-        <slot slot="content"></slot>
-        <div slot="footer">
+        <h2 slot="header" part="header">
+          ${this.renderIcon()}${this.dialogTitle}
+        </h2>
+        <slot slot="content" part="content"></slot>
+        <div slot="footer" part="footer">
           ${this.renderButtons()}
         </div>
       </qing-dialog-core>
@@ -105,7 +120,7 @@ export class QingDialog extends LitElement {
       return html``;
     }
     return html`
-      <div class=${buttonContainerClass}>
+      <div class=${buttonContainerClass} part="footer-buttons">
         ${buttons.map((btnSrc, idx) => {
           const btn = typeof btnSrc === 'string' ? { type: btnSrc } : btnSrc;
           if (btn.type) {
@@ -113,6 +128,7 @@ export class QingDialog extends LitElement {
           }
           return html`
             <lit-button
+              exportparts="button: footer-button"
               class=${classMap({
                 [btn.style || '_']: !!btn.style,
                 [defaultButtonClass]: idx === this.defaultButtonIndex,

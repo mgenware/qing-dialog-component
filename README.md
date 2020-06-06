@@ -78,21 +78,15 @@ export interface DialogButton {
 }
 ```
 
-### CSS variables
+### CSS Shadow Parts
 
-- `--dialog-max-width` maximum width of the dialog, defaults to `100%` on small screens, `80%` on large screens.
-- `--dialog-padding` padding of the dialog.
-- `--dialog-header-padding`, `--dialog-content-padding`, `--dialog-footer-padding` padding of different parts of the dialog.
-- `--dialog-button-container-display` CSS `display` value of the dialog button container `div`, defaults to `flex`.
-- `--dialog-button-container-justify-content` alignment of the dialog button container:
-  - `center` the default value, centered.
-  - `flex-end` aligned to the right.
-  - `flex-start` aligned to the left.
-- `--dialog-icon-margin` margin of the dialog icon.
-- Icon colors:
-  - `--dialog-icon-error`, `--dialog-icon-warning`, `--dialog-icon-success`.
-- `--dialog-button-margin` margins of each button.
-- `--dialog-border`, `--dialog-border-radius`: border-related properties.
+- Element containers:
+  - `overlay-background`, `overlay`, `overlay-header`, `overlay-content`, `overlay-footer`.
+- Top-level elements:
+  - `header`, `content`, `footer`
+- Footer elements:
+  - `footer-buttons`: footer button container.
+  - `footer-button`: individual footer buttons.
 
 ### Autofocus
 
@@ -103,7 +97,7 @@ html`
   <qing-dialog
     dialogTitle="Title"
     .buttons=${['ok']}
-    @isOpenChanged=${e => {
+    @isOpenChanged=${(e) => {
       if (e.detail) {
         // If dialog is open, set focus on a specified element.
         this.shadowRoot.getElementById('textInput').focus();

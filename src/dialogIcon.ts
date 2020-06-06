@@ -21,9 +21,7 @@ export class DialogIconData {
     const doc = parser.parseFromString(svg, 'image/svg+xml');
     const element = doc.documentElement;
     element.style.verticalAlign = 'middle';
-    element.style.fill = `var(--dialog-icon-${type}, ${defaultColorForIconType(
-      type,
-    )})`;
+    element.style.fill = defaultColorForIconType(type);
     element.setAttribute('width', size.toString());
     element.setAttribute('height', size.toString());
     this.svg = element.outerHTML;
