@@ -53,6 +53,6 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "lit-button": "^3"
+    "lit-button": "^4"
   }
 }
