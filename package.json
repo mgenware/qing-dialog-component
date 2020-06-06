@@ -1,6 +1,6 @@
 {
   "name": "qing-dialog-component",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Dialog component for qing",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
