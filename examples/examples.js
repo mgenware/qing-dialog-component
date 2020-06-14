@@ -13,7 +13,7 @@ export class ExamplesView extends LitElement {
           .buttons=${['ok']}
           .cancelButtonIndex=${0}
         >
-          <div>
+          <p style="margin-top: 0">
             The div element has no special meaning at all. It represents its
             children. It can be used with the class, lang, and title attributes
             to mark up semantics common to a group of consecutive elements. The
@@ -23,7 +23,7 @@ export class ExamplesView extends LitElement {
             div element has no special meaning at all. It represents its
             children. It can be used with the class, lang, and title attributes
             to mark up semantics common to a group of consecutive elements.
-          </div>
+          </p>
         </qing-dialog>
         ${this.renderButton('Basic', 'basic')}
 

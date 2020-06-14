@@ -45,7 +45,7 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay-footer {
-        margin: 1.25rem 0 0 0;
+        margin: 0;
       }
 
       /**  */
