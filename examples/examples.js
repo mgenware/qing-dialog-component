@@ -136,6 +136,24 @@ export class ExamplesView extends LitElement {
         </qing-dialog>
         ${this.renderButton('Themes', 'themes')}
 
+        <qing-dialog
+          id="auto-close"
+          dialogTitle="This will auto-close in 3 secs"
+          icon="success"
+          @isOpenChanged=${this.handleAutoCloseIsOpenChanged}
+        ></qing-dialog>
+        ${this.renderButton('Auto-close', 'auto-close')}
+
+        <qing-dialog
+          id="title-and-buttons"
+          dialogTitle="Title and buttons"
+          .buttons=${['ok']}
+        ></qing-dialog>
+        ${this.renderButton('Title and buttons', 'title-and-buttons')}
+
+        <qing-dialog id="title-only" dialogTitle="Title"></qing-dialog>
+        ${this.renderButton('Title-only', 'title-only')}
+
         <hr />
         <h2><code>qing-dialog-core</code></h2>
         <div>
@@ -172,6 +190,15 @@ export class ExamplesView extends LitElement {
 
   handleDarkBtnClick() {
     this.mainElement.classList.add('theme-dark');
+  }
+
+  handleAutoCloseIsOpenChanged(e) {
+    if (!e.detail.isOpen) {
+      return;
+    }
+    setTimeout(() => {
+      this.shadowRoot.getElementById('auto-close').isOpen = false;
+    }, 3000);
   }
 }
 
