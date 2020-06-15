@@ -30,19 +30,16 @@ export class QingDialogCore extends LitElement {
       }
 
       .overlay {
-        display: flex;
         max-height: 100vh;
         max-width: 100vw;
-        flex-direction: column;
         color: black;
         background-color: white;
         padding: 0;
-        flex-basis: 100%;
       }
 
       @media (min-width: 768px) {
         .overlay {
-          flex-basis: 80%;
+          width: 80%;
         }
       }
     `;

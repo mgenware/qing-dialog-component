@@ -48,21 +48,7 @@ export class QingDialog extends LitElement {
         max-height: 100vh;
         max-width: 100vw;
         flex-direction: column;
-        color: black;
-        background-color: white;
         padding: 0.625rem 1.25rem;
-        flex-basis: 100%;
-      }
-
-      .overlay-content {
-        display: flex;
-        flex-flow: column;
-        overflow: auto;
-        margin: 0;
-      }
-
-      .overlay-footer {
-        margin: 0;
       }
 
       .${unsafeCSS(buttonContainerClass)} {
