@@ -232,6 +232,12 @@ ExamplesView.styles = css`
     color: var(--default-fore-color);
     background-color: var(--default-btn-back-color);
   }
+
+  #themes button {
+    border: 1px solid #818181;
+    color: var(--default-fore-color);
+    background-color: var(--default-btn-back-color);
+  }
 `;
 
 customElements.define('examples-view', ExamplesView);
