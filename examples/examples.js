@@ -1,19 +1,16 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/lit-button/dist/main';
 import '../dist/main';
+import { iconElement } from '../dist/main';
 
 export class ExamplesView extends LitElement {
   render() {
     return html`
       <div id="main">
         <h2><code>qing-dialog</code></h2>
-        <qing-dialog
-          id="basic"
-          dialogTitle="Greetings"
-          .buttons=${['ok']}
-          .cancelButtonIndex=${0}
-        >
-          <p style="margin-top: 0">
+        <qing-dialog id="basic" .buttons=${['ok']} .cancelButtonIndex=${0}>
+          <h2>Title</h2>
+          <p>
             The div element has no special meaning at all. It represents its
             children. It can be used with the class, lang, and title attributes
             to mark up semantics common to a group of consecutive elements. The
@@ -29,7 +26,6 @@ export class ExamplesView extends LitElement {
 
         <qing-dialog
           id="handle-events"
-          dialogTitle="Greetings"
           .buttons=${['ok']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
           @isOpenChanged=${(e) =>
@@ -37,28 +33,23 @@ export class ExamplesView extends LitElement {
           @shown=${() => alert('Shown')}
           @closed=${() => alert('Closed')}
         >
-          <div>Hello World</div>
+          <h2>Title</h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton('Handle events', 'handle-events')}
 
-        <qing-dialog id="max-width" dialogTitle="Title" .buttons=${['ok']}>
-          <div>Hello World</div>
-        </qing-dialog>
-        ${this.renderButton('Max width', 'max-width')}
-
         <qing-dialog
           id="multiple-btns"
-          dialogTitle="Title"
           .buttons=${['yes', 'no', 'cancel']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
         >
-          <div>Hello World</div>
+          <h2>Title</h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton('Multiple buttons', 'multiple-btns')}
 
         <qing-dialog
           id="focus"
-          dialogTitle="Title"
           .buttons=${['ok']}
           @isOpenChanged=${(e) => {
             if (e.detail) {
@@ -66,7 +57,8 @@ export class ExamplesView extends LitElement {
             }
           }}
         >
-          <div>Hello World</div>
+          <h2>Title</h2>
+          <p>Hello world</p>
           <form>
             <input type="text" value="name" id="textInput" />
           </form>
@@ -75,37 +67,34 @@ export class ExamplesView extends LitElement {
 
         <qing-dialog
           id="right-btns"
-          dialogTitle="Title"
           .buttons=${['yes', 'no', 'cancel']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
         >
-          <div>Hello World</div>
+          <h2>Title</h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton('Right aligned buttons', 'right-btns')}
 
         <qing-dialog
           id="default-cancel-buttons"
-          dialogTitle="Title"
           .buttons=${['yes', 'no', 'cancel']}
           .cancelButtonIndex=${2}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
         >
-          <div>Hello World</div>
+          <h2>Title</h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton(
           'isDefault and isCancel buttons',
           'default-cancel-buttons',
         )}
 
-        <qing-dialog
-          id="icon"
-          dialogTitle="Warning"
-          icon="warning"
-          .buttons=${['ok']}
-        >
-          <div>
-            This is a warning
-          </div>
+        <qing-dialog id="icon" .buttons=${['ok']}>
+          <h2>
+            ${iconElement({ type: 'error' })}
+            <span style="vertical-align: middle">Title</span>
+          </h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton('Icon', 'icon')}
 
@@ -115,16 +104,22 @@ export class ExamplesView extends LitElement {
           icon="info"
           .buttons=${['ok']}
         >
-          <pre>${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre>
+          <h2>
+            ${iconElement({ type: 'success' })}
+            <span style="vertical-align: middle">Title</span>
+          </h2>
+          <pre style="overflow-y: auto">
+${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
+          >
         </qing-dialog>
         ${this.renderButton('Long text', 'long-text')}
 
-        <qing-dialog
-          id="border-styles"
-          dialogTitle="Border styles"
-          .buttons=${['ok']}
-        >
-          Hello world
+        <qing-dialog id="border-styles" .buttons=${['ok']}>
+          <h2>
+            ${iconElement({ type: 'success' })}
+            <span style="vertical-align: middle">Title</span>
+          </h2>
+          <p>Hello world</p>
         </qing-dialog>
         ${this.renderButton('Border styles', 'border-styles')}
 
@@ -138,29 +133,25 @@ export class ExamplesView extends LitElement {
 
         <qing-dialog
           id="auto-close"
-          dialogTitle="This will auto-close in 3 secs"
           icon="success"
           @isOpenChanged=${this.handleAutoCloseIsOpenChanged}
-        ></qing-dialog>
+          >This will auto-close in 3 secs</qing-dialog
+        >
         ${this.renderButton('Auto-close', 'auto-close')}
 
-        <qing-dialog
-          id="title-and-buttons"
-          dialogTitle="Title and buttons"
-          .buttons=${['ok']}
-        ></qing-dialog>
+        <qing-dialog id="title-and-buttons" .buttons=${['ok']}>
+          <h1>Title and buttons</h1>
+        </qing-dialog>
         ${this.renderButton('Title and buttons', 'title-and-buttons')}
 
-        <qing-dialog id="title-only" dialogTitle="Title"></qing-dialog>
+        <qing-dialog id="title-only"><h1>Title</h1></qing-dialog>
         ${this.renderButton('Title-only', 'title-only')}
 
         <hr />
         <h2><code>qing-dialog-core</code></h2>
         <div>
           <qing-dialog-core id="core-minimal" closeOnEsc>
-            <div slot="header">Header</div>
-            <div slot="content">Press Esc to exit</div>
-            <div slot="footer">Footer</div>
+            Press Esc to exit
           </qing-dialog-core>
           ${this.renderButton('Core - Minimal', 'core-minimal')}
         </div>
@@ -203,6 +194,10 @@ export class ExamplesView extends LitElement {
 }
 
 ExamplesView.styles = css`
+  h2 {
+    margin-bottom: 0;
+  }
+
   #max-width {
     --dialog-max-width: 400px;
   }
