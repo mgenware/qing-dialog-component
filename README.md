@@ -24,9 +24,6 @@ yarn add qing-dialog-component lit-button
 // A group of builtin button types.
 export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
-// A group of builtin dialog icons.
-export type DialogIconType = 'error' | 'success' | 'warning';
-
 // The dialog component accepts an array of buttons, each can be a
 // preset `PresetButtonType` or a more customized `DialogButton`
 // (see type definition below).
@@ -42,12 +39,8 @@ export interface IsOpenChangedArgs {
 class QingDialog {
   // Indicates whether the dialog is visible.
   isOpen: boolean;
-  // The heading of the dialog.
-  dialogTitle: string;
   // Bottom buttons of the dialog.
   buttons: DialogButtonType[];
-  // Icon of the dialog.
-  icon: DialogIconType;
   // Index of default button, defaults to 0 (first button).
   defaultButtonIndex: number;
   // Index of cancel button.
@@ -81,9 +74,9 @@ export interface DialogButton {
 ### CSS Shadow Parts
 
 - Element containers:
-  - `overlay-background`, `overlay`, `overlay-header`, `overlay-content`, `overlay-footer`.
+  - `overlay-background`, `overlay`.
 - Top-level elements:
-  - `header`, `content`, `footer`
+  - `content`, `footer`
 - Footer elements:
   - `footer-buttons`: footer button container.
   - `footer-button`: individual footer buttons.
@@ -95,11 +88,10 @@ Use `isOpenChanged` event to auto focus an element when the dialog shows up, exa
 ```js
 html`
   <qing-dialog
-    dialogTitle="Title"
     .buttons=${['ok']}
     @isOpenChanged=${(e) => {
-      if (e.detail) {
-        // If dialog is open, set focus on a specified element.
+      if (e.detail.isOpen) {
+        // If the dialog is open, set focus on the specified element.
         this.shadowRoot.getElementById('textInput').focus();
       }
     }}
