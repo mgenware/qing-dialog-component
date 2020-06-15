@@ -7,18 +7,10 @@ import {
   css,
   unsafeCSS,
 } from 'lit-element';
-import {
-  overlay,
-  overlayBack,
-  overlayContent,
-  overlayHeader,
-  overlayFooter,
-} from './dialogCore';
+import { overlay, overlayBack } from './dialogCore';
 import { DialogButton, PresetButtonType } from './dialogButton';
 import 'lit-button';
 import { classMap } from 'lit-html/directives/class-map';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { DialogIconType, iconTypeToData } from './dialogIcon';
 
 // The dialog component accepts an array of buttons, each can be a
 // preset `PresetButtonType` or a more customized `DialogButton`.
@@ -34,7 +26,6 @@ localizedButtonStrings.set('cancel', 'Cancel');
 export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
-export const iconClass = '__icon';
 
 // Contains information on how `isOpenChanged` event is triggered.
 export interface IsOpenChangedArgs {
@@ -46,15 +37,37 @@ export interface IsOpenChangedArgs {
 export class QingDialog extends LitElement {
   static get styles() {
     return css`
+      :host {
+        display: block;
+      }
+
       *,
       *::before,
       *::after {
         box-sizing: border-box;
       }
 
-      /* qing-dialog-core::part(overlay) {
-        flex-basis: 500px;
-      } */
+      .dialog {
+        display: flex;
+        max-height: 100vh;
+        max-width: 100vw;
+        flex-direction: column;
+        color: black;
+        background-color: white;
+        padding: 0.625rem 1.25rem;
+        flex-basis: 100%;
+      }
+
+      .overlay-content {
+        display: flex;
+        flex-flow: column;
+        overflow: auto;
+        margin: 0;
+      }
+
+      .overlay-footer {
+        margin: 0;
+      }
 
       .${unsafeCSS(buttonContainerClass)} {
         display: flex;
@@ -65,8 +78,8 @@ export class QingDialog extends LitElement {
         margin: 0 0.33rem;
       }
 
-      .${unsafeCSS(iconClass)} {
-        margin: 0 0 0.8rem 0;
+      .${unsafeCSS(buttonContainerClass)} lit-button::part(button) {
+        margin: 0;
       }
     `;
   }
@@ -79,10 +92,8 @@ export class QingDialog extends LitElement {
     localizedButtonStrings = value;
   }
 
-  @property() dialogTitle = '';
   @property({ type: Boolean, reflect: true }) isOpen = false;
   @property({ type: Array }) buttons: DialogButtonType[] = [];
-  @property() icon?: DialogIconType;
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
@@ -91,24 +102,17 @@ export class QingDialog extends LitElement {
   render() {
     return html`
       <qing-dialog-core
-        exportparts=${[
-          overlay,
-          overlayBack,
-          overlayContent,
-          overlayHeader,
-          overlayFooter,
-        ].join(', ')}
+        exportparts=${[overlay, overlayBack].join(', ')}
         ?isOpen=${this.isOpen}
         @onEnterKeyPressed=${this.handleEnterKeyPressed}
         @onEscKeyPressed=${this.handleEscKeyPressed}
         @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
       >
-        <h2 slot="header" part="header">
-          ${this.renderIcon()}${this.dialogTitle}
-        </h2>
-        <slot slot="content" part="content"></slot>
-        <div slot="footer" part="footer">
-          ${this.renderButtons()}
+        <div class="dialog">
+          <slot part="content"></slot>
+          <div part="footer">
+            ${this.renderButtons()}
+          </div>
         </div>
       </qing-dialog-core>
     `;
@@ -140,19 +144,6 @@ export class QingDialog extends LitElement {
           `;
         })}
       </div>
-    `;
-  }
-
-  private renderIcon(): TemplateResult {
-    if (!this.icon) {
-      return html``;
-    }
-    const icon = iconTypeToData(this.icon);
-    if (!icon) {
-      return html``;
-    }
-    return html`
-      ${unsafeHTML(`<span class="${iconClass}">${icon.svg}</span>`)}
     `;
   }
 

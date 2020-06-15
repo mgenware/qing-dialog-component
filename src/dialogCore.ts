@@ -2,14 +2,21 @@ import { html, customElement, css, property, LitElement } from 'lit-element';
 
 export const overlay = 'overlay';
 export const overlayBack = 'overlay-background';
-export const overlayHeader = 'overlay-header';
-export const overlayContent = 'overlay-content';
-export const overlayFooter = 'overlay-footer';
 
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
   static get styles() {
     return css`
+      :host {
+        display: block;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
       .overlay-background {
         height: 100vh;
         width: 100vw;
@@ -29,26 +36,10 @@ export class QingDialogCore extends LitElement {
         flex-direction: column;
         color: black;
         background-color: white;
-        padding: 0.625rem 1.25rem;
+        padding: 0;
         flex-basis: 100%;
       }
 
-      .overlay-header {
-        margin: 0;
-      }
-
-      .overlay-content {
-        display: flex;
-        flex-flow: column;
-        overflow: auto;
-        margin: 0;
-      }
-
-      .overlay-footer {
-        margin: 0;
-      }
-
-      /**  */
       @media (min-width: 768px) {
         .overlay {
           flex-basis: 80%;
@@ -76,15 +67,7 @@ export class QingDialogCore extends LitElement {
         part=${overlayBack}
       >
         <div class=${overlay} part=${overlay}>
-          <div class=${overlayHeader} part=${overlayHeader}>
-            <slot name="header"></slot>
-          </div>
-          <div class=${overlayContent} part=${overlayContent}>
-            <slot name="content"></slot>
-          </div>
-          <div class=${overlayFooter} part=${overlayFooter}>
-            <slot name="footer"></slot>
-          </div>
+          <slot></slot>
         </div>
       </div>
     `;
