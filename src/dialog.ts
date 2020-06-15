@@ -8,16 +8,12 @@ import {
   unsafeCSS,
 } from 'lit-element';
 import { overlay, overlayBack } from './dialogCore';
-import { DialogButton, PresetButtonType } from './dialogButton';
+import { DialogButton } from './dialogButton';
 import 'lit-button';
 import { classMap } from 'lit-html/directives/class-map';
 
-// The dialog component accepts an array of buttons, each can be a
-// preset `PresetButtonType` or a more customized `DialogButton`.
-export type DialogButtonType = PresetButtonType | DialogButton;
-
 // Default localized strings for dialog button types.
-let localizedButtonStrings = new Map<PresetButtonType, string>();
+let localizedButtonStrings = new Map<string, string>();
 localizedButtonStrings.set('ok', 'OK');
 localizedButtonStrings.set('yes', 'Yes');
 localizedButtonStrings.set('no', 'No');
@@ -84,16 +80,16 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  static get localizedButtonStrings(): Map<PresetButtonType, string> {
+  static get localizedButtonStrings(): Map<string, string> {
     return localizedButtonStrings;
   }
 
-  static set localizedButtonString(value: Map<PresetButtonType, string>) {
+  static set localizedButtonString(value: Map<string, string>) {
     localizedButtonStrings = value;
   }
 
   @property({ type: Boolean, reflect: true }) isOpen = false;
-  @property({ type: Array }) buttons: DialogButtonType[] = [];
+  @property({ type: Array }) buttons: (string | DialogButton)[] = [];
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
