@@ -34,6 +34,7 @@ function getSVGElementHTML(
   const element = doc.documentElement;
   element.style.verticalAlign = 'middle';
   element.style.fill = color ?? defaultColorForIconType(type) ?? 'black';
+  element.setAttribute('class', `icon-${type}`);
   element.setAttribute('width', size.toString());
   element.setAttribute('height', size.toString());
   return element.outerHTML;
