@@ -124,6 +124,10 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
         ${this.renderButton('Border styles', 'border-styles')}
 
         <qing-dialog id="themes" dialogTitle="Themes" .buttons=${['ok']}>
+          <h2>
+            ${iconElement({ type: 'success', color: '' })}
+            <span style="vertical-align: middle">Title</span>
+          </h2>
           <p>
             <button @click=${this.handleLightBtnClick}>Light</button>
             <button @click=${this.handleDarkBtnClick}>Dark</button>
@@ -215,12 +219,14 @@ ExamplesView.styles = css`
     --default-back-color: white;
     --default-fore-color: black;
     --default-btn-back-color: lightgray;
+    --default-success-color: #89ec7c;
   }
 
   .theme-dark {
     --default-back-color: black;
     --default-fore-color: #777777;
     --default-btn-back-color: #1a1a1a;
+    --default-success-color: #073f00;
   }
 
   #themes::part(overlay) {
@@ -231,6 +237,10 @@ ExamplesView.styles = css`
   #themes::part(footer-button) {
     color: var(--default-fore-color);
     background-color: var(--default-btn-back-color);
+  }
+
+  #themes .icon-success {
+    fill: var(--default-success-color);
   }
 
   #themes button {
