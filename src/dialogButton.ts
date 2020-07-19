@@ -6,6 +6,6 @@ export interface DialogButton {
   name?: string;
   // Button content.
   text?: string;
-  // lit-button style.
+  // qing-button style.
   style?: string;
 }

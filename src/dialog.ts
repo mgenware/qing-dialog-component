@@ -9,7 +9,7 @@ import {
 } from 'lit-element';
 import { overlay, overlayBack } from './dialogCore';
 import { DialogButton } from './dialogButton';
-import 'lit-button';
+import 'qing-button';
 import { classMap } from 'lit-html/directives/class-map';
 
 // Default localized strings for dialog button types.
@@ -56,11 +56,11 @@ export class QingDialog extends LitElement {
         justify-content: center;
       }
 
-      .${unsafeCSS(buttonContainerClass)} lit-button {
+      .${unsafeCSS(buttonContainerClass)} qing-button {
         margin: 0 0.33rem;
       }
 
-      .${unsafeCSS(buttonContainerClass)} lit-button::part(button) {
+      .${unsafeCSS(buttonContainerClass)} qing-button::part(button) {
         margin: 0;
       }
     `;
@@ -113,7 +113,7 @@ export class QingDialog extends LitElement {
             btn.text = QingDialog.localizedButtonStrings.get(btn.type);
           }
           return html`
-            <lit-button
+            <qing-button
               exportparts="button: footer-button"
               class=${classMap({
                 [btn.style || '_']: !!btn.style,
@@ -121,7 +121,7 @@ export class QingDialog extends LitElement {
                 [cancelButtonClass]: idx === this.cancelButtonIndex,
               })}
               @click=${() => this.handleButtonClick(btn)}
-              >${btn.text}</lit-button
+              >${btn.text}</qing-button
             >
           `;
         })}

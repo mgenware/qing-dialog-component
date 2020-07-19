@@ -3,7 +3,7 @@ import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { kEvent, aTimeout } from './lib';
 import { buttonContainerClass, QingDialog } from '../dist/main';
 
-const allButtonsSel = `.${buttonContainerClass} > lit-button`;
+const allButtonsSel = `.${buttonContainerClass} > qing-button`;
 
 it('Button click event', async () => {
   const el = (await fixture(html`

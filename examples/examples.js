@@ -1,5 +1,5 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
-import '../node_modules/lit-button/dist/main';
+import '../node_modules/qing-button/dist/main';
 import '../dist/main';
 import { iconElement } from '../dist/main';
 

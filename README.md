@@ -10,10 +10,10 @@ Dialog component for [qing](https://github.com/mgenware/qing), built with lit-el
 
 ## Installation
 
-qing-dialog-component uses [lit-button](https://github.com/mgenware/lit-button) as a peer dependency, you need to install both of them:
+qing-dialog-component uses [qing-button](https://github.com/mgenware/qing-button) as a peer dependency, you need to install both of them:
 
 ```sh
-yarn add qing-dialog-component lit-button
+yarn add qing-dialog-component qing-button
 ```
 
 ## Usage
@@ -66,7 +66,7 @@ export interface DialogButton {
   name?: string;
   // Button content.
   text?: string;
-  // lit-button style.
+  // qing-button style.
   style?: string;
 }
 ```
