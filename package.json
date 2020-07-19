@@ -1,6 +1,6 @@
 {
   "name": "qing-dialog-component",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Dialog component for qing",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
@@ -47,9 +47,9 @@
     "eslint": "^6.8.0",
     "karma": "^4.4.1",
     "lit-analyzer": "^1.1.9",
-    "qing-button": "^5.1.0",
     "lit-element": "^2.3.1",
     "owc-dev-server": "^1.0.1",
+    "qing-button": "^5.1.0",
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
