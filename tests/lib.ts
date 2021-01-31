@@ -1,12 +1,8 @@
-export function kEvent(
-  element: HTMLElement,
-  eventName: string,
-  k: number,
-): Promise<unknown[]> {
+export function kEvent(element: HTMLElement, eventName: string, k: number): Promise<unknown[]> {
   if (!k || k < 0) {
     throw new Error(`"k" must be a positive number, got ${k}`);
   }
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     let count = 0;
     const details: unknown[] = [];
     function listener(ev: Event) {
@@ -22,7 +18,7 @@ export function kEvent(
 }
 
 export function aTimeout() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(resolve, 10);
   });
 }

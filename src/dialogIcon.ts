@@ -23,12 +23,7 @@ function defaultColorForIconType(type: IconType): string | null {
   }
 }
 
-function getSVGElementHTML(
-  type: IconType,
-  size: number,
-  iconSVG: string,
-  color?: string,
-): string {
+function getSVGElementHTML(type: IconType, size: number, iconSVG: string, color?: string): string {
   const parser = new DOMParser();
   const doc = parser.parseFromString(iconSVG, 'image/svg+xml');
   const element = doc.documentElement;

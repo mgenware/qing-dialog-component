@@ -7,9 +7,7 @@ const allButtonsSel = `.${buttonContainerClass} > qing-button`;
 
 it('Core properties', async () => {
   const el = (await fixture(html`
-    <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}
-      ><p>test</p></qing-dialog
-    >
+    <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}><p>test</p></qing-dialog>
   `)) as QingDialog;
 
   expect(el.innerHTML).to.eq('<p>test</p>');
@@ -88,12 +86,7 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
 
 it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
   const el = (await fixture(html`
-    <qing-dialog
-      dialogTitle="Title"
-      .buttons=${['ok']}
-      .cancelButtonIndex=${0}
-      }}
-    >
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} .cancelButtonIndex=${0} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -101,6 +94,7 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   el.addEventListener('isOpenChanged', (e: any) => {
     if (e.detail) {
       // Make sure button is not focused.
@@ -159,12 +153,7 @@ it('Cannot be dismissed by Esc when no cancel button is present', async () => {
 
 it('Dismissed programmatically', async () => {
   const el = (await fixture(html`
-    <qing-dialog
-      dialogTitle="Title"
-      .buttons=${['ok']}
-      .cancelButtonIndex=${0}
-      }}
-    >
+    <qing-dialog dialogTitle="Title" .buttons=${['ok']} .cancelButtonIndex=${0} }}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />

@@ -59,11 +59,7 @@ it('Dismissed by button', async () => {
 
 it('Set a `defaultButtonIndex`', async () => {
   const el = (await fixture(html`
-    <qing-dialog
-      dialogTitle="Title"
-      .buttons=${['ok', 'no', 'cancel']}
-      .defaultButtonIndex=${2}
-    >
+    <qing-dialog dialogTitle="Title" .buttons=${['ok', 'no', 'cancel']} .defaultButtonIndex=${2}>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -74,9 +70,7 @@ it('Set a `defaultButtonIndex`', async () => {
   el.isOpen = true;
   await aTimeout();
 
-  expect(el.shadowRoot!.activeElement).to.eq(
-    el.shadowRoot!.querySelectorAll(allButtonsSel)[2],
-  );
+  expect(el.shadowRoot!.activeElement).to.eq(el.shadowRoot!.querySelectorAll(allButtonsSel)[2]);
 });
 
 it('`defaultButtonIndex` defaults to 0', async () => {
@@ -92,7 +86,5 @@ it('`defaultButtonIndex` defaults to 0', async () => {
   el.isOpen = true;
   await aTimeout();
 
-  expect(el.shadowRoot!.activeElement).to.eq(
-    el.shadowRoot!.querySelectorAll(allButtonsSel)[0],
-  );
+  expect(el.shadowRoot!.activeElement).to.eq(el.shadowRoot!.querySelectorAll(allButtonsSel)[0]);
 });

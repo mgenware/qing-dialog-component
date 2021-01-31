@@ -4,16 +4,18 @@
 [![npm version](https://img.shields.io/npm/v/qing-dialog-component.svg?style=flat-square)](https://npmjs.com/package/qing-dialog-component)
 [![Node.js Version](http://img.shields.io/node/v/qing-dialog-component.svg?style=flat-square)](https://nodejs.org/en/)
 
-Dialog component for [qing](https://github.com/mgenware/qing), built with lit-element, mobile friendly.
+Dialog component for [qing](https://github.com/mgenware/qing), based on [qing-button](https://github.com/mgenware/qing-button) and lit-element, mobile friendly.
 
-**Work in progress, not released yet, stay tuned!**
+## Demo
+
+[Demo](https://mgenware.github.io/qing-dialog-component/)
 
 ## Installation
 
-qing-dialog-component uses [qing-button](https://github.com/mgenware/qing-button) as a peer dependency, you need to install both of them:
+> qing-dialog-component is based on [qing-button](https://github.com/mgenware/qing-button) and lit-element
 
 ```sh
-yarn add qing-dialog-component qing-button
+yarn add qing-dialog-component qing-button lit-element
 ```
 
 ## Usage
@@ -103,9 +105,10 @@ html`
 `;
 ```
 
-## Build instructions
+### Build Instructions
 
-- `yarn dev` builds the project in dev mode
-- `yarn build` builds and lints the project in production mode
-- `yarn serve` runs examples in browser (you have to build the project first)
-- `yarn test` runs UI tests
+> This project uses [daizong](https://github.com/mgenware/daizong) to manage scripts. You need to run scripts through daizong via `yarn r <script>` or `npm run r <script>`.
+
+- `yarn r dev` compiles, and watches files in dev mode
+- `yarn r serve` runs the demo page in browser (you have to build the project first)
+- `yarn r build` builds, lints and tests the project in production mode

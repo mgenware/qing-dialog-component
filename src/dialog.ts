@@ -92,9 +92,7 @@ export class QingDialog extends LitElement {
       >
         <div class="dialog">
           <slot part="content"></slot>
-          <div part="footer">
-            ${this.renderButtons()}
-          </div>
+          <div part="footer">${this.renderButtons()}</div>
         </div>
       </qing-dialog-core>
     `;
@@ -167,28 +165,17 @@ export class QingDialog extends LitElement {
       this.getDefaultButtonElement()?.focus();
     }
     const eventArgs = { detail };
-    this.dispatchEvent(
-      new CustomEvent<IsOpenChangedArgs>('isOpenChanged', eventArgs),
-    );
-    this.dispatchEvent(
-      new CustomEvent<IsOpenChangedArgs>(
-        isOpen ? 'shown' : 'closed',
-        eventArgs,
-      ),
-    );
+    this.dispatchEvent(new CustomEvent<IsOpenChangedArgs>('isOpenChanged', eventArgs));
+    this.dispatchEvent(new CustomEvent<IsOpenChangedArgs>(isOpen ? 'shown' : 'closed', eventArgs));
   }
 
   private getDefaultButtonElement(): HTMLElement | null {
-    const defaultButton = this.shadowRoot?.querySelector(
-      `.${defaultButtonClass}`,
-    );
+    const defaultButton = this.shadowRoot?.querySelector(`.${defaultButtonClass}`);
     return defaultButton instanceof HTMLElement ? defaultButton : null;
   }
 
   private getCancelButtonElement(): HTMLElement | null {
-    const cancelButton = this.shadowRoot?.querySelector(
-      `.${cancelButtonClass}`,
-    );
+    const cancelButton = this.shadowRoot?.querySelector(`.${cancelButtonClass}`);
     return cancelButton instanceof HTMLElement ? cancelButton : null;
   }
 }
