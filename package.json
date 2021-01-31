@@ -28,6 +28,10 @@
     "dist/**/*.css",
     "dist/**/*.map"
   ],
+  "peerDependencies": {
+    "lit-element": "^2.0.0",
+    "qing-button": "^7.0.0"
+  },
   "devDependencies": {
     "@open-wc/testing": "^2.5.32",
     "@types/mocha": "^8.2.0",
