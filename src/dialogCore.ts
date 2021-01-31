@@ -74,6 +74,7 @@ export class QingDialogCore extends LitElement {
     if (changedProperties.has('isOpen')) {
       // Important! `!!changedProperties.get('isOpen')` converts undefined to false, to avoid
       // unnecessary event during initialization.
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get('isOpen') !== this.isOpen) {
         // Make sure call to `updated` is finished first.
         setTimeout(() => this.onCoreIsOpenChange(), 0);

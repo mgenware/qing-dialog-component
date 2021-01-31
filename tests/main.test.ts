@@ -48,11 +48,9 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', (e: any) => {
-    if (e.detail) {
-      // Make sure button is not focused.
-      document.getElementById('textInput')!.focus();
-    }
+  el.addEventListener('isOpenChanged', () => {
+    // Make sure button is not focused.
+    document.getElementById('textInput')!.focus();
   });
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
@@ -94,12 +92,9 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  el.addEventListener('isOpenChanged', (e: any) => {
-    if (e.detail) {
-      // Make sure button is not focused.
-      document.getElementById('textInput')!.focus();
-    }
+  el.addEventListener('isOpenChanged', () => {
+    // Make sure button is not focused.
+    document.getElementById('textInput')!.focus();
   });
 
   const isOpen = kEvent(el, 'isOpenChanged', 2);
@@ -188,10 +183,8 @@ it('Focus', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', (e: any) => {
-    if (e.detail) {
-      document.getElementById('textInput')!.focus();
-    }
+  el.addEventListener('isOpenChanged', () => {
+    document.getElementById('textInput')!.focus();
   });
   el.isOpen = true;
   await aTimeout();

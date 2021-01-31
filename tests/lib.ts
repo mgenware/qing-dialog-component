@@ -7,6 +7,7 @@ export function kEvent(element: HTMLElement, eventName: string, k: number): Prom
     const details: unknown[] = [];
     function listener(ev: Event) {
       count++;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       details.push((ev as any).detail);
       if (count >= k) {
         resolve(details);

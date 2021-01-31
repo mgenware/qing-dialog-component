@@ -7,10 +7,11 @@ import {
   css,
   unsafeCSS,
 } from 'lit-element';
+import 'qing-button';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { classMap } from 'lit-html/directives/class-map';
 import { overlay, overlayBack } from './dialogCore';
 import { DialogButton } from './dialogButton';
-import 'qing-button';
-import { classMap } from 'lit-html/directives/class-map';
 
 // Default localized strings for dialog button types.
 let localizedButtonStrings = new Map<string, string>();
@@ -100,7 +101,7 @@ export class QingDialog extends LitElement {
 
   private renderButtons(): TemplateResult {
     const { buttons } = this;
-    if (!buttons || !buttons.length) {
+    if (!buttons.length) {
       return html``;
     }
     return html`
@@ -154,7 +155,7 @@ export class QingDialog extends LitElement {
   }
 
   private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
-    const detail = Object.assign({}, this.isOpenChangedArgs);
+    const detail = { ...this.isOpenChangedArgs };
     this.isOpenChangedArgs = undefined;
     const isOpen = e.detail;
     detail.isOpen = isOpen;
@@ -183,5 +184,8 @@ export class QingDialog extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'qing-dialog': QingDialog;
+  }
+  interface GlobalEventHandlersEventMap {
+    isOpenChanged: CustomEvent<IsOpenChangedArgs>;
   }
 }
