@@ -25,7 +25,6 @@ export class ExampleApp extends LitElement {
           id="handle-events"
           .buttons=${['ok']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          @isOpenChanged=${(e) => alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
           @shown=${() => alert('Shown')}
           @closed=${() => alert('Closed')}
         >
@@ -45,10 +44,8 @@ export class ExampleApp extends LitElement {
         <qing-dialog
           id="focus"
           .buttons=${['ok']}
-          @isOpenChanged=${(e) => {
-            if (e.detail) {
-              this.shadowRoot.getElementById('textInput').focus();
-            }
+          @requestFocus=${(e) => {
+            this.shadowRoot.getElementById('textInput').focus();
           }}
         >
           <h2>Title</h2>
@@ -112,10 +109,7 @@ export class ExampleApp extends LitElement {
           </p>
         </qing-dialog>
         ${this.renderButton('Themes', 'themes')}
-        <qing-dialog
-          id="auto-close"
-          icon="success"
-          @isOpenChanged=${this.handleAutoCloseIsOpenChanged}
+        <qing-dialog id="auto-close" icon="success" @shown=${this.handleAutoCloseShown}
           >This will auto-close in 3s</qing-dialog
         >
         ${this.renderButton('Auto-close', 'auto-close')}
@@ -144,7 +138,7 @@ export class ExampleApp extends LitElement {
   }
 
   handleButtonClick(modalID) {
-    this.shadowRoot.getElementById(modalID).setAttribute('isOpen', `${true}`);
+    this.shadowRoot.getElementById(modalID).setAttribute('open', '');
   }
 
   get mainElement() {
@@ -159,12 +153,9 @@ export class ExampleApp extends LitElement {
     this.mainElement.classList.add('theme-dark');
   }
 
-  handleAutoCloseIsOpenChanged(e) {
-    if (!e.detail.isOpen) {
-      return;
-    }
+  handleAutoCloseShown(e) {
     setTimeout(() => {
-      this.shadowRoot.getElementById('auto-close').isOpen = false;
+      this.shadowRoot.getElementById('auto-close').removeAttribute('open');
     }, 3000);
   }
 }
