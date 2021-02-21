@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { aTimeout } from './lib';
-import { buttonContainerClass, QingDialog, QingDialogCloseReason } from '../dist/main';
+import { buttonContainerClass, QingDialog, CloseReason } from '../dist/main';
 
 const allButtonsSel = `.${buttonContainerClass} > qing-button`;
 
@@ -47,7 +47,7 @@ it('Dismissed by button', async () => {
   await closed;
 
   expect(el.hasAttribute('open')).to.eq(false);
-  expect(el.closeReason).to.eq(QingDialogCloseReason.button);
+  expect(el.closeReason).to.eq(CloseReason.button);
   expect(el.closeReasonData).to.deep.eq({
     type: 'ok',
     text: 'OK',

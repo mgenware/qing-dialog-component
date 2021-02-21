@@ -5,7 +5,7 @@ export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
 
-export enum QingDialogCloseReason {
+export enum CloseReason {
   key = 1,
   button,
 }
@@ -56,7 +56,7 @@ export class QingDialogCore extends LitElement {
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
   @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
-  closeReason?: QingDialogCloseReason;
+  closeReason?: CloseReason;
   closeReasonData?: unknown;
 
   firstUpdated() {
@@ -90,7 +90,7 @@ export class QingDialogCore extends LitElement {
     }
   }
 
-  close(closeReason?: QingDialogCloseReason, closeReasonData?: unknown) {
+  close(closeReason?: CloseReason, closeReasonData?: unknown) {
     this.closeReason = closeReason;
     this.closeReasonData = closeReasonData;
     this.open = false;
@@ -100,13 +100,13 @@ export class QingDialogCore extends LitElement {
     if (e.key === 'Escape' || e.key === 'Esc') {
       this.escKeyPressed();
       if (this.closeOnEsc) {
-        this.close(QingDialogCloseReason.key, 'Esc');
+        this.close(CloseReason.key, 'Esc');
       }
     }
     if (e.key === 'Enter') {
       this.enterKeyPressed();
       if (this.closeOnEnter) {
-        this.close(QingDialogCloseReason.key, 'Enter');
+        this.close(CloseReason.key, 'Enter');
       }
     }
   }
