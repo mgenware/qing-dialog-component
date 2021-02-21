@@ -31,12 +31,6 @@ export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 // (see type definition below).
 export type DialogButtonType = PresetButtonType | DialogButton;
 
-// Contains information on how `openChanged` event is triggered.
-export interface OpenChangedArgs {
-  open?: boolean;
-  button?: DialogButton;
-}
-
 // Dialog component: <qing-dialog>
 class QingDialog {
   // Indicates whether the dialog is visible.
@@ -52,9 +46,8 @@ class QingDialog {
   // ------- Events -------
 
   // Fires when `open` property changes.
-  openChanged: CustomEvent<OpenChangedArgs>;
-  shown: CustomEvent<OpenChangedArgs>;
-  closed: CustomEvent<OpenChangedArgs>;
+  shown: CustomEvent;
+  closed: CustomEvent;
 
   // Fires when dialog button is clicked.
   buttonClick: CustomEvent<DialogButton>;
@@ -85,17 +78,14 @@ export interface DialogButton {
 
 ### Autofocus
 
-Use `openChanged` event to auto focus an element when the dialog shows up, example:
+Use `requestFocus` event to auto focus an element when the dialog shows up, example:
 
 ```js
 html`
   <qing-dialog
     .buttons=${['ok']}
-    @openChanged=${(e) => {
-      if (e.detail.open) {
-        // If the dialog is open, set focus on the specified element.
-        this.shadowRoot.getElementById('textInput').focus();
-      }
+    @requestFocus=${() => {
+      this.shadowRoot.getElementById('textInput').focus();
     }}
   >
     <form>

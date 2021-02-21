@@ -1,9 +1,14 @@
 import { html, customElement, css, property, LitElement } from 'lit-element';
 
-export const overlay = 'overlay';
-export const overlayBack = 'overlay-background';
+export const overlayClass = 'overlay';
+export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
+
+export enum QingDialogCloseReason {
+  key = 1,
+  button,
+}
 
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
@@ -51,6 +56,9 @@ export class QingDialogCore extends LitElement {
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
   @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
+  closeReason?: QingDialogCloseReason;
+  closeReasonData?: unknown;
+
   firstUpdated() {
     if (!this.shadowRoot) {
       throw new Error('Unexpected undefined shadowRoot');
@@ -60,8 +68,12 @@ export class QingDialogCore extends LitElement {
 
   render() {
     return html`
-      <div style="display: ${this.open ? 'flex' : 'none'}" class=${overlayBack} part=${overlayBack}>
-        <div class=${overlay} part=${overlay}>
+      <div
+        style="display: ${this.open ? 'flex' : 'none'}"
+        class=${overlayBackClass}
+        part=${overlayBackClass}
+      >
+        <div class=${overlayClass} part=${overlayClass}>
           <slot></slot>
         </div>
       </div>
@@ -70,50 +82,56 @@ export class QingDialogCore extends LitElement {
 
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has(openProp)) {
-      // Important! `!!changedProperties.get(openProp)` converts undefined to false, to avoid
-      // unnecessary event during initialization.
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get(openProp) !== this.open) {
         // Make sure call to `updated` is finished first.
-        setTimeout(() => this.onCoreopenChange(), 0);
+        setTimeout(() => this.handleOpenChanged(), 0);
       }
     }
+  }
+
+  close(closeReason?: QingDialogCloseReason, closeReasonData?: unknown) {
+    this.closeReason = closeReason;
+    this.closeReasonData = closeReasonData;
+    this.open = false;
   }
 
   private handleKeyDown(e: KeyboardEvent) {
     if (e.key === 'Escape' || e.key === 'Esc') {
-      this.onEscKeyPressed();
+      this.escKeyPressed();
       if (this.closeOnEsc) {
-        this.open = false;
+        this.close(QingDialogCloseReason.key, 'Esc');
       }
     }
     if (e.key === 'Enter') {
-      this.onEnterKeyPressed();
+      this.enterKeyPressed();
       if (this.closeOnEnter) {
-        this.open = false;
+        this.close(QingDialogCloseReason.key, 'Enter');
       }
     }
   }
 
-  private onCoreopenChange() {
+  private handleOpenChanged() {
+    if (this.open) {
+      this.dispatchEvent(new CustomEvent('shown', { composed: true }));
+      this.closeReason = undefined;
+      this.closeReasonData = undefined;
+    } else {
+      this.dispatchEvent(new CustomEvent('closed', { composed: true }));
+    }
+  }
+
+  private enterKeyPressed() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('onCoreopenChange', {
+      new CustomEvent<boolean>('enterKeyPressed', {
         detail: this.open,
       }),
     );
   }
 
-  private onEnterKeyPressed() {
+  private escKeyPressed() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('onEnterKeyPressed', {
-        detail: this.open,
-      }),
-    );
-  }
-
-  private onEscKeyPressed() {
-    this.dispatchEvent(
-      new CustomEvent<boolean>('onEscKeyPressed', {
+      new CustomEvent<boolean>('escKeyPressed', {
         detail: this.open,
       }),
     );
@@ -123,5 +141,11 @@ export class QingDialogCore extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'qing-dialog-core': QingDialogCore;
+  }
+  interface GlobalEventHandlersEventMap {
+    shown: CustomEvent;
+    closed: CustomEvent;
+    enterKeyPressed: CustomEvent;
+    escKeyPressed: CustomEvent;
   }
 }

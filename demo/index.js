@@ -25,7 +25,6 @@ export class ExamplesView extends LitElement {
           id="handle-events"
           .buttons=${['ok']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          @openChanged=${(e) => alert(`open changed to ${JSON.stringify(e.detail)}`)}
           @shown=${() => alert('Shown')}
           @closed=${() => alert('Closed')}
         >
@@ -45,10 +44,8 @@ export class ExamplesView extends LitElement {
         <qing-dialog
           id="focus"
           .buttons=${['ok']}
-          @openChanged=${(e) => {
-            if (e.detail) {
-              this.shadowRoot.getElementById('textInput').focus();
-            }
+          @requestFocus=${(e) => {
+            this.shadowRoot.getElementById('textInput').focus();
           }}
         >
           <h2>Title</h2>
@@ -112,7 +109,7 @@ export class ExamplesView extends LitElement {
           </p>
         </qing-dialog>
         ${this.renderButton('Themes', 'themes')}
-        <qing-dialog id="auto-close" icon="success" @openChanged=${this.handleAutoCloseopenChanged}
+        <qing-dialog id="auto-close" icon="success" @shown=${this.handleAutoCloseShown}
           >This will auto-close in 3s</qing-dialog
         >
         ${this.renderButton('Auto-close', 'auto-close')}
@@ -141,7 +138,7 @@ export class ExamplesView extends LitElement {
   }
 
   handleButtonClick(modalID) {
-    this.shadowRoot.getElementById(modalID).setAttribute('open', `${true}`);
+    this.shadowRoot.getElementById(modalID).setAttribute('open', '');
   }
 
   get mainElement() {
@@ -156,10 +153,7 @@ export class ExamplesView extends LitElement {
     this.mainElement.classList.add('theme-dark');
   }
 
-  handleAutoCloseopenChanged(e) {
-    if (!e.detail.open) {
-      return;
-    }
+  handleAutoCloseShown() {
     setTimeout(() => {
       this.shadowRoot.getElementById('auto-close').open = false;
     }, 3000);

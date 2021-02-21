@@ -1,3 +1,5 @@
+/* eslint-disable import/no-duplicates */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   html,
   customElement,
@@ -10,7 +12,13 @@ import {
 import 'qing-button';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { classMap } from 'lit-html/directives/class-map';
-import { overlay, overlayBack } from './dialogCore';
+import './dialogCore';
+import {
+  overlayClass,
+  overlayBackClass,
+  QingDialogCore,
+  QingDialogCloseReason,
+} from './dialogCore';
 import { DialogButton } from './dialogButton';
 
 // Default localized strings for dialog button types.
@@ -24,11 +32,7 @@ export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
 
-// Contains information on how `openChanged` event is triggered.
-export interface OpenChangedArgs {
-  open?: boolean;
-  button?: DialogButton;
-}
+const coreID = 'core';
 
 @customElement('qing-dialog')
 export class QingDialog extends LitElement {
@@ -80,16 +84,30 @@ export class QingDialog extends LitElement {
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
-  private OpenChangedArgs?: OpenChangedArgs;
+  #coreElement!: QingDialogCore;
+
+  firstUpdated() {
+    this.#coreElement = this.shadowRoot!.getElementById(coreID) as QingDialogCore;
+  }
+
+  get closeReason(): QingDialogCloseReason | undefined {
+    return this.#coreElement.closeReason;
+  }
+
+  get closeReasonData(): unknown {
+    return this.#coreElement.closeReasonData;
+  }
 
   render() {
     return html`
       <qing-dialog-core
-        exportparts=${[overlay, overlayBack].join(', ')}
+        id=${coreID}
+        exportparts=${[overlayClass, overlayBackClass].join(', ')}
         ?open=${this.open}
-        @onEnterKeyPressed=${this.handleEnterKeyPressed}
-        @onEscKeyPressed=${this.handleEscKeyPressed}
-        @onCoreopenChange=${this.handleCoreopenChange}
+        @enterKeyPressed=${this.handleEnterKeyPressed}
+        @escKeyPressed=${this.handleEscKeyPressed}
+        @shown=${this.handleShown}
+        @closed=${this.handleClosed}
       >
         <div class="dialog">
           <slot part="content"></slot>
@@ -97,6 +115,10 @@ export class QingDialog extends LitElement {
         </div>
       </qing-dialog-core>
     `;
+  }
+
+  close(closeReason?: QingDialogCloseReason, closeReasonData?: unknown) {
+    this.#coreElement.close(closeReason, closeReasonData);
   }
 
   private renderButtons(): TemplateResult {
@@ -134,7 +156,7 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.setopen(false, { button: btn });
+    this.close(QingDialogCloseReason.button, btn);
   }
 
   private handleEscKeyPressed() {
@@ -149,25 +171,14 @@ export class QingDialog extends LitElement {
     }
   }
 
-  private setopen(open: boolean, info: OpenChangedArgs) {
-    this.OpenChangedArgs = info;
-    this.open = open;
+  private handleShown() {
+    this.open = true;
+    this.getDefaultButtonElement()?.focus();
+    this.dispatchEvent(new CustomEvent('requestFocus'));
   }
 
-  private handleCoreopenChange(e: CustomEvent<boolean>) {
-    const detail = { ...this.OpenChangedArgs };
-    this.OpenChangedArgs = undefined;
-    const open = e.detail;
-    detail.open = open;
-    if (open) {
-      // Set focus to default button if needed.
-      // This must happens before `openChanged` event fires cuz user may update focus
-      // on `openChanged` handlers.
-      this.getDefaultButtonElement()?.focus();
-    }
-    const eventArgs = { detail };
-    this.dispatchEvent(new CustomEvent<OpenChangedArgs>('openChanged', eventArgs));
-    this.dispatchEvent(new CustomEvent<OpenChangedArgs>(open ? 'shown' : 'closed', eventArgs));
+  private handleClosed() {
+    this.open = false;
   }
 
   private getDefaultButtonElement(): HTMLElement | null {
@@ -186,6 +197,8 @@ declare global {
     'qing-dialog': QingDialog;
   }
   interface GlobalEventHandlersEventMap {
-    openChanged: CustomEvent<OpenChangedArgs>;
+    shown: CustomEvent;
+    closed: CustomEvent;
+    requestFocus: CustomEvent;
   }
 }
