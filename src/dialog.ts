@@ -17,11 +17,11 @@ import { overlayClass, overlayBackClass, QingDialogCore, CloseReason } from './d
 import { DialogButton } from './dialogButton';
 
 // Default localized strings for dialog button types.
-let localizedButtonStrings = new Map<string, string>();
-localizedButtonStrings.set('ok', 'OK');
-localizedButtonStrings.set('yes', 'Yes');
-localizedButtonStrings.set('no', 'No');
-localizedButtonStrings.set('cancel', 'Cancel');
+let localizedButtonStrings: Record<string, string> = {};
+localizedButtonStrings.ok = 'OK';
+localizedButtonStrings.yes = 'Yes';
+localizedButtonStrings.no = 'No';
+localizedButtonStrings.cancel = 'Cancel';
 
 export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
@@ -66,11 +66,11 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  static get localizedButtonStrings(): Map<string, string> {
+  static get localizedButtonStrings(): Record<string, string> {
     return localizedButtonStrings;
   }
 
-  static set localizedButtonString(value: Map<string, string>) {
+  static set localizedButtonString(value: Record<string, string>) {
     localizedButtonStrings = value;
   }
 
@@ -126,7 +126,7 @@ export class QingDialog extends LitElement {
         ${buttons.map((btnSrc, idx) => {
           const btn = typeof btnSrc === 'string' ? { type: btnSrc } : btnSrc;
           if (btn.type) {
-            btn.text = QingDialog.localizedButtonStrings.get(btn.type);
+            btn.text = QingDialog.localizedButtonStrings[btn.type];
           }
           return html`
             <qing-button
