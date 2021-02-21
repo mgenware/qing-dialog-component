@@ -16,7 +16,7 @@ it('Core properties', async () => {
   expect(el.cancelButtonIndex).to.eq(undefined);
 });
 
-it('isOpenChanged, shown', async () => {
+it('openChanged, shown', async () => {
   const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
@@ -26,19 +26,19 @@ it('isOpenChanged, shown', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  const isOpen = oneEvent(el, 'isOpenChanged');
+  const open = oneEvent(el, 'openChanged');
   const shown = oneEvent(el, 'shown');
-  el.isOpen = true;
-  const events = await Promise.all([isOpen, shown]);
+  el.open = true;
+  const events = await Promise.all([open, shown]);
 
-  // Both isOpenChanged and shown have the same event args.
-  expect(events[0].detail).to.deep.eq({ isOpen: true });
-  expect(events[1].detail).to.deep.eq({ isOpen: true });
-  expect(el.hasAttribute('isOpen')).to.eq(true);
-  expect(el.getAttribute('isOpen')).to.eq('');
+  // Both openChanged and shown have the same event args.
+  expect(events[0].detail).to.deep.eq({ open: true });
+  expect(events[1].detail).to.deep.eq({ open: true });
+  expect(el.hasAttribute('open')).to.eq(true);
+  expect(el.getAttribute('open')).to.eq('');
 });
 
-it('Dismissed by button, isOpenChanged, closed', async () => {
+it('Dismissed by button, openChanged, closed', async () => {
   const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} }}>
       <div>Hello World</div>
@@ -48,23 +48,23 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', () => {
+  el.addEventListener('openChanged', () => {
     // Make sure button is not focused.
     document.getElementById('textInput')!.focus();
   });
 
-  const isOpen = kEvent(el, 'isOpenChanged', 2);
+  const open = kEvent(el, 'openChanged', 2);
   const closed = oneEvent(el, 'closed');
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
   (el.shadowRoot!.querySelectorAll(allButtonsSel)[0] as HTMLElement).click();
 
-  const isOpenEvents = await isOpen;
-  expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(isOpenEvents[0]).to.deep.eq({ isOpen: true });
-  expect(isOpenEvents[1]).to.deep.eq({
-    isOpen: false,
+  const openEvents = await open;
+  expect(el.hasAttribute('open')).to.eq(false);
+  expect(openEvents[0]).to.deep.eq({ open: true });
+  expect(openEvents[1]).to.deep.eq({
+    open: false,
     button: {
       text: 'OK',
       type: 'ok',
@@ -72,9 +72,9 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
   });
 
   const closedEvent = await closed;
-  // Both isOpenChanged and closed have the same event args.
+  // Both openChanged and closed have the same event args.
   expect(closedEvent.detail).to.deep.eq({
-    isOpen: false,
+    open: false,
     button: {
       text: 'OK',
       type: 'ok',
@@ -82,7 +82,7 @@ it('Dismissed by button, isOpenChanged, closed', async () => {
   });
 });
 
-it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
+it('Dismissed by a cancel button and Esc, openChanged, closed', async () => {
   const el = (await fixture(html`
     <qing-dialog dialogTitle="Title" .buttons=${['ok']} .cancelButtonIndex=${0} }}>
       <div>Hello World</div>
@@ -92,23 +92,23 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', () => {
+  el.addEventListener('openChanged', () => {
     // Make sure button is not focused.
     document.getElementById('textInput')!.focus();
   });
 
-  const isOpen = kEvent(el, 'isOpenChanged', 2);
+  const open = kEvent(el, 'openChanged', 2);
   const closed = oneEvent(el, 'closed');
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-  const isOpenEvents = await isOpen;
-  expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(isOpenEvents[0]).to.deep.eq({ isOpen: true });
-  expect(isOpenEvents[1]).to.deep.eq({
-    isOpen: false,
+  const openEvents = await open;
+  expect(el.hasAttribute('open')).to.eq(false);
+  expect(openEvents[0]).to.deep.eq({ open: true });
+  expect(openEvents[1]).to.deep.eq({
+    open: false,
     button: {
       text: 'OK',
       type: 'ok',
@@ -116,9 +116,9 @@ it('Dismissed by a cancel button and Esc, isOpenChanged, closed', async () => {
   });
 
   const closedEvent = await closed;
-  // Both isOpenChanged and closed have the same event args.
+  // Both openChanged and closed have the same event args.
   expect(closedEvent.detail).to.deep.eq({
-    isOpen: false,
+    open: false,
     button: {
       text: 'OK',
       type: 'ok',
@@ -136,14 +136,14 @@ it('Cannot be dismissed by Esc when no cancel button is present', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  const isOpen = oneEvent(el, 'isOpenChanged');
-  el.isOpen = true;
+  const open = oneEvent(el, 'openChanged');
+  el.open = true;
   await aTimeout();
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-  await isOpen;
-  expect(el.hasAttribute('isOpen')).to.eq(true);
+  await open;
+  expect(el.hasAttribute('open')).to.eq(true);
 });
 
 it('Dismissed programmatically', async () => {
@@ -156,21 +156,21 @@ it('Dismissed programmatically', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  const isOpen = kEvent(el, 'isOpenChanged', 2);
+  const open = kEvent(el, 'openChanged', 2);
   const closed = oneEvent(el, 'closed');
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
-  el.isOpen = false;
+  el.open = false;
 
-  const isOpenEvents = await isOpen;
-  expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(isOpenEvents[0]).to.deep.eq({ isOpen: true });
-  expect(isOpenEvents[1]).to.deep.eq({ isOpen: false });
+  const openEvents = await open;
+  expect(el.hasAttribute('open')).to.eq(false);
+  expect(openEvents[0]).to.deep.eq({ open: true });
+  expect(openEvents[1]).to.deep.eq({ open: false });
 
   const closedEvent = await closed;
-  // Both isOpenChanged and closed have the same event args.
-  expect(closedEvent.detail).to.deep.eq({ isOpen: false });
+  // Both openChanged and closed have the same event args.
+  expect(closedEvent.detail).to.deep.eq({ open: false });
 });
 
 it('Focus', async () => {
@@ -183,10 +183,10 @@ it('Focus', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.addEventListener('isOpenChanged', () => {
+  el.addEventListener('openChanged', () => {
     document.getElementById('textInput')!.focus();
   });
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
   expect(document.activeElement).to.eq(document.getElementById('textInput'));

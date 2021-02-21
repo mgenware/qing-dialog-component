@@ -3,6 +3,8 @@ import { html, customElement, css, property, LitElement } from 'lit-element';
 export const overlay = 'overlay';
 export const overlayBack = 'overlay-background';
 
+const openProp = 'open';
+
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
   static get styles() {
@@ -45,7 +47,7 @@ export class QingDialogCore extends LitElement {
     `;
   }
 
-  @property({ type: Boolean, reflect: true }) isOpen = false;
+  @property({ type: Boolean, reflect: true }) open = false;
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
   @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
@@ -58,11 +60,7 @@ export class QingDialogCore extends LitElement {
 
   render() {
     return html`
-      <div
-        style="display: ${this.isOpen ? 'flex' : 'none'}"
-        class=${overlayBack}
-        part=${overlayBack}
-      >
+      <div style="display: ${this.open ? 'flex' : 'none'}" class=${overlayBack} part=${overlayBack}>
         <div class=${overlay} part=${overlay}>
           <slot></slot>
         </div>
@@ -71,13 +69,13 @@ export class QingDialogCore extends LitElement {
   }
 
   updated(changedProperties: Map<string, unknown>) {
-    if (changedProperties.has('isOpen')) {
-      // Important! `!!changedProperties.get('isOpen')` converts undefined to false, to avoid
+    if (changedProperties.has(openProp)) {
+      // Important! `!!changedProperties.get(openProp)` converts undefined to false, to avoid
       // unnecessary event during initialization.
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (!!changedProperties.get('isOpen') !== this.isOpen) {
+      if (!!changedProperties.get(openProp) !== this.open) {
         // Make sure call to `updated` is finished first.
-        setTimeout(() => this.onCoreIsOpenChange(), 0);
+        setTimeout(() => this.onCoreopenChange(), 0);
       }
     }
   }
@@ -86,21 +84,21 @@ export class QingDialogCore extends LitElement {
     if (e.key === 'Escape' || e.key === 'Esc') {
       this.onEscKeyPressed();
       if (this.closeOnEsc) {
-        this.isOpen = false;
+        this.open = false;
       }
     }
     if (e.key === 'Enter') {
       this.onEnterKeyPressed();
       if (this.closeOnEnter) {
-        this.isOpen = false;
+        this.open = false;
       }
     }
   }
 
-  private onCoreIsOpenChange() {
+  private onCoreopenChange() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('onCoreIsOpenChange', {
-        detail: this.isOpen,
+      new CustomEvent<boolean>('onCoreopenChange', {
+        detail: this.open,
       }),
     );
   }
@@ -108,7 +106,7 @@ export class QingDialogCore extends LitElement {
   private onEnterKeyPressed() {
     this.dispatchEvent(
       new CustomEvent<boolean>('onEnterKeyPressed', {
-        detail: this.isOpen,
+        detail: this.open,
       }),
     );
   }
@@ -116,7 +114,7 @@ export class QingDialogCore extends LitElement {
   private onEscKeyPressed() {
     this.dispatchEvent(
       new CustomEvent<boolean>('onEscKeyPressed', {
-        detail: this.isOpen,
+        detail: this.open,
       }),
     );
   }

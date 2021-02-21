@@ -24,9 +24,9 @@ export const defaultButtonClass = '__default_button';
 export const cancelButtonClass = '__cancel_button';
 export const buttonContainerClass = '__button-container';
 
-// Contains information on how `isOpenChanged` event is triggered.
-export interface IsOpenChangedArgs {
-  isOpen?: boolean;
+// Contains information on how `openChanged` event is triggered.
+export interface OpenChangedArgs {
+  open?: boolean;
   button?: DialogButton;
 }
 
@@ -75,21 +75,21 @@ export class QingDialog extends LitElement {
     localizedButtonStrings = value;
   }
 
-  @property({ type: Boolean, reflect: true }) isOpen = false;
+  @property({ type: Boolean, reflect: true }) open = false;
   @property({ type: Array }) buttons: (string | DialogButton)[] = [];
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
-  private isOpenChangedArgs?: IsOpenChangedArgs;
+  private OpenChangedArgs?: OpenChangedArgs;
 
   render() {
     return html`
       <qing-dialog-core
         exportparts=${[overlay, overlayBack].join(', ')}
-        ?isOpen=${this.isOpen}
+        ?open=${this.open}
         @onEnterKeyPressed=${this.handleEnterKeyPressed}
         @onEscKeyPressed=${this.handleEscKeyPressed}
-        @onCoreIsOpenChange=${this.handleCoreIsOpenChange}
+        @onCoreopenChange=${this.handleCoreopenChange}
       >
         <div class="dialog">
           <slot part="content"></slot>
@@ -134,40 +134,40 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.setIsOpen(false, { button: btn });
+    this.setopen(false, { button: btn });
   }
 
   private handleEscKeyPressed() {
-    if (this.isOpen) {
+    if (this.open) {
       this.getCancelButtonElement()?.click();
     }
   }
 
   private handleEnterKeyPressed() {
-    if (this.isOpen) {
+    if (this.open) {
       this.getDefaultButtonElement()?.click();
     }
   }
 
-  private setIsOpen(isOpen: boolean, info: IsOpenChangedArgs) {
-    this.isOpenChangedArgs = info;
-    this.isOpen = isOpen;
+  private setopen(open: boolean, info: OpenChangedArgs) {
+    this.OpenChangedArgs = info;
+    this.open = open;
   }
 
-  private handleCoreIsOpenChange(e: CustomEvent<boolean>) {
-    const detail = { ...this.isOpenChangedArgs };
-    this.isOpenChangedArgs = undefined;
-    const isOpen = e.detail;
-    detail.isOpen = isOpen;
-    if (isOpen) {
+  private handleCoreopenChange(e: CustomEvent<boolean>) {
+    const detail = { ...this.OpenChangedArgs };
+    this.OpenChangedArgs = undefined;
+    const open = e.detail;
+    detail.open = open;
+    if (open) {
       // Set focus to default button if needed.
-      // This must happens before `isOpenChanged` event fires cuz user may update focus
-      // on `isOpenChanged` handlers.
+      // This must happens before `openChanged` event fires cuz user may update focus
+      // on `openChanged` handlers.
       this.getDefaultButtonElement()?.focus();
     }
     const eventArgs = { detail };
-    this.dispatchEvent(new CustomEvent<IsOpenChangedArgs>('isOpenChanged', eventArgs));
-    this.dispatchEvent(new CustomEvent<IsOpenChangedArgs>(isOpen ? 'shown' : 'closed', eventArgs));
+    this.dispatchEvent(new CustomEvent<OpenChangedArgs>('openChanged', eventArgs));
+    this.dispatchEvent(new CustomEvent<OpenChangedArgs>(open ? 'shown' : 'closed', eventArgs));
   }
 
   private getDefaultButtonElement(): HTMLElement | null {
@@ -186,6 +186,6 @@ declare global {
     'qing-dialog': QingDialog;
   }
   interface GlobalEventHandlersEventMap {
-    isOpenChanged: CustomEvent<IsOpenChangedArgs>;
+    openChanged: CustomEvent<OpenChangedArgs>;
   }
 }

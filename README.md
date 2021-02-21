@@ -31,16 +31,16 @@ export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 // (see type definition below).
 export type DialogButtonType = PresetButtonType | DialogButton;
 
-// Contains information on how `isOpenChanged` event is triggered.
-export interface IsOpenChangedArgs {
-  isOpen?: boolean;
+// Contains information on how `openChanged` event is triggered.
+export interface OpenChangedArgs {
+  open?: boolean;
   button?: DialogButton;
 }
 
 // Dialog component: <qing-dialog>
 class QingDialog {
   // Indicates whether the dialog is visible.
-  isOpen: boolean;
+  open: boolean;
   // Bottom buttons of the dialog.
   buttons: DialogButtonType[];
   // Index of default button, defaults to 0 (first button).
@@ -51,10 +51,10 @@ class QingDialog {
 
   // ------- Events -------
 
-  // Fires when `isOpen` property changes.
-  isOpenChanged: CustomEvent<IsOpenChangedArgs>;
-  shown: CustomEvent<IsOpenChangedArgs>;
-  closed: CustomEvent<IsOpenChangedArgs>;
+  // Fires when `open` property changes.
+  openChanged: CustomEvent<OpenChangedArgs>;
+  shown: CustomEvent<OpenChangedArgs>;
+  closed: CustomEvent<OpenChangedArgs>;
 
   // Fires when dialog button is clicked.
   buttonClick: CustomEvent<DialogButton>;
@@ -85,14 +85,14 @@ export interface DialogButton {
 
 ### Autofocus
 
-Use `isOpenChanged` event to auto focus an element when the dialog shows up, example:
+Use `openChanged` event to auto focus an element when the dialog shows up, example:
 
 ```js
 html`
   <qing-dialog
     .buttons=${['ok']}
-    @isOpenChanged=${(e) => {
-      if (e.detail.isOpen) {
+    @openChanged=${(e) => {
+      if (e.detail.open) {
         // If the dialog is open, set focus on the specified element.
         this.shadowRoot.getElementById('textInput').focus();
       }

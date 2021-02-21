@@ -25,7 +25,7 @@ export class ExamplesView extends LitElement {
           id="handle-events"
           .buttons=${['ok']}
           @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          @isOpenChanged=${(e) => alert(`isOpen changed to ${JSON.stringify(e.detail)}`)}
+          @openChanged=${(e) => alert(`open changed to ${JSON.stringify(e.detail)}`)}
           @shown=${() => alert('Shown')}
           @closed=${() => alert('Closed')}
         >
@@ -45,7 +45,7 @@ export class ExamplesView extends LitElement {
         <qing-dialog
           id="focus"
           .buttons=${['ok']}
-          @isOpenChanged=${(e) => {
+          @openChanged=${(e) => {
             if (e.detail) {
               this.shadowRoot.getElementById('textInput').focus();
             }
@@ -112,10 +112,7 @@ export class ExamplesView extends LitElement {
           </p>
         </qing-dialog>
         ${this.renderButton('Themes', 'themes')}
-        <qing-dialog
-          id="auto-close"
-          icon="success"
-          @isOpenChanged=${this.handleAutoCloseIsOpenChanged}
+        <qing-dialog id="auto-close" icon="success" @openChanged=${this.handleAutoCloseopenChanged}
           >This will auto-close in 3s</qing-dialog
         >
         ${this.renderButton('Auto-close', 'auto-close')}
@@ -144,7 +141,7 @@ export class ExamplesView extends LitElement {
   }
 
   handleButtonClick(modalID) {
-    this.shadowRoot.getElementById(modalID).setAttribute('isOpen', `${true}`);
+    this.shadowRoot.getElementById(modalID).setAttribute('open', `${true}`);
   }
 
   get mainElement() {
@@ -159,12 +156,12 @@ export class ExamplesView extends LitElement {
     this.mainElement.classList.add('theme-dark');
   }
 
-  handleAutoCloseIsOpenChanged(e) {
-    if (!e.detail.isOpen) {
+  handleAutoCloseopenChanged(e) {
+    if (!e.detail.open) {
       return;
     }
     setTimeout(() => {
-      this.shadowRoot.getElementById('auto-close').isOpen = false;
+      this.shadowRoot.getElementById('auto-close').open = false;
     }, 3000);
   }
 }

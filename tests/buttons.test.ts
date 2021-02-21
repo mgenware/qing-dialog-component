@@ -39,17 +39,17 @@ it('Dismissed by button', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  const listener = kEvent(el, 'isOpenChanged', 2);
-  el.isOpen = true;
+  const listener = kEvent(el, 'openChanged', 2);
+  el.open = true;
   await aTimeout();
 
   (el.shadowRoot!.querySelectorAll(allButtonsSel)[0] as HTMLElement).click();
 
   const events = await listener;
-  expect(el.hasAttribute('isOpen')).to.eq(false);
-  expect(events[0]).to.deep.eq({ isOpen: true });
+  expect(el.hasAttribute('open')).to.eq(false);
+  expect(events[0]).to.deep.eq({ open: true });
   expect(events[1]).to.deep.eq({
-    isOpen: false,
+    open: false,
     button: {
       type: 'ok',
       text: 'OK',
@@ -67,7 +67,7 @@ it('Set a `defaultButtonIndex`', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
   expect(el.shadowRoot!.activeElement).to.eq(el.shadowRoot!.querySelectorAll(allButtonsSel)[2]);
@@ -83,7 +83,7 @@ it('`defaultButtonIndex` defaults to 0', async () => {
     </qing-dialog>
   `)) as QingDialog;
 
-  el.isOpen = true;
+  el.open = true;
   await aTimeout();
 
   expect(el.shadowRoot!.activeElement).to.eq(el.shadowRoot!.querySelectorAll(allButtonsSel)[0]);
