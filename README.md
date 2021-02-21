@@ -22,26 +22,59 @@ yarn add qing-dialog-component qing-button lit-element
 
 ### Properties
 
-```typescript
-// A group of builtin button types.
+```ts
+// A group of pre-defined button types.
 export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
-// The dialog component accepts an array of buttons, each can be a
-// preset `PresetButtonType` or a more customized `DialogButton`
-// (see type definition below).
-export type DialogButtonType = PresetButtonType | DialogButton;
+// A customized dialog button.
+export interface DialogButton {
+  // One of the preset types of the button, see PresetButtonType.
+  type?: string;
+  // Used to identify a button if `type` is not set.
+  name?: string;
+  // Button content.
+  text?: string;
+  // qing-button style.
+  style?: string;
+}
+
+// The reason a dialog is closed.
+export enum CloseReason {
+  key = 1,
+  button,
+}
 
 // Dialog component: <qing-dialog>
 class QingDialog {
-  // Indicates whether the dialog is visible.
+  // Set localized button strings.
+  static localizedButtonStrings: Record<string, string>;
+  /**
+   * Defaults to:
+   * {
+   *   yes: 'Yes',
+   *   no: 'No',
+   *   ok: 'OK',
+   *   cancel: 'Cancel',
+   * }
+   */
+
+  // Whether the dialog is visible.
   open: boolean;
-  // Bottom buttons of the dialog.
-  buttons: DialogButtonType[];
-  // Index of default button, defaults to 0 (first button).
+  // Bottom buttons.
+  buttons: (PresetButtonType | DialogButton)[];
+  // Index of the default button, defaults to 0 (first button).
   defaultButtonIndex: number;
-  // Index of cancel button.
+  // Index of the cancel button.
   // A cancel button will be clicked when user presses Esc key.
   cancelButtonIndex: number;
+
+  // The reason a dialog is closed, can be 'key' or 'button' or
+  // `undefined` if it's closed programmatically.
+  closeReason?: CloseReason;
+  // Extra data for `closeReason`.
+  // For `CloseReason.key`, it's the key name.
+  // For `CloseReason.button`, it's the
+  closeReasonData?: unknown;
 
   // ------- Events -------
 
@@ -50,6 +83,8 @@ class QingDialog {
   closed: CustomEvent;
 
   // Fires when dialog button is clicked.
+  // You can also check `closeReason` and `closeReasonData` in `closed` event
+  // to find the button that triggered dialog dismissal.
   buttonClick: CustomEvent<DialogButton>;
 }
 
