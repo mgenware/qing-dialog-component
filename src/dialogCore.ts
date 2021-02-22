@@ -10,6 +10,11 @@ export enum CloseReason {
   button,
 }
 
+export interface CloseReasonDetail {
+  reason?: CloseReason;
+  data?: unknown;
+}
+
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
   static get styles() {
@@ -56,8 +61,7 @@ export class QingDialogCore extends LitElement {
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
   @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
-  closeReason?: CloseReason;
-  closeReasonData?: unknown;
+  private closeReason?: CloseReasonDetail;
 
   firstUpdated() {
     if (!this.shadowRoot) {
@@ -90,9 +94,8 @@ export class QingDialogCore extends LitElement {
     }
   }
 
-  close(closeReason?: CloseReason, closeReasonData?: unknown) {
-    this.closeReason = closeReason;
-    this.closeReasonData = closeReasonData;
+  close(reason: CloseReasonDetail | undefined) {
+    this.closeReason = reason;
     this.open = false;
   }
 
@@ -100,13 +103,13 @@ export class QingDialogCore extends LitElement {
     if (e.key === 'Escape' || e.key === 'Esc') {
       this.escKeyPressed();
       if (this.closeOnEsc) {
-        this.close(CloseReason.key, 'Esc');
+        this.close({ reason: CloseReason.key, data: 'Esc' });
       }
     }
     if (e.key === 'Enter') {
       this.enterKeyPressed();
       if (this.closeOnEnter) {
-        this.close(CloseReason.key, 'Enter');
+        this.close({ reason: CloseReason.key, data: 'Enter' });
       }
     }
   }
@@ -114,10 +117,11 @@ export class QingDialogCore extends LitElement {
   private handleOpenChanged() {
     if (this.open) {
       this.dispatchEvent(new CustomEvent('shown', { composed: true }));
-      this.closeReason = undefined;
-      this.closeReasonData = undefined;
     } else {
-      this.dispatchEvent(new CustomEvent('closed', { composed: true }));
+      this.dispatchEvent(
+        new CustomEvent<CloseReasonDetail>('closed', { composed: true, detail: this.closeReason }),
+      );
+      this.closeReason = undefined;
     }
   }
 

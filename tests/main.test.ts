@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { aTimeout } from './lib';
-import { QingDialog, CloseReason } from '../dist/main';
+import { QingDialog, CloseReason, CloseReasonDetail } from '../dist/main';
 
 it('Core properties', async () => {
   const el = await fixture<QingDialog>(html`
@@ -48,11 +48,13 @@ it('Dismissed by Esc', async () => {
 
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 
-  await closed;
+  const e = await closed;
   expect(el.hasAttribute('open')).to.eq(false);
+
+  const detail = e.detail as CloseReasonDetail;
   // Cancel button gets clicked when Esc is down.
-  expect(el.closeReason).to.eq(CloseReason.button);
-  expect(el.closeReasonData).to.deep.eq({ type: 'ok', text: 'OK' });
+  expect(detail.reason).to.eq(CloseReason.button);
+  expect(detail.data).to.deep.eq({ type: 'ok', text: 'OK' });
 });
 
 it('Cannot be dismissed by Esc when no cancel button is present', async () => {
@@ -90,8 +92,10 @@ it('Dismissed programmatically', async () => {
   await aTimeout();
 
   el.open = false;
-  await closed;
+  const e = await closed;
+  const detail = e.detail as CloseReasonDetail;
   expect(el.hasAttribute('open')).to.eq(false);
+  expect(detail).to.eq(null);
 });
 
 it('Focus', async () => {
@@ -128,7 +132,7 @@ it('Reopen', async () => {
   await shown;
 
   const closed = oneEvent(el, 'closed');
-  el.close(undefined, undefined);
+  el.close(undefined);
   await closed;
 
   const reopen = oneEvent(el, 'shown');

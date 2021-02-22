@@ -13,7 +13,13 @@ import 'qing-button';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { classMap } from 'lit-html/directives/class-map';
 import './dialogCore';
-import { overlayClass, overlayBackClass, QingDialogCore, CloseReason } from './dialogCore';
+import {
+  overlayClass,
+  overlayBackClass,
+  QingDialogCore,
+  CloseReason,
+  CloseReasonDetail,
+} from './dialogCore';
 import { DialogButton } from './dialogButton';
 
 // Default localized strings for dialog button types.
@@ -85,14 +91,6 @@ export class QingDialog extends LitElement {
     this.#coreElement = this.shadowRoot!.getElementById(coreID) as QingDialogCore;
   }
 
-  get closeReason(): CloseReason | undefined {
-    return this.#coreElement.closeReason;
-  }
-
-  get closeReasonData(): unknown {
-    return this.#coreElement.closeReasonData;
-  }
-
   render() {
     return html`
       <qing-dialog-core
@@ -112,8 +110,8 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  close(closeReason?: CloseReason, closeReasonData?: unknown) {
-    this.#coreElement.close(closeReason, closeReasonData);
+  close(closeReason?: CloseReasonDetail) {
+    this.#coreElement.close(closeReason);
   }
 
   private renderButtons(): TemplateResult {
@@ -151,7 +149,7 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.close(CloseReason.button, btn);
+    this.close({ reason: CloseReason.button, data: btn });
   }
 
   private handleEscKeyPressed() {
