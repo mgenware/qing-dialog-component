@@ -699,10 +699,10 @@ qing-button@^7.0.1:
   resolved "https://registry.yarnpkg.com/qing-button/-/qing-button-7.0.1.tgz#be0a7b0a7cf1261021ca922c253bc0990ed52bbc"
   integrity sha512-tiCZHdrQOq6k4nX4q0V+gna8lS20e2CaDezvUP/VJ5aGOnmoel0Pi5F5yymKjyLOeeNDKLncPeAHxRdOqJg4ew==
 
-qing-dialog-component@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/qing-dialog-component/-/qing-dialog-component-0.6.0.tgz#d5cfde8629a6fac51b10aa81bd3b33f41efe8bd7"
-  integrity sha512-2xdvBUFG9IxYPet4SfwRLQOEBB78LI2xlGpQOoSvDK+iF0q7h6I064kM7ayGqu22PgfAAi4gGnyjgmPKPKmgFw==
+qing-dialog-component@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/qing-dialog-component/-/qing-dialog-component-0.7.0.tgz#fa15d7267409e36de5b00ca3495185133b2ed4b7"
+  integrity sha512-2/UVoatrdjTKtChUyok84P4o1S76YtQi6Lx0Fi4gOgmMnhRxVGfxIxb1qWuzP8Wsz3CJ0vlT1q1v5QHIFWEcVQ==
 
 quick-lru@^4.0.1:
   version "4.0.1"
