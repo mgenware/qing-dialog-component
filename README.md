@@ -24,10 +24,10 @@ yarn add qing-dialog-component qing-button lit-element
 
 ```ts
 // A group of pre-defined button types.
-export type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
+type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
-// A customized dialog button.
-export interface DialogButton {
+// A more customized button if `PresetButtonType` doesn't fit.
+interface DialogButton {
   // One of the preset types of the button, see PresetButtonType.
   type?: string;
   // Used to identify a button if `type` is not set.
@@ -39,9 +39,20 @@ export interface DialogButton {
 }
 
 // The reason a dialog is closed.
-export enum CloseReason {
+enum CloseReason {
   key = 1,
   button,
+}
+
+// `closed` event detail.
+interface CloseReasonDetail {
+  // The reason a dialog is closed, can be 'key' or 'button' or
+  // `undefined` if it's closed programmatically.
+  reason?: CloseReason;
+  // Extra data for `reason`.
+  // For `CloseReason.key`, it's key name.
+  // For `CloseReason.button`, it's the `DialogButton` triggered the dismissal.
+  data?: unknown;
 }
 
 // Dialog component: <qing-dialog>
@@ -68,14 +79,6 @@ class QingDialog {
   // A cancel button will be clicked when user presses Esc key.
   cancelButtonIndex: number;
 
-  // The reason a dialog is closed, can be 'key' or 'button' or
-  // `undefined` if it's closed programmatically.
-  closeReason?: CloseReason;
-  // Extra data for `closeReason`.
-  // For `CloseReason.key`, it's the key name.
-  // For `CloseReason.button`, it's the
-  closeReasonData?: unknown;
-
   // ------- Events -------
 
   // Fires when `open` property changes.
@@ -86,18 +89,6 @@ class QingDialog {
   // You can also check `closeReason` and `closeReasonData` in `closed` event
   // to find the button that triggered dialog dismissal.
   buttonClick: CustomEvent<DialogButton>;
-}
-
-// A more customized button.
-export interface DialogButton {
-  // One of the preset types of the button, see PresetButtonType.
-  type?: PresetButtonType;
-  // Used to identify a button if `type` is not set.
-  name?: string;
-  // Button content.
-  text?: string;
-  // qing-button style.
-  style?: string;
 }
 ```
 
