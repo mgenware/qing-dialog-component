@@ -5,16 +5,6 @@ export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
 
-export enum CloseReason {
-  key = 1,
-  button,
-}
-
-export interface CloseReasonDetail {
-  reason?: CloseReason;
-  data?: unknown;
-}
-
 @customElement('qing-dialog-core')
 export class QingDialogCore extends LitElement {
   static get styles() {
@@ -61,13 +51,10 @@ export class QingDialogCore extends LitElement {
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
   @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
-  private closeReason?: CloseReasonDetail;
-
   firstUpdated() {
     if (!this.shadowRoot) {
       throw new Error('Unexpected undefined shadowRoot');
     }
-    document.addEventListener('keydown', (e) => this.handleKeyDown(e));
   }
 
   render() {
@@ -89,55 +76,14 @@ export class QingDialogCore extends LitElement {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get(openProp) !== this.open) {
         // Make sure call to `updated` is finished first.
-        setTimeout(() => this.handleOpenChanged(), 0);
+        setTimeout(() => this.onOpenChanged(), 0);
       }
     }
   }
 
-  close(reason: CloseReasonDetail | undefined) {
-    this.closeReason = reason;
-    this.open = false;
-  }
-
-  private handleKeyDown(e: KeyboardEvent) {
-    if (e.key === 'Escape' || e.key === 'Esc') {
-      this.escKeyPressed();
-      if (this.closeOnEsc) {
-        this.close({ reason: CloseReason.key, data: 'Esc' });
-      }
-    }
-    if (e.key === 'Enter') {
-      this.enterKeyPressed();
-      if (this.closeOnEnter) {
-        this.close({ reason: CloseReason.key, data: 'Enter' });
-      }
-    }
-  }
-
-  private handleOpenChanged() {
-    if (this.open) {
-      this.dispatchEvent(new CustomEvent('shown', { composed: true }));
-    } else {
-      this.dispatchEvent(
-        new CustomEvent<CloseReasonDetail>('closed', { composed: true, detail: this.closeReason }),
-      );
-      this.closeReason = undefined;
-    }
-  }
-
-  private enterKeyPressed() {
+  private onOpenChanged() {
     this.dispatchEvent(
-      new CustomEvent<boolean>('enterKeyPressed', {
-        detail: this.open,
-      }),
-    );
-  }
-
-  private escKeyPressed() {
-    this.dispatchEvent(
-      new CustomEvent<boolean>('escKeyPressed', {
-        detail: this.open,
-      }),
+      new CustomEvent<boolean>('openChanged', { detail: this.open }),
     );
   }
 }

@@ -13,13 +13,7 @@ import 'qing-button';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { classMap } from 'lit-html/directives/class-map';
 import './dialogCore';
-import {
-  overlayClass,
-  overlayBackClass,
-  QingDialogCore,
-  CloseReason,
-  CloseReasonDetail,
-} from './dialogCore';
+import { overlayClass, overlayBackClass } from './dialogCore';
 import { DialogButton } from './dialogButton';
 
 // Default localized strings for dialog button types.
@@ -85,10 +79,10 @@ export class QingDialog extends LitElement {
   @property({ type: Number }) defaultButtonIndex = 0;
   @property({ type: Number }) cancelButtonIndex?: number;
 
-  #coreElement!: QingDialogCore;
+  private closeButton?: DialogButton;
 
   firstUpdated() {
-    this.#coreElement = this.shadowRoot!.getElementById(coreID) as QingDialogCore;
+    document.addEventListener('keydown', this.handleKeyDown);
   }
 
   render() {
@@ -99,8 +93,7 @@ export class QingDialog extends LitElement {
         ?open=${this.open}
         @enterKeyPressed=${this.handleEnterKeyPressed}
         @escKeyPressed=${this.handleEscKeyPressed}
-        @shown=${this.handleShown}
-        @closed=${this.handleClosed}
+        @openChanged=${this.handleOpenChanged}
       >
         <div class="dialog">
           <slot part="content"></slot>
@@ -110,8 +103,9 @@ export class QingDialog extends LitElement {
     `;
   }
 
-  close(closeReason?: CloseReasonDetail) {
-    this.#coreElement.close(closeReason);
+  close(btn: DialogButton) {
+    this.closeButton = btn;
+    this.open = false;
   }
 
   private renderButtons(): TemplateResult {
@@ -149,7 +143,7 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.close({ reason: CloseReason.button, data: btn });
+    this.close(btn);
   }
 
   private handleEscKeyPressed() {
@@ -164,14 +158,30 @@ export class QingDialog extends LitElement {
     }
   }
 
-  private handleShown() {
-    this.open = true;
-    this.getDefaultButtonElement()?.focus();
-    this.dispatchEvent(new CustomEvent('requestFocus'));
+  private handleOpenChanged(e: CustomEvent<boolean>) {
+    this.open = e.detail;
+    if (this.open) {
+      this.getDefaultButtonElement()?.focus();
+      this.dispatchEvent(new CustomEvent('requestFocus'));
+      this.dispatchEvent(new CustomEvent('shown'));
+    } else {
+      this.dispatchEvent(
+        new CustomEvent<DialogButton>('closed', { composed: true, detail: this.closeButton }),
+      );
+      this.closeButton = undefined;
+    }
   }
 
-  private handleClosed() {
-    this.open = false;
+  private handleKeyDown(e: KeyboardEvent) {
+    if (!this.open) {
+      return;
+    }
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      this.getCancelButtonElement()?.click();
+    }
+    if (e.key === 'Enter') {
+      this.getDefaultButtonElement()?.click();
+    }
   }
 
   private getDefaultButtonElement(): HTMLElement | null {
