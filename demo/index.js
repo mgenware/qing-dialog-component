@@ -122,7 +122,7 @@ export class ExamplesView extends LitElement {
         <hr />
         <h2><code>qing-dialog-core</code></h2>
         <div>
-          <qing-dialog-core id="core-minimal" closeOnEsc> Press Esc to exit </qing-dialog-core>
+          <qing-dialog-core id="core-minimal"> Hello world </qing-dialog-core>
           ${this.renderButton('Core - Minimal', 'core-minimal')}
         </div>
       </div>

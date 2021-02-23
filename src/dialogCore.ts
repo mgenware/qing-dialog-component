@@ -48,8 +48,6 @@ export class QingDialogCore extends LitElement {
   }
 
   @property({ type: Boolean, reflect: true }) open = false;
-  @property({ type: Boolean, reflect: true }) closeOnEsc = false;
-  @property({ type: Boolean, reflect: true }) closeOnEnter = false;
 
   firstUpdated() {
     if (!this.shadowRoot) {
