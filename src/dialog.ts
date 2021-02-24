@@ -189,7 +189,7 @@ declare global {
   }
   interface GlobalEventHandlersEventMap {
     shown: CustomEvent;
-    closed: CustomEvent<DialogButton>;
+    closed: CustomEvent<DialogButton | undefined>;
     requestFocus: CustomEvent;
     buttonClick: CustomEvent<DialogButton>;
   }
