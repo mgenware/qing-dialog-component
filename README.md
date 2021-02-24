@@ -27,8 +27,9 @@ yarn add qing-dialog-component qing-button lit-element
 type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
 
 // A more customized button if `PresetButtonType` doesn't fit.
+// A customized dialog button.
 interface DialogButton {
-  // One of the preset types of the button, see PresetButtonType.
+  // One of the preset types of the button, 'ok' | 'yes' | 'no' | 'cancel'.
   type?: string;
   // Used to identify a button if `type` is not set.
   name?: string;
@@ -36,6 +37,8 @@ interface DialogButton {
   text?: string;
   // qing-button style.
   style?: string;
+  // Defaults to `true`. If true, clicking on the button closes the dialog.
+  autoClose?: boolean;
 }
 
 // The reason a dialog is closed.
@@ -86,8 +89,6 @@ class QingDialog {
   closed: CustomEvent;
 
   // Fires when dialog button is clicked.
-  // You can also check `closeReason` and `closeReasonData` in `closed` event
-  // to find the button that triggered dialog dismissal.
   buttonClick: CustomEvent<DialogButton>;
 }
 ```

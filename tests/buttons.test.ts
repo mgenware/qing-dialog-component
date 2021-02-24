@@ -85,3 +85,22 @@ it('`defaultButtonIndex` defaults to 0', async () => {
 
   expect(el.shadowRoot!.activeElement).to.eq(el.shadowRoot!.querySelectorAll(allButtonsSel)[0]);
 });
+
+it('autoClose = false', async () => {
+  const el = (await fixture(html`
+    <qing-dialog dialogTitle="Title" .buttons=${[{ type: 'ok', autoClose: false }]} }}>
+      <div>Hello World</div>
+      <form>
+        <input type="text" value="name" id="textInput" />
+      </form>
+    </qing-dialog>
+  `)) as QingDialog;
+
+  el.open = true;
+  await aTimeout();
+
+  (el.shadowRoot!.querySelectorAll(allButtonsSel)[0] as HTMLElement).click();
+  await aTimeout();
+
+  expect(el.hasAttribute('open')).to.eq(true);
+});

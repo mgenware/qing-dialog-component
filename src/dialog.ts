@@ -141,7 +141,9 @@ export class QingDialog extends LitElement {
         detail: btn,
       }),
     );
-    this.close(btn);
+    if (btn.autoClose ?? true) {
+      this.close(btn);
+    }
   }
 
   private handleOpenChanged(e: CustomEvent<boolean>) {

@@ -8,4 +8,6 @@ export interface DialogButton {
   text?: string;
   // qing-button style.
   style?: string;
+  // Defaults to `true`. If true, clicking on the button closes the dialog.
+  autoClose?: boolean;
 }

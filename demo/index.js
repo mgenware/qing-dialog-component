@@ -44,7 +44,7 @@ export class ExamplesView extends LitElement {
         <qing-dialog
           id="focus"
           .buttons=${['ok']}
-          @requestFocus=${(e) => {
+          @requestFocus=${() => {
             this.shadowRoot.getElementById('textInput').focus();
           }}
         >
@@ -113,6 +113,28 @@ export class ExamplesView extends LitElement {
           >This will auto-close in 3s</qing-dialog
         >
         ${this.renderButton('Auto-close', 'auto-close')}
+        <qing-dialog
+          id="close-programically"
+          .buttons=${[{ type: 'ok', autoClose: false }]}
+          @requestFocus=${() => {
+            this.shadowRoot.getElementById('nameInput').focus();
+          }}
+          @buttonClick=${() => {
+            const input = this.shadowRoot.getElementById('nameInput').value;
+            if (input === 'liu') {
+              this.shadowRoot.getElementById('close-programically').open = false;
+            } else {
+              alert('Name is not liu');
+            }
+          }}
+        >
+          <h3>Only liu can close this dialog, try entering liu below and clicking ok</h3>
+          <p>
+            Name:<br />
+            <input type="text" value="" id="nameInput" />
+          </p>
+        </qing-dialog>
+        ${this.renderButton('Close programically', 'close-programically')}
         <qing-dialog id="title-and-buttons" .buttons=${['ok']}>
           <h1>Title and buttons</h1>
         </qing-dialog>
