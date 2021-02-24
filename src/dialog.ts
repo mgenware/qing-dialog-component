@@ -76,13 +76,13 @@ export class QingDialog extends LitElement {
 
   @property({ type: Boolean, reflect: true }) open = false;
   @property({ type: Array }) buttons: (string | DialogButton)[] = [];
-  @property({ type: Number }) defaultButtonIndex = 0;
-  @property({ type: Number }) cancelButtonIndex?: number;
+  @property({ type: Number, reflect: true }) defaultButtonIndex = 0;
+  @property({ type: Number, reflect: true }) cancelButtonIndex?: number;
 
   private closeButton?: DialogButton;
 
   firstUpdated() {
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
   render() {
@@ -91,8 +91,6 @@ export class QingDialog extends LitElement {
         id=${coreID}
         exportparts=${[overlayClass, overlayBackClass].join(', ')}
         ?open=${this.open}
-        @enterKeyPressed=${this.handleEnterKeyPressed}
-        @escKeyPressed=${this.handleEscKeyPressed}
         @openChanged=${this.handleOpenChanged}
       >
         <div class="dialog">
@@ -144,18 +142,6 @@ export class QingDialog extends LitElement {
       }),
     );
     this.close(btn);
-  }
-
-  private handleEscKeyPressed() {
-    if (this.open) {
-      this.getCancelButtonElement()?.click();
-    }
-  }
-
-  private handleEnterKeyPressed() {
-    if (this.open) {
-      this.getDefaultButtonElement()?.click();
-    }
   }
 
   private handleOpenChanged(e: CustomEvent<boolean>) {

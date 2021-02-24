@@ -50,9 +50,9 @@ export class ExamplesView extends LitElement {
         >
           <h2>Title</h2>
           <p>Hello world</p>
-          <form>
+          <p>
             <input type="text" value="name" id="textInput" />
-          </form>
+          </p>
         </qing-dialog>
         ${this.renderButton('Focus', 'focus')}
         <qing-dialog

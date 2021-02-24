@@ -1,6 +1,8 @@
+/* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent } from '@open-wc/testing';
 import { aTimeout } from './lib';
+import '../dist/main';
 import { DialogButton, QingDialog } from '../dist/main';
 
 it('Core properties', async () => {
