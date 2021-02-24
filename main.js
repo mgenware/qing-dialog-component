@@ -50,9 +50,9 @@ export class ExampleApp extends LitElement {
         >
           <h2>Title</h2>
           <p>Hello world</p>
-          <form>
+          <p>
             <input type="text" value="name" id="textInput" />
-          </form>
+          </p>
         </qing-dialog>
         ${this.renderButton('Focus', 'focus')}
         <qing-dialog
@@ -113,6 +113,28 @@ export class ExampleApp extends LitElement {
           >This will auto-close in 3s</qing-dialog
         >
         ${this.renderButton('Auto-close', 'auto-close')}
+        <qing-dialog
+          id="close-programically"
+          .buttons=${[{ type: 'ok', autoClose: false }]}
+          @requestFocus=${() => {
+            this.shadowRoot.getElementById('nameInput').focus();
+          }}
+          @buttonClick=${() => {
+            const input = this.shadowRoot.getElementById('nameInput').value;
+            if (input === 'liu') {
+              this.shadowRoot.getElementById('close-programically').open = false;
+            } else {
+              alert('Name is not liu');
+            }
+          }}
+        >
+          <h3>Only liu can close this dialog, try entering liu below and clicking ok</h3>
+          <p>
+            Name:<br />
+            <input type="text" value="" id="nameInput" />
+          </p>
+        </qing-dialog>
+        ${this.renderButton('Close programically', 'close-programically')}
         <qing-dialog id="title-and-buttons" .buttons=${['ok']}>
           <h1>Title and buttons</h1>
         </qing-dialog>
@@ -122,7 +144,7 @@ export class ExampleApp extends LitElement {
         <hr />
         <h2><code>qing-dialog-core</code></h2>
         <div>
-          <qing-dialog-core id="core-minimal" closeOnEsc> Press Esc to exit </qing-dialog-core>
+          <qing-dialog-core id="core-minimal"> Press Esc to exit </qing-dialog-core>
           ${this.renderButton('Core - Minimal', 'core-minimal')}
         </div>
       </div>
