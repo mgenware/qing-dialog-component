@@ -1,6 +1,6 @@
 {
   "name": "qing-dialog-component",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Dialog component for qing",
   "type": "module",
   "exports": "./dist/main.js",
