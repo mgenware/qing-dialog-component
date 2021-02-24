@@ -91,9 +91,6 @@ declare global {
     'qing-dialog-core': QingDialogCore;
   }
   interface GlobalEventHandlersEventMap {
-    shown: CustomEvent;
-    closed: CustomEvent;
-    enterKeyPressed: CustomEvent;
-    escKeyPressed: CustomEvent;
+    openChanged: CustomEvent<boolean>;
   }
 }

@@ -154,7 +154,7 @@ export class QingDialog extends LitElement {
       this.dispatchEvent(new CustomEvent('shown'));
     } else {
       this.dispatchEvent(
-        new CustomEvent<DialogButton>('closed', { composed: true, detail: this.closeButton }),
+        new CustomEvent<DialogButton>('closed', { detail: this.closeButton }),
       );
       this.closeButton = undefined;
     }
@@ -189,7 +189,8 @@ declare global {
   }
   interface GlobalEventHandlersEventMap {
     shown: CustomEvent;
-    closed: CustomEvent;
+    closed: CustomEvent<DialogButton>;
     requestFocus: CustomEvent;
+    buttonClick: CustomEvent<DialogButton>;
   }
 }
