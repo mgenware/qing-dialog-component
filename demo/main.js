@@ -3,7 +3,7 @@ import '../node_modules/qing-button/dist/main';
 import '../dist/main';
 import { iconElement } from '../dist/main';
 
-export class ExamplesView extends LitElement {
+export class ExampleApp extends LitElement {
   render() {
     return html`
       <div id="main">
@@ -210,7 +210,7 @@ export class ExamplesView extends LitElement {
   }
 }
 
-ExamplesView.styles = css`
+ExampleApp.styles = css`
   h2 {
     margin-bottom: 0;
   }
@@ -254,4 +254,4 @@ ExamplesView.styles = css`
   }
 `;
 
-customElements.define('examples-view', ExamplesView);
+customElements.define('example-app', ExampleApp);
