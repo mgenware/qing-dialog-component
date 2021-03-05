@@ -23,6 +23,7 @@ export class ExampleApp extends LitElement {
             </p>
           </qing-dialog>`,
         )}
+        <h2>Events</h2>
         ${this.r(
           'Handle events',
           html` <qing-dialog
@@ -37,6 +38,37 @@ export class ExampleApp extends LitElement {
           </qing-dialog>`,
         )}
         ${this.r(
+          'Auto-close',
+          html` <qing-dialog id="auto-close" icon="success" @shown=${this.handleAutoCloseShown}
+            >This will auto-close in 3s</qing-dialog
+          >`,
+        )}
+        ${this.r(
+          'Close programically',
+          html` <qing-dialog
+            id="close-programically"
+            .buttons=${[{ type: 'ok', autoClose: false }]}
+            @requestFocus=${() => {
+              this.shadowRoot.getElementById('nameInput').focus();
+            }}
+            @buttonClick=${() => {
+              const input = this.shadowRoot.getElementById('nameInput').value;
+              if (input === 'liu') {
+                this.shadowRoot.getElementById('close-programically').open = false;
+              } else {
+                alert('Name is not liu');
+              }
+            }}
+          >
+            <h3>Only liu can close this dialog, try entering liu below and clicking ok</h3>
+            <p>
+              Name:<br />
+              <input type="text" value="" id="nameInput" />
+            </p>
+          </qing-dialog>`,
+        )}
+        <h2>Buttons</h2>
+        ${this.r(
           'Multiple buttons',
           html` <qing-dialog
             id="multiple-btns"
@@ -45,22 +77,6 @@ export class ExampleApp extends LitElement {
           >
             <h2>Title</h2>
             <p>Hello world</p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Focus',
-          html` <qing-dialog
-            id="focus"
-            .buttons=${['ok']}
-            @requestFocus=${() => {
-              this.shadowRoot.getElementById('textInput').focus();
-            }}
-          >
-            <h2>Title</h2>
-            <p>Hello world</p>
-            <p>
-              <input type="text" value="name" id="textInput" />
-            </p>
           </qing-dialog>`,
         )}
         ${this.r(
@@ -86,6 +102,24 @@ export class ExampleApp extends LitElement {
             <p>Hello world</p>
           </qing-dialog>`,
         )}
+        <h2>Focus</h2>
+        ${this.r(
+          'Focus',
+          html` <qing-dialog
+            id="focus"
+            .buttons=${['ok']}
+            @requestFocus=${() => {
+              this.shadowRoot.getElementById('textInput').focus();
+            }}
+          >
+            <h2>Title</h2>
+            <p>Hello world</p>
+            <p>
+              <input type="text" value="name" id="textInput" />
+            </p>
+          </qing-dialog>`,
+        )}
+        <h2>Styles</h2>
         ${this.r(
           'Icon',
           html` <qing-dialog id="icon" .buttons=${['ok']}>
@@ -127,42 +161,6 @@ export class ExampleApp extends LitElement {
               <button @click=${this.handleLightBtnClick}>Light</button>
               <button @click=${this.handleDarkBtnClick}>Dark</button>
             </p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Auto-close',
-          html` <qing-dialog id="auto-close" icon="success" @shown=${this.handleAutoCloseShown}
-            >This will auto-close in 3s</qing-dialog
-          >`,
-        )}
-        ${this.r(
-          'Close programically',
-          html` <qing-dialog
-            id="close-programically"
-            .buttons=${[{ type: 'ok', autoClose: false }]}
-            @requestFocus=${() => {
-              this.shadowRoot.getElementById('nameInput').focus();
-            }}
-            @buttonClick=${() => {
-              const input = this.shadowRoot.getElementById('nameInput').value;
-              if (input === 'liu') {
-                this.shadowRoot.getElementById('close-programically').open = false;
-              } else {
-                alert('Name is not liu');
-              }
-            }}
-          >
-            <h3>Only liu can close this dialog, try entering liu below and clicking ok</h3>
-            <p>
-              Name:<br />
-              <input type="text" value="" id="nameInput" />
-            </p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Title and buttons',
-          html` <qing-dialog id="title-and-buttons" .buttons=${['ok']}>
-            <h1>Title and buttons</h1>
           </qing-dialog>`,
         )}
         ${this.r('Title-only', html` <qing-dialog id="title-only"><h1>Title</h1></qing-dialog>`)}
