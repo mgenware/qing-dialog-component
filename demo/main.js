@@ -244,6 +244,7 @@ ExampleApp.styles = css`
 
     qing-dialog#layout-auto-min-width::part(overlay) {
       width: auto;
+      min-width: 400px;
       max-width: min(100vw, 1000px);
     }
   }

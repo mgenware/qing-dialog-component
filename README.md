@@ -32,11 +32,12 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
   }
 }
 
-/** auto width with a max value on medium or large screens */
+/** auto width with min and max values on medium or large screens */
 @media (min-width: 768px) {
   qing-dialog::part(overlay) {
     width: auto;
     max-width: min(100vw, 1000px);
+    min-width: 400px;
   }
 }
 ```
@@ -117,12 +118,12 @@ class QingDialog {
 ### CSS Shadow Parts
 
 - Element containers:
-  - `overlay-background`, `overlay`.
+  - `overlay-background`, `overlay`
 - Top-level elements:
   - `content`, `footer`
 - Footer elements:
-  - `footer-buttons`: footer button container.
-  - `footer-button`: individual footer buttons.
+  - `footer-buttons`: footer button container
+  - `footer-button`: individual footer buttons
 
 ### Autofocus
 
