@@ -48,8 +48,15 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
 /** Fullscreen dialog with margins **/
 qing-dialog::part(overlay) {
   display: flex;
-  width: calc(100vw - 100px);
-  height: calc(100vh - 100px);
+  width: calc(100vw - 1rem);
+  height: calc(100vh - 1rem);
+}
+@media (min-width: 768px) {
+  qing-dialog::part(overlay) {
+    display: flex;
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+  }
 }
 ```
 
