@@ -1,6 +1,7 @@
 # qing-dialog-component (WIP)
 
 [![Build Status](https://github.com/mgenware/qing-button/workflows/Build/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
+[![Pages Status](https://github.com/mgenware/qing-button/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
 [![npm version](https://img.shields.io/npm/v/qing-dialog-component.svg?style=flat-square)](https://npmjs.com/package/qing-dialog-component)
 [![Node.js Version](http://img.shields.io/node/v/qing-dialog-component.svg?style=flat-square)](https://nodejs.org/en/)
 
