@@ -3142,6 +3142,13 @@ qing-button@^7.1.0:
   resolved "https://registry.yarnpkg.com/qing-button/-/qing-button-7.1.0.tgz#4fe1c4822a92106d997f7a25ef21026fb3975658"
   integrity sha512-fcUS8Nxrryg1J1IdnC9iFNsY9mEJeSVl51Vmh4s5rmx9lXCHBd372euNtBw+8vxYztyGckR0bFQK3m/xLnyquA==
 
+qing-t@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/qing-t/-/qing-t-5.0.0.tgz#f505f52a2194c37ee63b81ac0b6b0ce69166177d"
+  integrity sha512-Qoxfkq5kTze+P/tuixeZrLwPSdRNqq3b2uNgs3Dw8XBn57e4G64ueuyKTvqgaQsZit8PLdCV/ckcx3DgE/Ef4Q==
+  dependencies:
+    "@open-wc/testing" "^2.5.32"
+
 qs@^6.5.2:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"

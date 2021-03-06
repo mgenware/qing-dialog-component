@@ -33,7 +33,6 @@
     "qing-button": "^7.0.0"
   },
   "devDependencies": {
-    "@open-wc/testing": "^2.5.32",
     "@types/mocha": "^8.2.1",
     "@types/node": "^14.14.31",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
@@ -49,6 +48,7 @@
     "mgenware-tsconfig-wc": "^2.0.3",
     "mocha": "^8.3.0",
     "qing-button": "^7.1.0",
+    "qing-t": "^5.0.0",
     "source-map-support": "^0.5.19",
     "typescript": "^4.2.2"
   }

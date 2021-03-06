@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { html, fixture, expect } from '@open-wc/testing';
+import { html, fixture, expect } from 'qing-t';
 import { buttonContainerClass, QingDialog } from '../dist/main';
 
 it('Alignment defaults to centered', async () => {

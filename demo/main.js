@@ -50,6 +50,15 @@ export class ExampleApp extends LitElement {
             <dynamic-content></dynamic-content>
           </qing-dialog>`,
         )}
+        ${this.r(
+          'Fullscreen with margins',
+          html`<qing-dialog id="layout-full-margins" .buttons=${['ok']} .cancelButtonIndex=${0}>
+            <div style="flex-grow:1">
+              <h2>Title</h2>
+              <dynamic-content></dynamic-content>
+            </div>
+          </qing-dialog>`,
+        )}
         <h2>Events</h2>
         ${this.r(
           'Handle events',
@@ -247,6 +256,12 @@ ExampleApp.styles = css`
       min-width: 400px;
       max-width: min(100vw, 1000px);
     }
+  }
+
+  qing-dialog#layout-full-margins::part(overlay) {
+    display: flex;
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
   }
 
   h2 {

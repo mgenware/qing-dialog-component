@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { html, fixture, expect, oneEvent } from '@open-wc/testing';
+import { html, fixture, expect, oneEvent } from 'qing-t';
 import { aTimeout } from './lib';
 import { buttonContainerClass, DialogButton, QingDialog } from '../dist/main';
 
