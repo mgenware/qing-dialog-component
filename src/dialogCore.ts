@@ -38,12 +38,6 @@ export class QingDialogCore extends LitElement {
         background-color: white;
         padding: 0;
       }
-
-      @media (min-width: 768px) {
-        .overlay {
-          width: 80%;
-        }
-      }
     `;
   }
 

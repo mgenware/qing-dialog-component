@@ -3,24 +3,51 @@ import '../node_modules/qing-button/dist/main';
 import '../dist/main';
 import { iconElement } from '../dist/main';
 
+class DynamicContent extends LitElement {
+  render() {
+    return html`<p>
+      <span id="span">Hello world <button @click=${this.handleClick}>Expand</button></span>
+    </p>`;
+  }
+
+  handleClick() {
+    this.shadowRoot.getElementById(
+      'span',
+    ).textContent = `The div element has no special meaning at all. It represents its children. It can be
+    used with the class, lang, and title attributes to mark up semantics common to a group
+    of consecutive elements. The div element has no special meaning at all. It represents
+    its children. It can be used with the class, lang, and title attributes to mark up
+    semantics common to a group of consecutive elements. The div element has no special
+    meaning at all. It represents its children. It can be used with the class, lang, and
+    title attributes to mark up semantics common to a group of consecutive elements.`;
+  }
+}
+
+DynamicContent.styles = css`
+  :host {
+    display: block;
+  }
+`;
+
+customElements.define('dynamic-content', DynamicContent);
+
 export class ExampleApp extends LitElement {
   render() {
     return html`
       <div id="main">
         <h2>Layouts</h2>
         ${this.r(
-          'Basic',
-          html`<qing-dialog id="basic" .buttons=${['ok']} .cancelButtonIndex=${0}>
+          'Width: 80%, Height: auto',
+          html`<qing-dialog id="layout-w-80" .buttons=${['ok']} .cancelButtonIndex=${0}>
             <h2>Title</h2>
-            <p>
-              The div element has no special meaning at all. It represents its children. It can be
-              used with the class, lang, and title attributes to mark up semantics common to a group
-              of consecutive elements. The div element has no special meaning at all. It represents
-              its children. It can be used with the class, lang, and title attributes to mark up
-              semantics common to a group of consecutive elements. The div element has no special
-              meaning at all. It represents its children. It can be used with the class, lang, and
-              title attributes to mark up semantics common to a group of consecutive elements.
-            </p>
+            <dynamic-content></dynamic-content>
+          </qing-dialog>`,
+        )}
+        ${this.r(
+          'Width: auto + min value, Height: auto',
+          html`<qing-dialog id="layout-auto-min-width" .buttons=${['ok']} .cancelButtonIndex=${0}>
+            <h2>Title</h2>
+            <dynamic-content></dynamic-content>
           </qing-dialog>`,
         )}
         <h2>Events</h2>
@@ -209,6 +236,16 @@ export class ExampleApp extends LitElement {
 }
 
 ExampleApp.styles = css`
+  @media (min-width: 768px) {
+    /** Default style */
+
+    qing-dialog#layout-auto-min-width::part(overlay) {
+      width: auto;
+      min-width: min(100vw, 300px);
+      max-width: min(100vw, 1000px);
+    }
+  }
+
   h2 {
     margin-bottom: 0;
   }
