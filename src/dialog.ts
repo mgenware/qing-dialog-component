@@ -44,6 +44,8 @@ export class QingDialog extends LitElement {
       }
 
       .dialog {
+        /** Fill horizontal space. The '.dialog' div's parent ('.overlay' div in dialog-core) is displayed as flex with default direction */
+        flex-grow: 1;
         display: flex;
         max-height: 100vh;
         max-width: 100vw;

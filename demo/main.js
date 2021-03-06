@@ -202,7 +202,7 @@ export class ExampleApp extends LitElement {
         ${this.r('Title-only', html` <qing-dialog id="title-only"><h1>Title</h1></qing-dialog>`)}
         ${this.r(
           'A minimal overlay',
-          html` <qing-dialog-core id="core-minimal"> Hello world </qing-dialog-core>`,
+          html` <qing-dialog-core id="core-minimal"><p>Hello world</p></qing-dialog-core>`,
         )}
       </div>
     `;
