@@ -3,16 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Demo of qing-dialog-component</title>
+    <title>qing-dialog-component demo</title>
     <style>
-      body {
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-          'Apple Color Emoji', 'Segoe UI Emoji';
+      /** https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css */
+      .container {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+      @media (min-width: 768px) {
+        .container {
+          width: 750px;
+        }
+      }
+      @media (min-width: 992px) {
+        .container {
+          width: 970px;
+        }
+      }
+      @media (min-width: 1200px) {
+        .container {
+          width: 1170px;
+        }
       }
     </style>
-  </head>
+  <link rel="stylesheet" href="./modern-normalize.css">
+</head>
   <body>
-    <example-app></example-app>
-    <script src="./static/main.f69dd9df.js"></script>
+    <div class="container">
+      <example-app></example-app>
+    </div>
+    <script src="./main.45c50ab0.js"></script>
   </body>
 </html>
