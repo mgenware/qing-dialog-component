@@ -1,11 +1,11 @@
 # qing-dialog-component (WIP)
 
-[![Build Status](https://github.com/mgenware/qing-button/workflows/Build/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
-[![Pages Status](https://github.com/mgenware/qing-button/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
+[![Build Status](https://github.com/mgenware/qing-dialog-component/workflows/Build/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
+[![Pages Status](https://github.com/mgenware/qing-dialog-component/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
 [![npm version](https://img.shields.io/npm/v/qing-dialog-component.svg?style=flat-square)](https://npmjs.com/package/qing-dialog-component)
 [![Node.js Version](http://img.shields.io/node/v/qing-dialog-component.svg?style=flat-square)](https://nodejs.org/en/)
 
-Dialog component for [qing](https://github.com/mgenware/qing), based on [qing-button](https://github.com/mgenware/qing-button) and lit-element, mobile friendly.
+Dialog component for [qing](https://github.com/mgenware/qing)
 
 ## Demo
 
