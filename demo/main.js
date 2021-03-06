@@ -238,10 +238,12 @@ export class ExampleApp extends LitElement {
 ExampleApp.styles = css`
   @media (min-width: 768px) {
     /** Default style */
+    qing-dialog::part(overlay) {
+      width: 80%;
+    }
 
     qing-dialog#layout-auto-min-width::part(overlay) {
       width: auto;
-      min-width: min(100vw, 300px);
       max-width: min(100vw, 1000px);
     }
   }

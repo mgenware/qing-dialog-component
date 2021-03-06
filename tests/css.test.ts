@@ -22,7 +22,7 @@ it('--dialog-button-container-justify-content', async () => {
   ).to.eq('center');
 });
 
-it('Overlay is auto sized by default', async () => {
+it('height = auto, width = full', async () => {
   const el = (await fixture(html`
     <qing-dialog dialogTitle="Greetings" open .buttons=${['ok']}><p>test</p></qing-dialog>
   `)) as QingDialog;
@@ -31,7 +31,7 @@ it('Overlay is auto sized by default', async () => {
     .shadowRoot!.querySelector('qing-dialog-core')!
     .shadowRoot!.querySelector('.overlay')!
     .getBoundingClientRect();
-  expect(rect.x).to.greaterThan(0);
+  expect(rect.x).to.eq(0);
   expect(rect.y).to.greaterThan(0);
   expect(rect.width).to.greaterThan(0);
   expect(rect.height).to.greaterThan(0);

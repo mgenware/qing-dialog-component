@@ -34,6 +34,7 @@ export class QingDialogCore extends LitElement {
       .overlay {
         max-height: 100vh;
         max-width: 100vw;
+        width: 100vw;
         color: black;
         background-color: white;
         padding: 0;
