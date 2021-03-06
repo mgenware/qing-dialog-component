@@ -20,6 +20,27 @@ yarn add qing-dialog-component qing-button lit-element
 
 ## Usage
 
+### Dialog size
+
+Dialog size is fully customizable. By default, height defaults to auto (fits content size), width defaults to `100vw`. You might need to add some CSS to fit your use case, some examples:
+
+```css
+/** 80% of screen width on medium or large screens */
+@media (min-width: 768px) {
+  qing-dialog::part(overlay) {
+    width: 80%;
+  }
+}
+
+/** auto width with a max value on medium or large screens */
+@media (min-width: 768px) {
+  qing-dialog::part(overlay) {
+    width: auto;
+    max-width: min(100vw, 1000px);
+  }
+}
+```
+
 ### Properties
 
 ```ts
