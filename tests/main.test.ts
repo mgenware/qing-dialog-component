@@ -1,22 +1,24 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent } from 'qing-t';
-import { aTimeout } from './lib';
 import '../dist/main';
 import { QingOverlay } from '../dist/main';
+import { aTimeout } from './lib';
 
-it('Core properties', async () => {
-  const el = await fixture<QingOverlay>(html`
-    <qing-overlay dialogTitle="Greetings" .buttons=${['ok']}><p>test</p></qing-overlay>
-  `);
+const openChanged = 'openChanged';
+const escKeyDown = 'escKeyDown';
+const enterKeyDown = 'enterKeyDown';
+
+it('Default state', async () => {
+  const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
 
   expect(el.innerHTML).to.eq('<p>test</p>');
-  expect(el.getAttribute('dialogTitle')).to.eq('Greetings');
+  expect(el.getAttribute('open')).to.eq(null);
 });
 
-it('shown', async () => {
+it('openChanged', async () => {
   const el = (await fixture(html`
-    <qing-overlay dialogTitle="Title" .buttons=${['ok']} }}>
+    <qing-overlay>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -24,35 +26,28 @@ it('shown', async () => {
     </qing-overlay>
   `)) as QingOverlay;
 
-  const shown = oneEvent(el, 'shown');
+  const shown = oneEvent(el, openChanged);
   el.open = true;
-  await shown;
+  let e = await shown;
+  expect(e.detail).to.eq(true);
+  expect(el.getAttribute('open')).to.eq('');
 
-  expect(el.hasAttribute('open')).to.eq(true);
+  const closed = oneEvent(el, openChanged);
+  el.open = false;
+  e = await closed;
+  expect(e.detail).to.eq(false);
+  expect(el.getAttribute('open')).to.eq(null);
+
+  const reopen = oneEvent(el, openChanged);
+  el.open = true;
+  e = await reopen;
+  expect(e.detail).to.eq(true);
   expect(el.getAttribute('open')).to.eq('');
 });
 
-it('Dismissed programmatically', async () => {
-  const el = await fixture<QingOverlay>(html`
-    <qing-overlay dialogTitle="Title" .buttons=${['ok']} .cancelButtonIndex=${0} }}>
-      <div>Hello World</div>
-      <form>
-        <input type="text" value="name" id="textInput" />
-      </form>
-    </qing-overlay>
-  `);
-
-  const closed = oneEvent(el, 'closed');
-  el.open = true;
-  await aTimeout();
-
-  el.open = false;
-  await closed;
-});
-
-it('Focus', async () => {
+it('Keydown events', async () => {
   const el = (await fixture(html`
-    <qing-overlay dialogTitle="Title" .buttons=${['ok']}>
+    <qing-overlay open>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -60,37 +55,13 @@ it('Focus', async () => {
     </qing-overlay>
   `)) as QingOverlay;
 
-  el.addEventListener('requestFocus', () => {
-    document.getElementById('textInput')!.focus();
-  });
-  el.open = true;
   await aTimeout();
 
-  expect(document.activeElement).to.eq(document.getElementById('textInput'));
-});
+  const escDown = oneEvent(el, escKeyDown);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+  await escDown;
 
-it('Reopen', async () => {
-  const el = (await fixture(html`
-    <qing-overlay dialogTitle="Title" .buttons=${['ok']} }}>
-      <div>Hello World</div>
-      <form>
-        <input type="text" value="name" id="textInput" />
-      </form>
-    </qing-overlay>
-  `)) as QingOverlay;
-
-  const shown = oneEvent(el, 'shown');
-  el.open = true;
-  await shown;
-
-  const closed = oneEvent(el, 'closed');
-  el.open = false;
-  await closed;
-
-  const reopen = oneEvent(el, 'shown');
-  el.open = true;
-  await reopen;
-
-  expect(el.hasAttribute('open')).to.eq(true);
-  expect(el.getAttribute('open')).to.eq('');
+  const enterDown = oneEvent(el, enterKeyDown);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+  await enterDown;
 });
