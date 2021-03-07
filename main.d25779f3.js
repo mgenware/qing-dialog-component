@@ -240,7 +240,6 @@ const Q=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e)
         width: 100vw;
         color: black;
         background-color: white;
-        padding: 0.625rem 1.25rem;
         display: flex;
         flex-direction: column;
       }
@@ -348,8 +347,11 @@ ${`${"2020 is coming. ".repeat(20)}\n`.repeat(500)}</pre
       </p>
       ${s}
     `}get mainElement(){return this.shadowRoot.getElementById("main")}handleLightBtnClick(){this.mainElement.classList.remove("theme-dark")}handleDarkBtnClick(){this.mainElement.classList.add("theme-dark")}handleAutoCloseOpenChanged(t){t.detail&&setTimeout((()=>{this.shadowRoot.getElementById("auto-close").open=!1}),3e3)}}mt.styles=[pt,st`
+    qing-overlay::part(overlay) {
+      padding: 0.625rem 1.25rem;
+    }
+
     @media (min-width: 768px) {
-      /** Default style */
       qing-overlay::part(overlay) {
         width: 80%;
       }
