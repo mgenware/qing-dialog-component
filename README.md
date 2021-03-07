@@ -1,22 +1,22 @@
-# qing-dialog-component (WIP)
+# qing-overlay (WIP)
 
-[![Build Status](https://github.com/mgenware/qing-dialog-component/workflows/Build/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
-[![Pages Status](https://github.com/mgenware/qing-dialog-component/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-dialog-component/actions)
-[![npm version](https://img.shields.io/npm/v/qing-dialog-component.svg?style=flat-square)](https://npmjs.com/package/qing-dialog-component)
-[![Node.js Version](http://img.shields.io/node/v/qing-dialog-component.svg?style=flat-square)](https://nodejs.org/en/)
+[![Build Status](https://github.com/mgenware/qing-overlay/workflows/Build/badge.svg)](https://github.com/mgenware/qing-overlay/actions)
+[![Pages Status](https://github.com/mgenware/qing-overlay/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-overlay/actions)
+[![npm version](https://img.shields.io/npm/v/qing-overlay.svg?style=flat-square)](https://npmjs.com/package/qing-overlay)
+[![Node.js Version](http://img.shields.io/node/v/qing-overlay.svg?style=flat-square)](https://nodejs.org/en/)
 
 Dialog component for [qing](https://github.com/mgenware/qing)
 
 ## Demo
 
-[Demo](https://mgenware.github.io/qing-dialog-component/)
+[Demo](https://mgenware.github.io/qing-overlay/)
 
 ## Installation
 
-> qing-dialog-component is based on [qing-button](https://github.com/mgenware/qing-button) and lit-element
+> qing-overlay is based on [qing-button](https://github.com/mgenware/qing-button) and lit-element
 
 ```sh
-yarn add qing-dialog-component qing-button lit-element
+yarn add qing-overlay qing-button lit-element
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
 /** Example 1 **/
 /** 80% of screen width on medium or large screens */
 @media (min-width: 768px) {
-  qing-dialog::part(overlay) {
+  qing-overlay::part(overlay) {
     width: 80%;
   }
 }
@@ -37,7 +37,7 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
 /** Example 2 **/
 /** Auto width with min and max values on medium or large screens */
 @media (min-width: 768px) {
-  qing-dialog::part(overlay) {
+  qing-overlay::part(overlay) {
     width: auto;
     max-width: min(100vw, 1000px);
     min-width: 400px;
@@ -46,13 +46,13 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
 
 /** Example 3 **/
 /** Fullscreen dialog with margins **/
-qing-dialog::part(overlay) {
+qing-overlay::part(overlay) {
   display: flex;
   width: calc(100vw - 1rem);
   height: calc(100vh - 1rem);
 }
 @media (min-width: 768px) {
-  qing-dialog::part(overlay) {
+  qing-overlay::part(overlay) {
     display: flex;
     width: calc(100vw - 4rem);
     height: calc(100vh - 4rem);
@@ -98,8 +98,8 @@ interface CloseReasonDetail {
   data?: unknown;
 }
 
-// Dialog component: <qing-dialog>
-class QingDialog {
+// Dialog component: <qing-overlay>
+class QingOverlay {
   // Set localized button strings.
   static localizedButtonStrings: Record<string, string>;
   /**
@@ -149,7 +149,7 @@ Use `requestFocus` event to auto focus an element when the dialog shows up, exam
 
 ```js
 html`
-  <qing-dialog
+  <qing-overlay
     .buttons=${['ok']}
     @requestFocus=${() => {
       this.shadowRoot.getElementById('textInput').focus();
@@ -158,7 +158,7 @@ html`
     <form>
       <input type="text" id="textInput" />
     </form>
-  </qing-dialog>
+  </qing-overlay>
 `;
 ```
 

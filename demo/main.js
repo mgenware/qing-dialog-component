@@ -1,13 +1,44 @@
 import { html, LitElement, css } from '../node_modules/lit-element';
 import '../node_modules/qing-button/dist/main';
 import '../dist/main';
-import { iconElement } from '../dist/main';
+
+const sharedStyles = css`
+  button {
+    background-color: #e7e7e7;
+    color: black;
+    border: 0;
+    border-radius: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.6rem 0.9rem;
+    transition: all 0.3s ease 0s;
+  }
+  button:hover {
+    opacity: 0.8;
+  }
+  button:active,
+  button.selected {
+    filter: brightness(80%);
+  }
+  button:disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  button:focus {
+    box-shadow: inset 0 0 0 0.2rem var(--button-outline-color, #8dc3eb);
+    outline: none;
+  }
+`;
 
 class DynamicContent extends LitElement {
   render() {
-    return html`<p>
-      <span id="span">Hello world <button @click=${this.handleClick}>Expand</button></span>
-    </p>`;
+    return html` <h2>Title</h2>
+      <p>
+        <span id="span">Hello world <button @click=${this.handleClick}>Expand</button></span>
+      </p>`;
   }
 
   handleClick() {
@@ -23,11 +54,16 @@ class DynamicContent extends LitElement {
   }
 }
 
-DynamicContent.styles = css`
-  :host {
-    display: block;
-  }
-`;
+DynamicContent.styles = [
+  sharedStyles,
+  css`
+    :host {
+      display: flex;
+      flex-grow: 1;
+      flex-direction: column;
+    }
+  `,
+];
 
 customElements.define('dynamic-content', DynamicContent);
 
@@ -36,193 +72,91 @@ export class ExampleApp extends LitElement {
     return html`
       <div id="main">
         <h2>Layouts</h2>
-        ${this.r(
-          'Width: 80%, Height: auto',
-          html`<qing-dialog id="layout-w-80" .buttons=${['ok']} .cancelButtonIndex=${0}>
-            <h2>Title</h2>
-            <dynamic-content></dynamic-content>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Width: auto + min value, Height: auto',
-          html`<qing-dialog id="layout-auto-min-width" .buttons=${['ok']} .cancelButtonIndex=${0}>
-            <h2>Title</h2>
-            <dynamic-content></dynamic-content>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Fullscreen with margins',
-          html`<qing-dialog id="layout-full-margins" .buttons=${['ok']} .cancelButtonIndex=${0}>
-            <div style="flex-grow:1">
-              <h2>Title</h2>
-              <dynamic-content></dynamic-content>
-            </div>
-          </qing-dialog>`,
-        )}
+        ${this.r('Width: 80%, Height: auto', 'layout-w-80')}
+        ${this.r('Width: auto + min value, Height: auto', 'layout-auto-min-width')}
+        ${this.r('Fullscreen with margins', 'layout-full-margins')}
         <h2>Events</h2>
-        ${this.r(
-          'Handle events',
-          html` <qing-dialog
-            id="handle-events"
-            .buttons=${['ok']}
-            @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-            @shown=${() => alert('Shown')}
-            @closed=${() => alert('Closed')}
-          >
-            <h2>Title</h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
+        ${this.r('Handle events', 'handle-events', undefined, (e) =>
+          alert(e.detail ? 'Opening' : 'Closing'),
         )}
         ${this.r(
           'Auto-close',
-          html` <qing-dialog id="auto-close" icon="success" @shown=${this.handleAutoCloseShown}
-            >This will auto-close in 3s</qing-dialog
-          >`,
-        )}
-        ${this.r(
-          'Close programically',
-          html` <qing-dialog
-            id="close-programically"
-            .buttons=${[{ type: 'ok', autoClose: false }]}
-            @requestFocus=${() => {
-              this.shadowRoot.getElementById('nameInput').focus();
-            }}
-            @buttonClick=${() => {
-              const input = this.shadowRoot.getElementById('nameInput').value;
-              if (input === 'liu') {
-                this.shadowRoot.getElementById('close-programically').open = false;
-              } else {
-                alert('Name is not liu');
-              }
-            }}
-          >
-            <h3>Only liu can close this dialog, try entering liu below and clicking ok</h3>
-            <p>
-              Name:<br />
-              <input type="text" value="" id="nameInput" />
-            </p>
-          </qing-dialog>`,
-        )}
-        <h2>Buttons</h2>
-        ${this.r(
-          'Multiple buttons',
-          html` <qing-dialog
-            id="multiple-btns"
-            .buttons=${['yes', 'no', 'cancel']}
-            @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          >
-            <h2>Title</h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'Right aligned buttons',
-          html` <qing-dialog
-            id="right-btns"
-            .buttons=${['yes', 'no', 'cancel']}
-            @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          >
-            <h2>Title</h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
-          'isDefault and isCancel buttons',
-          html` <qing-dialog
-            id="default-cancel-buttons"
-            .buttons=${['yes', 'no', 'cancel']}
-            .cancelButtonIndex=${2}
-            @buttonClick=${(btn) => alert(`You clicked ${btn.detail.text}!`)}
-          >
-            <h2>Title</h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
+          'auto-close',
+          html`<p>Overlay auto closes in 3 secs</p>`,
+          this.handleAutoCloseOpenChanged,
         )}
         <h2>Focus</h2>
         ${this.r(
           'Focus',
-          html` <qing-dialog
-            id="focus"
-            .buttons=${['ok']}
-            @requestFocus=${() => {
-              this.shadowRoot.getElementById('textInput').focus();
-            }}
-          >
-            <h2>Title</h2>
+          'focus',
+          html` <h2>Title</h2>
             <p>Hello world</p>
             <p>
               <input type="text" value="name" id="textInput" />
-            </p>
-          </qing-dialog>`,
+            </p>`,
+          (e) => {
+            if (e.detail) {
+              this.shadowRoot.getElementById('textInput').focus();
+            }
+          },
         )}
         <h2>Styles</h2>
         ${this.r(
-          'Icon',
-          html` <qing-dialog id="icon" .buttons=${['ok']}>
-            <h2>
-              ${iconElement({ type: 'error' })}
-              <span style="vertical-align: middle">Title</span>
-            </h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
           'Long text',
-          html` <qing-dialog id="long-text" dialogTitle="Info" icon="info" .buttons=${['ok']}>
-            <h2>
-              ${iconElement({ type: 'success' })}
-              <span style="vertical-align: middle">Title</span>
-            </h2>
-            <pre style="overflow-y: auto">${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre>
-          </qing-dialog>`,
+          'long-text',
+          html`<h2>Long text</h2>
+            <pre style="overflow-y: auto">
+${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
+            >`,
         )}
-        ${this.r(
-          'Border styles',
-          html` <qing-dialog id="border-styles" .buttons=${['ok']}>
-            <h2>
-              ${iconElement({ type: 'success' })}
-              <span style="vertical-align: middle">Title</span>
-            </h2>
-            <p>Hello world</p>
-          </qing-dialog>`,
-        )}
-        ${this.r(
+        ${this.r('Border styles', 'border-styles')}
+        ${this.rElement(
           'Themes',
-          html` <qing-dialog id="themes" dialogTitle="Themes" .buttons=${['ok']}>
-            <h2>
-              ${iconElement({ type: 'success', color: '' })}
-              <span style="vertical-align: middle">Title</span>
-            </h2>
+          'themes',
+          html` <qing-overlay id="themes">
+            <h2>Title</h2>
             <p>
               <button @click=${this.handleLightBtnClick}>Light</button>
               <button @click=${this.handleDarkBtnClick}>Dark</button>
+              <button
+                @click=${() => this.shadowRoot.getElementById('themes').removeAttribute('open')}
+              >
+                OK
+              </button>
             </p>
-          </qing-dialog>`,
-        )}
-        ${this.r('Title-only', html` <qing-dialog id="title-only"><h1>Title</h1></qing-dialog>`)}
-        ${this.r(
-          'A minimal overlay',
-          html` <qing-dialog-core id="core-minimal"><p>Hello world</p></qing-dialog-core>`,
+          </qing-overlay>`,
         )}
       </div>
     `;
   }
 
-  r(text, modal) {
+  r(text, id, content, handler) {
     return html`
       <p>
-        <button @click=${this.handleButtonClick}>${text}</button>
-        ${modal}
+        <button @click=${() => this.shadowRoot.getElementById(id).setAttribute('open', '')}>
+          ${text}
+        </button>
       </p>
+      <qing-overlay id=${id} @openChanged=${handler}>
+        ${content ?? html`<dynamic-content></dynamic-content>`}
+        <p style="text-align:center">
+          <button @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
+            OK
+          </button>
+        </p>
+      </qing-overlay>
     `;
   }
 
-  handleButtonClick(e) {
-    const btn = e.target;
-    const p = btn.parentElement;
-    // <qing-dialog> is the second child of the <p>.
-    const dialog = p.children[1];
-    dialog.setAttribute('open', '');
+  rElement(text, id, content) {
+    return html`
+      <p>
+        <button @click=${() => this.shadowRoot.getElementById(id).setAttribute('open', '')}>
+          ${text}
+        </button>
+      </p>
+      ${content}
+    `;
   }
 
   get mainElement() {
@@ -237,81 +171,83 @@ export class ExampleApp extends LitElement {
     this.mainElement.classList.add('theme-dark');
   }
 
-  handleAutoCloseShown() {
-    setTimeout(() => {
-      this.shadowRoot.getElementById('auto-close').open = false;
-    }, 3000);
+  handleAutoCloseOpenChanged(e) {
+    if (e.detail) {
+      setTimeout(() => {
+        this.shadowRoot.getElementById('auto-close').open = false;
+      }, 3000);
+    }
   }
 }
 
-ExampleApp.styles = css`
-  @media (min-width: 768px) {
-    /** Default style */
-    qing-dialog::part(overlay) {
-      width: 80%;
+ExampleApp.styles = [
+  sharedStyles,
+  css`
+    @media (min-width: 768px) {
+      /** Default style */
+      qing-overlay::part(overlay) {
+        width: 80%;
+      }
+
+      qing-overlay#layout-auto-min-width::part(overlay) {
+        width: auto;
+        min-width: 400px;
+        max-width: min(100vw, 1000px);
+      }
     }
 
-    qing-dialog#layout-auto-min-width::part(overlay) {
-      width: auto;
-      min-width: 400px;
-      max-width: min(100vw, 1000px);
-    }
-  }
-
-  qing-dialog#layout-full-margins::part(overlay) {
-    display: flex;
-    width: calc(100vw - 1rem);
-    height: calc(100vh - 1rem);
-  }
-  @media (min-width: 768px) {
-    qing-dialog#layout-full-margins::part(overlay) {
+    qing-overlay#layout-full-margins::part(overlay) {
       display: flex;
-      width: calc(100vw - 4rem);
-      height: calc(100vh - 4rem);
+      width: calc(100vw - 1rem);
+      height: calc(100vh - 1rem);
     }
-  }
+    @media (min-width: 768px) {
+      qing-overlay#layout-full-margins::part(overlay) {
+        display: flex;
+        width: calc(100vw - 4rem);
+        height: calc(100vh - 4rem);
+      }
+    }
 
-  h2 {
-    margin-bottom: 0;
-  }
-  #max-width {
-    --dialog-max-width: 400px;
-  }
-  #right-btns::part(footer-buttons) {
-    justify-content: flex-end;
-  }
-  #border-styles::part(overlay) {
-    border: 4px dashed green;
-    border-radius: 10px;
-  }
-  :host {
-    --default-back-color: white;
-    --default-fore-color: black;
-    --default-btn-back-color: lightgray;
-    --default-success-color: #89ec7c;
-  }
-  .theme-dark {
-    --default-back-color: black;
-    --default-fore-color: #777777;
-    --default-btn-back-color: #1a1a1a;
-    --default-success-color: #073f00;
-  }
-  #themes::part(overlay) {
-    color: var(--default-fore-color);
-    background-color: var(--default-back-color);
-  }
-  #themes::part(footer-button) {
-    color: var(--default-fore-color);
-    background-color: var(--default-btn-back-color);
-  }
-  #themes .icon-success {
-    fill: var(--default-success-color);
-  }
-  #themes button {
-    border: 1px solid #818181;
-    color: var(--default-fore-color);
-    background-color: var(--default-btn-back-color);
-  }
-`;
+    h2 {
+      margin-bottom: 0;
+    }
+    #max-width {
+      --dialog-max-width: 400px;
+    }
+    #right-btns::part(footer-buttons) {
+      justify-content: flex-end;
+    }
+    #border-styles::part(overlay) {
+      border: 4px dashed green;
+      border-radius: 10px;
+    }
+    :host {
+      --default-back-color: white;
+      --default-fore-color: black;
+      --default-btn-back-color: lightgray;
+      --default-success-color: #89ec7c;
+    }
+    .theme-dark {
+      --default-back-color: black;
+      --default-fore-color: #777777;
+      --default-btn-back-color: #1a1a1a;
+      --default-success-color: #073f00;
+    }
+    #themes::part(overlay) {
+      color: var(--default-fore-color);
+      background-color: var(--default-back-color);
+    }
+    #themes::part(footer-button) {
+      color: var(--default-fore-color);
+      background-color: var(--default-btn-back-color);
+    }
+    #themes button {
+      border: 1px solid #818181;
+      color: var(--default-fore-color);
+      background-color: var(--default-btn-back-color);
+    }
+  `,
+];
 
 customElements.define('example-app', ExampleApp);

@@ -1,34 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect } from 'qing-t';
-import { buttonContainerClass, QingDialog } from '../dist/main';
-
-it('Alignment defaults to centered', async () => {
-  const el = (await fixture(html`
-    <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}><p>test</p></qing-dialog>
-  `)) as QingDialog;
-
-  expect(
-    getComputedStyle(el.shadowRoot!.querySelector(`.${buttonContainerClass}`)!).justifyContent,
-  ).to.eq('center');
-});
-
-it('--dialog-button-container-justify-content', async () => {
-  const el = (await fixture(html`
-    <qing-dialog dialogTitle="Greetings" .buttons=${['ok']}><p>test</p></qing-dialog>
-  `)) as QingDialog;
-
-  expect(
-    getComputedStyle(el.shadowRoot!.querySelector(`.${buttonContainerClass}`)!).justifyContent,
-  ).to.eq('center');
-});
+import { QingOverlay } from '../dist/main';
 
 it('height = auto, width = full', async () => {
   const el = (await fixture(html`
-    <qing-dialog dialogTitle="Greetings" open .buttons=${['ok']}><p>test</p></qing-dialog>
-  `)) as QingDialog;
+    <qing-overlay dialogTitle="Greetings" open .buttons=${['ok']}><p>test</p></qing-overlay>
+  `)) as QingOverlay;
 
   const rect = el
-    .shadowRoot!.querySelector('qing-dialog-core')!
+    .shadowRoot!.querySelector('qing-overlay-core')!
     .shadowRoot!.querySelector('.overlay')!
     .getBoundingClientRect();
   expect(rect.x).to.eq(0);

@@ -1,17 +1,17 @@
 {
-  "name": "qing-dialog-component",
+  "name": "qing-overlay",
   "version": "0.10.0",
-  "description": "Dialog component for qing",
+  "description": "Display an overlay on screen",
   "type": "module",
   "exports": "./dist/main.js",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "author": "Mgenware (https://github.com/mgenware)",
-  "homepage": "https://github.com/mgenware/qing-dialog-component",
-  "bugs": "https://github.com/mgenware/qing-dialog-component/issues",
+  "homepage": "https://github.com/mgenware/qing-overlay",
+  "bugs": "https://github.com/mgenware/qing-overlay/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mgenware/qing-dialog-component.git"
+    "url": "https://github.com/mgenware/qing-overlay.git"
   },
   "license": "MIT",
   "scripts": {
