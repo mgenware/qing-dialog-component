@@ -197,13 +197,11 @@ ExampleApp.styles = [
     }
 
     qing-overlay#layout-full-margins::part(overlay) {
-      display: flex;
       width: calc(100vw - 1rem);
       height: calc(100vh - 1rem);
     }
     @media (min-width: 768px) {
       qing-overlay#layout-full-margins::part(overlay) {
-        display: flex;
         width: calc(100vw - 4rem);
         height: calc(100vh - 4rem);
       }
