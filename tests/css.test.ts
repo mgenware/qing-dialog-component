@@ -30,5 +30,5 @@ it('Inner overlay has no paddings', async () => {
   await aTimeout();
 
   const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay')!);
-  expect(styles.padding).to.eq('0');
+  expect(styles.padding).to.eq('0px');
 });
