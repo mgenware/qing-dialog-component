@@ -183,8 +183,11 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
 ExampleApp.styles = [
   sharedStyles,
   css`
+    qing-overlay::part(overlay) {
+      padding: 0.625rem 1.25rem;
+    }
+
     @media (min-width: 768px) {
-      /** Default style */
       qing-overlay::part(overlay) {
         width: 80%;
       }

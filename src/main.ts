@@ -37,7 +37,6 @@ export class QingOverlay extends LitElement {
         width: 100vw;
         color: black;
         background-color: white;
-        padding: 0.625rem 1.25rem;
         display: flex;
         flex-direction: column;
       }

@@ -24,3 +24,11 @@ it('Inner overlay has flex attrs set', async () => {
   expect(styles.display).to.eq('flex');
   expect(styles.flexDirection).to.eq('column');
 });
+
+it('Inner overlay has no paddings', async () => {
+  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+  await aTimeout();
+
+  const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay')!);
+  expect(styles.padding).to.eq('0');
+});
