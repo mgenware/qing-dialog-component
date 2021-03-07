@@ -210,12 +210,6 @@ ExampleApp.styles = [
     h2 {
       margin-bottom: 0;
     }
-    #max-width {
-      --dialog-max-width: 400px;
-    }
-    #right-btns::part(footer-buttons) {
-      justify-content: flex-end;
-    }
     #border-styles::part(overlay) {
       border: 4px dashed green;
       border-radius: 10px;
@@ -235,10 +229,6 @@ ExampleApp.styles = [
     #themes::part(overlay) {
       color: var(--default-fore-color);
       background-color: var(--default-back-color);
-    }
-    #themes::part(footer-button) {
-      color: var(--default-fore-color);
-      background-color: var(--default-btn-back-color);
     }
     #themes button {
       border: 1px solid #818181;
