@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/qing-overlay.svg?style=flat-square)](https://npmjs.com/package/qing-overlay)
 [![Node.js Version](http://img.shields.io/node/v/qing-overlay.svg?style=flat-square)](https://nodejs.org/en/)
 
-Dialog component for [qing](https://github.com/mgenware/qing)
+Display an overlay on screen
 
 ## Demo
 
@@ -13,17 +13,26 @@ Dialog component for [qing](https://github.com/mgenware/qing)
 
 ## Installation
 
-> qing-overlay is based on [qing-button](https://github.com/mgenware/qing-button) and lit-element
+> qing-overlay is based on lit-element
 
 ```sh
-yarn add qing-overlay qing-button lit-element
+yarn add qing-overlay lit-element
 ```
 
 ## Usage
 
-### Dialog size
+### A minimal example
 
-Dialog size is fully customizable. By default, height defaults to auto (fits content size), width defaults to `100vw`. You might need to add some CSS to fit your use case, some examples:
+```html
+<qing-overlay>
+  <h2>Title</h2>
+  <p>Hello world</p>
+</qing-overlay>
+```
+
+### Overlay size
+
+Overlay size is fully customizable. By default, height defaults to auto (fits content size), width defaults to `100vw` (mobile first design). You might need to add some CSS to fit your use case. Some examples:
 
 ```css
 /** Example 1 **/
@@ -47,120 +56,38 @@ Dialog size is fully customizable. By default, height defaults to auto (fits con
 /** Example 3 **/
 /** Fullscreen dialog with margins **/
 qing-overlay::part(overlay) {
-  display: flex;
   width: calc(100vw - 1rem);
   height: calc(100vh - 1rem);
 }
 @media (min-width: 768px) {
   qing-overlay::part(overlay) {
-    display: flex;
     width: calc(100vw - 4rem);
     height: calc(100vh - 4rem);
   }
 }
 ```
 
-### Properties
+### Attributes
+
+- `open`: `boolean` indicates whether the overlay is open. Default is `false`.
+
+### Events
 
 ```ts
-// A group of pre-defined button types.
-type PresetButtonType = 'ok' | 'yes' | 'no' | 'cancel';
-
-// A more customized button if `PresetButtonType` doesn't fit.
-// A customized dialog button.
-interface DialogButton {
-  // One of the preset types of the button, 'ok' | 'yes' | 'no' | 'cancel'.
-  type?: string;
-  // Used to identify a button if `type` is not set.
-  name?: string;
-  // Button content.
-  text?: string;
-  // qing-button style.
-  style?: string;
-  // Defaults to `true`. If true, clicking on the button closes the dialog.
-  autoClose?: boolean;
-}
-
-// The reason a dialog is closed.
-enum CloseReason {
-  key = 1,
-  button,
-}
-
-// `closed` event detail.
-interface CloseReasonDetail {
-  // The reason a dialog is closed, can be 'key' or 'button' or
-  // `undefined` if it's closed programmatically.
-  reason?: CloseReason;
-  // Extra data for `reason`.
-  // For `CloseReason.key`, it's key name.
-  // For `CloseReason.button`, it's the `DialogButton` triggered the dismissal.
-  data?: unknown;
-}
-
-// Dialog component: <qing-overlay>
 class QingOverlay {
-  // Set localized button strings.
-  static localizedButtonStrings: Record<string, string>;
-  /**
-   * Defaults to:
-   * {
-   *   yes: 'Yes',
-   *   no: 'No',
-   *   ok: 'OK',
-   *   cancel: 'Cancel',
-   * }
-   */
-
-  // Whether the dialog is visible.
-  open: boolean;
-  // Bottom buttons.
-  buttons: (PresetButtonType | DialogButton)[];
-  // Index of the default button, defaults to 0 (first button).
-  defaultButtonIndex: number;
-  // Index of the cancel button.
-  // A cancel button will be clicked when user presses Esc key.
-  cancelButtonIndex: number;
-
-  // ------- Events -------
-
-  // Fires when `open` property changes.
-  shown: CustomEvent;
-  closed: CustomEvent;
-
-  // Fires when dialog button is clicked.
-  buttonClick: CustomEvent<DialogButton>;
+  // Fires whenever `open` attribute changes.
+  openChanged: CustomEvent<boolean>;
+  // Fires when Esc key is pressed when overlay has focus.
+  escKeyDown: CustomEvent;
+  // Fires when Enter key is pressed when overlay has focus.
+  enterKeyDown: CustomEvent;
 }
 ```
 
 ### CSS Shadow Parts
 
-- Element containers:
-  - `overlay-background`, `overlay`
-- Top-level elements:
-  - `content`, `footer`
-- Footer elements:
-  - `footer-buttons`: footer button container
-  - `footer-button`: individual footer buttons
-
-### Autofocus
-
-Use `requestFocus` event to auto focus an element when the dialog shows up, example:
-
-```js
-html`
-  <qing-overlay
-    .buttons=${['ok']}
-    @requestFocus=${() => {
-      this.shadowRoot.getElementById('textInput').focus();
-    }}
-  >
-    <form>
-      <input type="text" id="textInput" />
-    </form>
-  </qing-overlay>
-`;
-```
+- `overlay-background` the background view of the overlay.
+- `overlay` the overlay itself.
 
 ## Build Instructions
 
