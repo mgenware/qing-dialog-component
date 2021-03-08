@@ -226,7 +226,7 @@ const Q=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e)
         height: 100vh;
         width: 100vw;
         position: fixed;
-        z-index: 1000;
+        z-index: var(--overlay-z-index, 1000);
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, 0.3);
