@@ -89,6 +89,10 @@ class QingOverlay {
 - `overlay-background` the background view of the overlay.
 - `overlay` the overlay itself.
 
+### CSS Variables
+
+- `--overlay-z-index` z-index of the overlay, defaults to `1000`.
+
 ## Build Instructions
 
 > This project uses [daizong](https://github.com/mgenware/daizong) to manage scripts. You need to run scripts through daizong via `yarn r <script>` or `npm run r <script>`.
