@@ -1,6 +1,6 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { html, fixture, expect, oneEvent } from 'qing-t';
+import { html, fixture, expect, oneEvent, tDOM } from 'qing-t';
 import '../dist/main';
 import { QingOverlay } from '../dist/main';
 import { aTimeout } from './lib';
@@ -12,6 +12,7 @@ const enterKeyDown = 'enterKeyDown';
 it('Default state', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
 
+  tDOM.isBlockElement(el);
   expect(el.innerHTML).to.eq('<p>test</p>');
   expect(el.getAttribute('open')).to.eq(null);
 });

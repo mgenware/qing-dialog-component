@@ -79,12 +79,6 @@ export class ExampleApp extends LitElement {
         ${this.r('Handle events', 'handle-events', undefined, (e) =>
           alert(e.detail ? 'Opening' : 'Closing'),
         )}
-        ${this.r(
-          'Auto-close',
-          'auto-close',
-          html`<p>Overlay auto closes in 3 secs</p>`,
-          this.handleAutoCloseOpenChanged,
-        )}
         <h2>Focus</h2>
         ${this.r(
           'Focus',
@@ -121,7 +115,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
               <button
                 @click=${() => this.shadowRoot.getElementById('themes').removeAttribute('open')}
               >
-                OK
+                Close
               </button>
             </p>
           </qing-overlay>`,
@@ -131,16 +125,32 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
   }
 
   r(text, id, content, handler) {
+    const btnID = `${id}-btn`;
     return html`
       <p>
         <button @click=${() => this.shadowRoot.getElementById(id).setAttribute('open', '')}>
           ${text}
         </button>
       </p>
-      <qing-overlay id=${id} @openChanged=${handler}>
+      <qing-overlay
+        id=${id}
+        @escKeyDown=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}
+        @openChanged=${(e) => {
+          if (e.detail) {
+            // Focus the OK button first.
+            this.shadowRoot.getElementById(btnID).focus();
+          }
+          if (handler) {
+            handler(e);
+          }
+        }}
+      >
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">
-          <button @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
+          <button
+            id=${btnID}
+            @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}
+          >
             OK
           </button>
         </p>
@@ -169,14 +179,6 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
 
   handleDarkBtnClick() {
     this.mainElement.classList.add('theme-dark');
-  }
-
-  handleAutoCloseOpenChanged(e) {
-    if (e.detail) {
-      setTimeout(() => {
-        this.shadowRoot.getElementById('auto-close').open = false;
-      }, 3000);
-    }
   }
 }
 
