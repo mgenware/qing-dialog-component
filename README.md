@@ -77,9 +77,9 @@ qing-overlay::part(overlay) {
 class QingOverlay {
   // Fires whenever `open` attribute changes.
   openChanged: CustomEvent<boolean>;
-  // Fires when Esc key is pressed when overlay has focus.
+  // Fires when Esc key is pressed.
   escKeyDown: CustomEvent;
-  // Fires when Enter key is pressed when overlay has focus.
+  // Fires when Enter key is pressed.
   enterKeyDown: CustomEvent;
 }
 ```

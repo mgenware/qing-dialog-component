@@ -59,10 +59,10 @@ it('Keydown events', async () => {
   await aTimeout();
 
   const escDown = oneEvent(el, escKeyDown);
-  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+  document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape' }));
   await escDown;
 
   const enterDown = oneEvent(el, enterKeyDown);
-  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+  document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
   await enterDown;
 });

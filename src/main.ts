@@ -46,7 +46,7 @@ export class QingOverlay extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   firstUpdated() {
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
+    document.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
 
   render() {
@@ -79,7 +79,7 @@ export class QingOverlay extends LitElement {
     );
   }
 
-  private handleKeyDown(e: KeyboardEvent) {
+  private handleKeyUp(e: KeyboardEvent) {
     if (!this.open) {
       return;
     }
