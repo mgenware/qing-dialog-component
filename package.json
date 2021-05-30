@@ -1,6 +1,6 @@
 {
   "name": "qing-overlay",
-  "version": "0.11.4",
+  "version": "0.12.0",
   "description": "Display an overlay on screen",
   "type": "module",
   "exports": "./dist/main.js",
