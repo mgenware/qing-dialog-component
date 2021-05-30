@@ -1,4 +1,5 @@
-import { html, customElement, css, property, LitElement } from 'lit-element';
+import { html, css, LitElement } from 'lit';
+import { property, customElement } from 'lit/decorators.js';
 
 export const overlayClass = 'overlay';
 export const overlayBackClass = 'overlay-background';
@@ -74,9 +75,7 @@ export class QingOverlay extends LitElement {
   }
 
   private onOpenChanged() {
-    this.dispatchEvent(
-      new CustomEvent<boolean>('openChanged', { detail: this.open }),
-    );
+    this.dispatchEvent(new CustomEvent<boolean>('openChanged', { detail: this.open }));
   }
 
   private handleKeyUp(e: KeyboardEvent) {

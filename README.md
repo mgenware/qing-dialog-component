@@ -13,10 +13,10 @@ Display an overlay on screen
 
 ## Installation
 
-> qing-overlay is based on lit-element
+> qing-overlay is based on lit.
 
 ```sh
-yarn add qing-overlay lit-element
+yarn add qing-overlay lit
 ```
 
 ## Usage
