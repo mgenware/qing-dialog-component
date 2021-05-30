@@ -1,6 +1,6 @@
-import { html, LitElement, css } from '../node_modules/lit-element';
-import '../node_modules/qing-button/dist/main';
-import '../dist/main';
+import { html, LitElement, css } from '../node_modules/lit/index.js';
+import '../node_modules/qing-button/dist/main.js';
+import '../dist/main.js';
 
 const sharedStyles = css`
   button {
