@@ -1,9 +1,9 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect } from 'qing-t';
-import '../dist/main';
-import { QingOverlay } from '../dist/main';
-import { aTimeout } from './lib';
+import '../dist/main.js';
+import { QingOverlay } from '../dist/main.js';
+import { aTimeout } from './lib.js';
 
 it('Internal overlay attrs', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);

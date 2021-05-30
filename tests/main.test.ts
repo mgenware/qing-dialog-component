@@ -1,9 +1,9 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { html, fixture, expect, oneEvent, tDOM } from 'qing-t';
-import '../dist/main';
-import { QingOverlay } from '../dist/main';
-import { aTimeout } from './lib';
+import '../dist/main.js';
+import { QingOverlay } from '../dist/main.js';
+import { aTimeout } from './lib.js';
 
 const openChanged = 'openChanged';
 const escKeyDown = 'escKeyDown';
