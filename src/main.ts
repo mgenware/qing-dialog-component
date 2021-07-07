@@ -94,9 +94,4 @@ declare global {
   interface HTMLElementTagNameMap {
     'qing-overlay': QingOverlay;
   }
-  interface GlobalEventHandlersEventMap {
-    openChanged: CustomEvent<boolean>;
-    escKeyDown: CustomEvent;
-    enterKeyDown: CustomEvent;
-  }
 }

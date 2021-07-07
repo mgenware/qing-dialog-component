@@ -1,0 +1,605 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "demo/main.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DynamicContent",
+          "members": [
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "method",
+              "name": "handleClick"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "module": "/node_modules/lit/index.js"
+          },
+          "tagName": "dynamic-content",
+          "customElement": true
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ExampleApp",
+          "members": [
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "method",
+              "name": "r",
+              "parameters": [
+                {
+                  "name": "text"
+                },
+                {
+                  "name": "id"
+                },
+                {
+                  "name": "content"
+                },
+                {
+                  "name": "handler"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "rElement",
+              "parameters": [
+                {
+                  "name": "text"
+                },
+                {
+                  "name": "id"
+                },
+                {
+                  "name": "content"
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "mainElement"
+            },
+            {
+              "kind": "method",
+              "name": "handleLightBtnClick"
+            },
+            {
+              "kind": "method",
+              "name": "handleDarkBtnClick"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "module": "/node_modules/lit/index.js"
+          },
+          "tagName": "example-app",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "dynamic-content",
+          "declaration": {
+            "name": "DynamicContent",
+            "module": "demo/main.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ExampleApp",
+          "declaration": {
+            "name": "ExampleApp",
+            "module": "demo/main.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "example-app",
+          "declaration": {
+            "name": "ExampleApp",
+            "module": "demo/main.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "demo/post-public-build.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/main.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "overlayClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"overlay\""
+        },
+        {
+          "kind": "variable",
+          "name": "overlayBackClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"overlay-background\""
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "QingOverlay",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "type": {
+                "text": "import(\"lit\").CSSResultGroup"
+              },
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "firstUpdated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "render",
+              "return": {
+                "type": {
+                  "text": "import(\"lit-html\").TemplateResult<1>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "onOpenChanged",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleKeyUp",
+              "privacy": "private"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "overlayClass",
+          "declaration": {
+            "name": "overlayClass",
+            "module": "dist/main.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "overlayBackClass",
+          "declaration": {
+            "name": "overlayBackClass",
+            "module": "dist/main.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "QingOverlay",
+          "declaration": {
+            "name": "QingOverlay",
+            "module": "dist/main.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist/main.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "overlayClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "'overlay'"
+        },
+        {
+          "kind": "variable",
+          "name": "overlayBackClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "'overlay-background'"
+        },
+        {
+          "kind": "variable",
+          "name": "QingOverlay",
+          "default": "class QingOverlay extends LitElement {\n    constructor() {\n        super(...arguments);\n        this.open = false;\n    }\n    static get styles() {\n        return css `\n      :host {\n        display: block;\n      }\n\n      *,\n      *::before,\n      *::after {\n        box-sizing: border-box;\n      }\n\n      .overlay-background {\n        height: 100vh;\n        width: 100vw;\n        position: fixed;\n        z-index: var(--overlay-z-index, 1000);\n        top: 0;\n        left: 0;\n        background-color: rgba(0, 0, 0, 0.3);\n        align-items: center;\n        justify-content: center;\n      }\n\n      .overlay {\n        max-height: 100vh;\n        max-width: 100vw;\n        width: 100vw;\n        color: black;\n        background-color: white;\n        display: flex;\n        flex-direction: column;\n      }\n    `;\n    }\n    firstUpdated() {\n        document.addEventListener('keyup', this.handleKeyUp.bind(this));\n    }\n    render() {\n        return html `\n      <div\n        style=\"display: ${this.open ? 'flex' : 'none'}\"\n        class=${overlayBackClass}\n        part=${overlayBackClass}\n      >\n        <div class=${overlayClass} part=${overlayClass}>\n          <slot></slot>\n        </div>\n      </div>\n    `;\n    }\n    updated(changedProperties) {\n        if (changedProperties.has(openProp)) {\n            if (!!changedProperties.get(openProp) !== this.open) {\n                setTimeout(() => this.onOpenChanged(), 0);\n            }\n        }\n    }\n    onOpenChanged() {\n        this.dispatchEvent(new CustomEvent('openChanged', { detail: this.open }));\n    }\n    handleKeyUp(e) {\n        if (!this.open) {\n            return;\n        }\n        if (e.key === 'Escape' || e.key === 'Esc') {\n            this.dispatchEvent(new CustomEvent('escKeyDown'));\n        }\n        else if (e.key === 'Enter') {\n            this.dispatchEvent(new CustomEvent('enterKeyDown'));\n        }\n    }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "overlayClass",
+          "declaration": {
+            "name": "overlayClass",
+            "module": "dist/main.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "overlayBackClass",
+          "declaration": {
+            "name": "overlayBackClass",
+            "module": "dist/main.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "QingOverlay",
+          "declaration": {
+            "name": "QingOverlay",
+            "module": "dist/main.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist_tests/css.test.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist_tests/lib.d.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "kEvent",
+          "return": {
+            "type": {
+              "text": "Promise<unknown[]>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "eventName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "k",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "aTimeout",
+          "return": {
+            "type": {
+              "text": "Promise<unknown>"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "kEvent",
+          "declaration": {
+            "name": "kEvent",
+            "module": "dist_tests/lib.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "aTimeout",
+          "declaration": {
+            "name": "aTimeout",
+            "module": "dist_tests/lib.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist_tests/lib.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "kEvent",
+          "parameters": [
+            {
+              "name": "element"
+            },
+            {
+              "name": "eventName"
+            },
+            {
+              "name": "k"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "aTimeout"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "kEvent",
+          "declaration": {
+            "name": "kEvent",
+            "module": "dist_tests/lib.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "aTimeout",
+          "declaration": {
+            "name": "aTimeout",
+            "module": "dist_tests/lib.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dist_tests/main.test.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "overlayClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "'overlay'"
+        },
+        {
+          "kind": "variable",
+          "name": "overlayBackClass",
+          "type": {
+            "text": "string"
+          },
+          "default": "'overlay-background'"
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "QingOverlay",
+          "members": [
+            {
+              "kind": "field",
+              "name": "styles",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "firstUpdated"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "kind": "method",
+              "name": "updated",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "onOpenChanged",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyUp",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "openChanged",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "escKeyDown",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "enterKeyDown",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "overlayClass",
+          "declaration": {
+            "name": "overlayClass",
+            "module": "src/main.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "overlayBackClass",
+          "declaration": {
+            "name": "overlayBackClass",
+            "module": "src/main.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "QingOverlay",
+          "declaration": {
+            "name": "QingOverlay",
+            "module": "src/main.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "tests/lib.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "kEvent",
+          "return": {
+            "type": {
+              "text": "Promise<unknown[]>"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "HTMLElement"
+              }
+            },
+            {
+              "name": "eventName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "k",
+              "type": {
+                "text": "number"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "aTimeout"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "kEvent",
+          "declaration": {
+            "name": "kEvent",
+            "module": "tests/lib.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "aTimeout",
+          "declaration": {
+            "name": "aTimeout",
+            "module": "tests/lib.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -18,14 +18,15 @@ it('Default state', async () => {
 });
 
 it('openChanged', async () => {
-  const el = await fixture(html`
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+  const el = (await fixture(html`
     <qing-overlay>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-overlay>
-  `);
+  `)) as QingOverlay;
 
   const shown = oneEvent(el, openChanged);
   el.open = true;
