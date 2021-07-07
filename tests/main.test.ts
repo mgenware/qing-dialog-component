@@ -18,14 +18,14 @@ it('Default state', async () => {
 });
 
 it('openChanged', async () => {
-  const el = (await fixture(html`
+  const el = await fixture(html`
     <qing-overlay>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-overlay>
-  `)) as QingOverlay;
+  `);
 
   const shown = oneEvent(el, openChanged);
   el.open = true;
@@ -47,14 +47,14 @@ it('openChanged', async () => {
 });
 
 it('Keydown events', async () => {
-  const el = (await fixture(html`
+  const el = await fixture(html`
     <qing-overlay open>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-overlay>
-  `)) as QingOverlay;
+  `);
 
   await aTimeout();
 
