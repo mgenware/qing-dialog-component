@@ -40,6 +40,7 @@ export class QingOverlay extends LitElement {
         background-color: white;
         display: flex;
         flex-direction: column;
+        overflow: auto;
       }
     `;
   }

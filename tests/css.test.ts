@@ -5,7 +5,7 @@ import '../dist/main.js';
 import { QingOverlay } from '../dist/main.js';
 import { aTimeout } from './lib.js';
 
-it('Internal overlay attrs', async () => {
+it('.overlay styles', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
   await aTimeout();
 
@@ -13,9 +13,10 @@ it('Internal overlay attrs', async () => {
   expect(styles.display).to.eq('flex');
   expect(styles.flexDirection).to.eq('column');
   expect(styles.padding).to.eq('0px');
+  expect(styles.overflow).to.eq('auto');
 });
 
-it('Internal overlay background attrs', async () => {
+it('.overlay-background styles', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
   await aTimeout();
 
