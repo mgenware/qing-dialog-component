@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 export const overlayClass = 'overlay';
 export const overlayBackClass = 'overlay-background';
@@ -52,9 +53,12 @@ export class QingOverlay extends LitElement {
   }
 
   render() {
+    const { open } = this;
     return html`
       <div
-        style="display: ${this.open ? 'flex' : 'none'}"
+        style=${styleMap({
+          display: open ? 'flex' : 'none',
+        })}
         class=${overlayBackClass}
         part=${overlayBackClass}
       >
