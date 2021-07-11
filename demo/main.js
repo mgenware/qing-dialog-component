@@ -36,9 +36,9 @@ const sharedStyles = css`
 class DynamicContent extends LitElement {
   render() {
     return html` <h2>Title</h2>
-      <p>
+      <div>
         <span id="span">Hello world <button @click=${this.handleClick}>Expand</button></span>
-      </p>`;
+      </div>`;
   }
 
   handleClick() {
@@ -186,7 +186,7 @@ ExampleApp.styles = [
   sharedStyles,
   css`
     qing-overlay::part(overlay) {
-      padding: 0.625rem 1.25rem;
+      padding: 0 1.25rem;
     }
 
     @media (min-width: 768px) {
